@@ -8,6 +8,6 @@ pdflatex main.tex >/dev/null 2>&1
 pdflatex main.tex >/dev/null 2>&1
 
 shopt -s extglob
-rm -v !("cwru_thesis.cls"|"example.bib"|"main.tex"|"main.pdf"|"compile.sh")
+rm -v !("cwru_thesis.cls"|"example.bib"|"main.tex"|"main.pdf"|"compile.sh"|"README.md")
 exit 0
 
