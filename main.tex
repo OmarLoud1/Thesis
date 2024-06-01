@@ -22,6 +22,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
 
+
 \newcommand{\dif}{\mathrm{d}}
 \newcommand{\Dif}{\mathrm{D}}
 \renewcommand{\vec}[1]{\ensuremath{\underline{#1}}}
@@ -43,55 +44,37 @@
 \makeglossaries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Glossary entries
-\newglossaryentry{galaxy}
-{
-    name=galaxy,
-    description={A system of stars independent from all other systems}
-}
-\newglossaryentry{asteroid}
-{
-    name=asteroid,
-    description={A very small planet ranging from 1,000 km to less than one km in diameter. Asteroids are found commonly around other larger planets}
-}
+
 
 %Acronyms to include in the list of acronyms
 \newacronym{leo}{LEO}{Low Earth Orbit}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\makenomenclature
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Nomenclature entries
-\nomenclature{\(\alpha\)}{Angle of attack (degrees)}
-\nomenclature{\(c\)}{Speed of light in a vacuum (m/s)}
-\nomenclature{\(\mathbb{R}\)}{Real numbers}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 \pagenumbering{roman}
 
 % Do remember to remove the square brackets!
-\title{[Thesis Title]} %Title of your thesis in title case
-\author{[Your Full Name]} %Your name
+\title{Omar's Thesis} %Title of your thesis in title case
+\author{Omar Loudghiri} %Your name
 
-\degreeaward{[Name of Degree]}                 % Degree to be awarded
-\department{[Department]}
+\degreeaward{Master's of Science in Computer Science}                 % Degree to be awarded
+\department{Department of Computer Science and Data Science}
 \university{Case Western Reserve University}    % Institution name  
 \unilogo{cwru_logo.eps}                                 % Institution logo
-\defendmonth{[Graduation Month, Year]}          % Graduation month and year
-\defenddate{[Date of Defense]}          % Date of thesis defense
+\defendmonth{August, 2024}          % Graduation month and year
+\defenddate{July 10th, 2024}          % Date of thesis defense
 
 %Committee Member names. If you have a different number of committee members for your defense, you will need to edit lines 183-190 of cwru_thesis.cls accordingly.
-\committeeChair{[Chair Name]} %Committee Chair's name
-\committeeOne{[Committee Member \#1]} %Committee member #1's name
-\committeeTwo{[Committee Member \#2]} %Committee member #2's name
-\committeeThree{[Committee Member \#3]} %Committee member #3's name
+\committeeChair{An Wang} %Committee Chair's name
+\committeeOne{Mark Allman} %Committee member #1's name
+\committeeTwo{Vincenzo Liberatore} %Committee member #2's name
+\committeeThree{Mehmet Koyuturk} %Committee member #3's name
 
 %%  If you'd like to add the CWRU logo from your title page, simply add the "[logo]" text to the maketitle command. Note that the School of Graduate Studies doesn't like this.
-%\maketitle[logo]
 \maketitle
 
 \begin{dedication} 	 
-   [Add a dedication page here. If you do not wish to add any to your thesis, you may simply remove this block of text from the document along with the begin and end statements.]
+  TBD
 \end{dedication}
 
 \begin{KeepFromToc}
@@ -100,12 +83,10 @@
 \listoftables
 \listoffigures
 
-\begin{preface}
-    [You may provide a preface if you wish, it is entirely optional. If you do not wish to provide a preface, simply delete the entire preface block, including the begin and end statements.]
-\end{preface}
+
 
 \begin{acknowledgements}
-    [Add an acknowledgements page here. If you do not wish to add any to your thesis, you may simply remove this block of text from the document along with the begin and end statements.]
+   TBD
 \end{acknowledgements}
 
 %If you have acroynms you wish to define, include this line. If not, you may delete it. See https://www.overleaf.com/learn/latex/Glossaries#Acronyms for more information about how to use Acronyms.
@@ -118,7 +99,7 @@
 \printnomenclature
 
 \begin{abstract}
-   [Include the text of the abstract here. Dissertation abstracts must not exceed 350 words. Thesis abstracts should be limited to 150 words. There must be one overall abstract for the entire work, even if the ETD consists of separate articles. Individual abstracts can be included in addition to, but not instead of the main abstract.]
+  TBD
 \end{abstract}
 
 \mainmatter
@@ -126,56 +107,77 @@
 \setcounter{secnumdepth}{2}
 
 \chapter{Introduction} \label{chap:intro}
-Start off all chapters with \verb|chapter|. \verb|\extrachapter| will give you an unnumbered chapter that's added to the Table of Contents. Labeling is also good practice. That way you can reference sections and chapters from anywhere. For instance, I can reference Sec.~\ref{sec:exsection} from here.
+\section{Load Balancing} \label{sec:Loadsection}
+Load balancing is a key network management technique that distributes traffic across multiple servers, preventing any single server from becoming overwhelmed. Originally developed as network-based hardware, load balancing now plays a crucial role in modern infrastructure by ensuring high availability, scalability, security, and performance.
 
-Here's an example of a citation \citep{GMP81}. Here's another \citep{PP98}. These will appear in the big bibliography at the end of the thesis.
+Applications today must handle millions of simultaneous sessions. Load balancers dynamically distribute traffic across servers with duplicate data, ensuring reliable and fast data delivery. This process also provides redundancy; if a server fails, traffic is redirected to maintain continuous access.
 
-If you're new to \LaTeX{} and would like to begin by learning the basics, please see our free online course available at:\\ \url{https://www.overleaf.com/latex/learn/free-online-introduction-to-latex-part-1} \index{LaTeX@\LaTeX}
+Load balancing enhances security by minimizing attack surfaces and rerouting traffic if a server is compromised. 
 
-You can define terms and/or symbols in a glossary \index{glossary} as you talk about key terms in your thesis. So what's a \gls{galaxy}? These can also include acronyms, such as \acrlong{leo}, which is abbreviated as \acrshort{leo}. You should always define acronyms at the point of first use in the text, in addition to including them in the glossary.
+It also optimizes performance by managing resource use and traffic spikes. Various algorithms, such as round-robin and least connections, help distribute traffic based on real-time conditions.
 
 
-\section{This is a Section} \label{sec:exsection}
-\lipsum[1-2]
+The goal of this project is to measure load balancing behavior on the Internet and map the presence of load balancers worldwide. This will enhance our understanding of their impact on network performance and security.
 
-Check this out! I can reference a figure number in the text of the document by referring to Fig.~\ref{fig:logo}.
 
-\subsection{This is a Subsection} \label{subsec:exsubsec}
+\section{Areas of Study} \label{sec:Areassection}
 
-\begin{table}[hbt!]
-\centering
-\begin{tabular}{ll}
-\hline
-Area & Count\\
-\hline
-North & 100\\
-South & 200\\
-East & 80\\
-West & 140\\
-\hline
-\end{tabular}
-\caption{This is a table. \label{tab:sample}}
-\end{table}
 
-\lipsum[3] 
 
-I can add another glossary entry wherever I like, and I can make it capitalized by using the macro command with a capital letter like this: \Gls{asteroid}. The quadratic formula is given in Eq.~\eqref{eq:quadratic}.
-\begin{equation}
-    x=\frac{-B \pm \sqrt{B^2 - 4AC}}{2A}
-    \label{eq:quadratic}
-\end{equation}
 
-\lipsum[4-5] 
 
-\section{This is Another Section}
-\lipsum[6-7] 
+% \subsection{This is a Subsection} \label{subsec:exsubsec}
+
+
+
+
+
+
+
+\chapter{Related Works} \label{chap:intro}
+\section{Paris Traceroute}
+
+\subsection{General Introduction}
+The traditional model of the Internet assumes a single path between a pair of end-hosts. However, modern commercial routers often include load balancing capabilities, creating multiple active paths between hosts. This shift challenges the conventional single-path assumption used by many Internet applications, network simulation models, and measurement tools.
+
+In their paper \textit{Measuring Load-balanced Paths in the Internet}, Brice Augustin, Timur Friedman, and Renata Teixeira from LIP6 at Université Pierre et Marie Curie present a comprehensive study on load-balanced paths. They highlight the significance of recognizing load balancing in contemporary networking by demonstrating how it affects traffic distribution and path diversity.
+
+The authors enhance a traceroute-like tool called \textit{Paris traceroute}, designed to find all paths between a pair of hosts. Their methodology involves identifying load-balancing routers and characterizing the load-balanced paths. By conducting measurements from 15 sources to over 68,000 destinations, their study reveals that the traditional single-path concept no longer holds. They found that 39\% of source-destination pairs traverse a load balancer, and this percentage rises to 70\% when considering paths between a source and a destination network.
+
+Their work contributes significantly to understanding Internet path diversity by:
+\begin{enumerate}
+    \item Developing Paris traceroute’s Multipath Detection Algorithm (MDA) to find all paths from a source to a destination under different types of load balancing.
+    \item Characterizing the load-balanced paths in terms of length, width, and asymmetry.
+    \item Establishing a methodology to measure round-trip times (RTTs) of load-balanced paths, considering delays on both forward and return paths.
+\end{enumerate}
+
+This study underscores the necessity for the research community to reconsider the concept of a single Internet path and highlights the importance of accurately measuring and understanding load-balanced paths. The insights gained from this work are critical for developing more realistic network models and improving the design and reliability of Internet applications.
+
+\subsection{Multipath Detection Algorithm (MDA)}
+
+The Multipath Detection Algorithm (MDA) is a key component of Paris traceroute, designed to identify and trace multiple load-balanced paths between a source and a destination. Traditional traceroute tools often fail to detect load balancing because they assume a single path. In contrast, MDA systematically discovers all paths by varying flow identifiers in probe packets.
+
+The MDA operates hop-by-hop, sending probes to identify all interfaces at each hop. For a given interface \(r\) at hop \(h-1\), MDA generates several flow identifiers to ensure probes reach \(r\). It then sends these probes one hop further to discover the next-hop interfaces \(s_1, s_2, \ldots, s_n\).
+
+To determine the number of probes \(k\) needed to discover all paths with a high degree of confidence, MDA assumes \(r\) is part of a load balancer that splits traffic evenly across \(n\) paths. If fewer than \(n\) interfaces are found, MDA stops. Otherwise, it increases \(n\) and sends additional probes to test the hypothesis.
+
+To identify whether a load balancer uses per-packet or per-flow balancing, MDA sends probes with a constant flow identifier. If responses come from multiple interfaces, it indicates per-packet balancing. If all responses come from the same interface, it suggests per-flow balancing. MDA uses statistical methods to ensure a high level of confidence (typically 95%) in its classification.
+
+For instance, to reject the hypothesis of \(n = 2\) with 95\% confidence, MDA sends \(k = 6\) probes. If load balancing across up to 16 interfaces is suspected, MDA may send up to \(k = 96\) probes to ensure all paths are discovered. This process allows MDA to effectively enumerate all paths and classify the type of load balancing in use.
+
+
+
+
+\subsection{Usage of Paris Traceroute}
+Our measurement methodology is deeply influenced by the work of Augustin et al. We employ Paris traceroute and its Multipath Detection Algorithm to identify and characterize load-balanced paths in our study. The detailed usage and application of these tools in our research will be discussed in a later section, where we outline our experimental setup and data collection techniques.
+
 
 \chapter{This is the Second Chapter}
-\lipsum[8-9]
 
 
 \chapter{This is the Third Chapter}
-See? I can reference the first chapter from all the way down here. I think the first chapter was Chapter~\ref{chap:intro}.
+See? I can reference the first chapter from all the way down here. I think the first chapter was Chapter
+
 \chapter{This is the Fourth Chapter}
 \chapter{This is the Fifth Chapter}
 \chapter{This is the Sixth Chapter}
