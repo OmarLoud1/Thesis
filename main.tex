@@ -21,7 +21,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
-
+\usepackage{newtxtext,newtxmath}
 
 \newcommand{\dif}{\mathrm{d}}
 \newcommand{\Dif}{\mathrm{D}}
@@ -47,8 +47,8 @@
 
 
 %Acronyms to include in the list of acronyms
-\newacronym{leo}{LEO}{Low Earth Orbit}
-
+\newacronym{mda}{MDA}{Multipath Discovery Algorithm}
+\newacronym{mca}{MCA}{Multipath Classification Algorithm}
 
 \begin{document}
 \pagenumbering{roman}
@@ -71,7 +71,7 @@
 \committeeThree{Mehmet Koyuturk} %Committee member #3's name
 
 %%  If you'd like to add the CWRU logo from your title page, simply add the "[logo]" text to the maketitle command. Note that the School of Graduate Studies doesn't like this.
-\maketitle
+\maketitle[logo]
 
 \begin{dedication} 	 
   TBD
@@ -90,6 +90,7 @@
 \end{acknowledgements}
 
 %If you have acroynms you wish to define, include this line. If not, you may delete it. See https://www.overleaf.com/learn/latex/Glossaries#Acronyms for more information about how to use Acronyms.
+
 \printglossary[type=\acronymtype, title=List of Abbreviations]
 
 %If you have terms you wish to define in a glossary, include this line. If not, you may delete it. See https://www.overleaf.com/learn/latex/Glossaries for more information about how to use Glossaries
@@ -118,6 +119,17 @@ It also optimizes performance by managing resource use and traffic spikes. Vario
 
 
 The goal of this project is to measure load balancing behavior on the Internet and map the presence of load balancers worldwide. This will enhance our understanding of their impact on network performance and security.
+
+
+\section{Impact of Load Balancing on Internet Reliability}
+
+Load balancing significantly enhances the reliability of the Internet by distributing traffic across multiple servers or paths. This helps prevent any single point of failure, manage high traffic volumes, and ensure continuous availability of services. Effective load balancing reduces latency, avoids downtime, and ensures smooth data delivery, contributing to a better user experience.
+
+The primary motivation for this project was to explore how load balancing impacts Internet reliability. Understanding this impact is crucial, as load balancing directly affects the network's ability to handle failures, traffic spikes, and varying load conditions. Despite its importance, the extent of load balancing's contribution to Internet reliability has not been extensively quantified.
+
+This research aims to measure and analyze the role of load balancing in maintaining Internet reliability. By mapping the global presence of load balancers and characterizing their behavior, we seek to provide a clearer picture of their impact on network resilience. Using tools like the Multipath Detection Algorithm (MDA), we will quantify how load balancing affects network performance.
+
+In summary, load balancing is key to Internet reliability, and this project aims to quantify its significance. 
 
 
 \section{Areas of Study} \label{sec:Areassection}
@@ -169,10 +181,97 @@ For instance, to reject the hypothesis of \(n = 2\) with 95\% confidence, MDA se
 
 
 \subsection{Usage of Paris Traceroute}
-Our measurement methodology is deeply influenced by the work of Augustin et al. We employ Paris traceroute and its Multipath Detection Algorithm to identify and characterize load-balanced paths in our study. The detailed usage and application of these tools in our research will be discussed in a later section, where we outline our experimental setup and data collection techniques.
+The paper by Augustin, Friedman, and Teixeira is one of the few studies that actively measures the presence and behavior of load balancers in the Internet.
+
+Building on the foundational work of Augustin et al., my research aims to further explore the presence and behavior of load balancers in the Internet. By leveraging Paris traceroute and its MDA, I will conduct extensive measurements to map the global distribution of load balancers and analyze their impact on network performance and reliability.
+
+This study will add to the existing knowledge by:
+\begin{itemize}
+    \item Expanding the scope of measurement to include a more diverse set of source-destination pairs.
+    \item Investigating the effects of load balancing on different types of network traffic and applications.
+
+\end{itemize}
+\newpage
+\section{Scamper}
+
+\subsection{Introduction}
+
+Packet probing experiments capture simple measurements—typically delay, loss, reordering, and topology—that provide valuable insights into the structure and behavior of the Internet. For instance, early studies on packet size and delay led to improvements in the TCP RTO algorithm. As the Internet has grown, measuring it has become more complex, both technically and methodologically. Over the past decade, researchers have developed and operated many large-scale Internet measurement platforms, each involving significant software development.
+
+In 2005, facing funding challenges, the Internet measurement community organized a workshop to plan a collaborative, community-oriented network measurement infrastructure. The workshop report highlighted the need for better organization of large-scale measurements.
+
+This paper addresses a small part of this problem by focusing on building a packet-prober for large-scale measurements and well-defined data archiving. A packet-prober should simplify the coordination of measurements, provide APIs for operating system differences, offer accurate timing information, and produce detailed, easy-to-process output. This approach helps researchers avoid system programming and administrative challenges, allowing them to implement new measurement techniques and focus on analysis and validation.
 
 
-\chapter{This is the Second Chapter}
+\subsection{Scamper Features}
+
+Scamper is a powerful packet-prober designed to support large-scale Internet measurement. It includes feature-rich implementations of traceroute, ping, MDA traceroute, four alias resolution techniques, Sting, and parts of TBIT.
+
+\subsection{Multipath Detection Algorithm (MDA) in Scamper}
+
+Scamper implements the Multipath Detection Algorithm (MDA) described by Augustin et al. to infer all interfaces visited between a source and destination in a per-flow load-balanced Internet path. The MDA achieves this by deliberately varying the flow identifier that a router may compute when load balancing. Probes with different flow identifiers may take different paths, thereby revealing different parts of the forward IP path.
+
+In addition to the ICMP and UDP methods originally implemented by Augustin et al., which vary the ICMP checksum and UDP destination port values, Scamper implements a UDP method that varies the source port instead of the destination port. This prevents the probes from appearing as a port scan and enables probing past firewalls that block UDP probes to ports above the usual range used by traceroute. Scamper also implements TCP methods that vary the flow identifier by changing either the source or destination port, depending on the user’s choice.
+
+Scamper's MDA traceroute functionality was used to conduct scheduled data collection throughout this project.
+
+
+\section{Classification of Load Balancing in the Internet and Multipath Classification Algorithm (MCA)}
+
+Recent advances in programmable data planes, software-defined networking, and the adoption of IPv6 have enabled more complex load balancing strategies. Almeida et al. introduced the Multipath Classification Algorithm (MCA), which enhances the existing Multipath Detection Algorithm (MDA). While MDA systematically varies probes' flow identifiers to identify load-balanced paths, MCA extends this by considering arbitrary combinations of bits in the packet header for load balancing.
+
+Key contributions of MCA include:
+\begin{itemize}
+    \item \textbf{Enhanced Classification:} MCA identifies the specific bits in the packet header used by load balancers, providing a more detailed and accurate classification than MDA, which primarily varies transport port numbers and the ICMP checksum.
+    \item \textbf{Efficiency Optimizations:} The researchers developed optimizations to reduce the probing cost. MCA achieves this with a minimal increase in the number of probes, only 34\% higher than MDA, while maintaining accuracy.
+    \item \textbf{Comprehensive Measurements:} Through large-scale measurement campaigns, MCA characterizes load balancing on both IPv4 and IPv6 Internet paths. The results show that load balancing is more prevalent and sophisticated than previously reported.
+\end{itemize}
+
+The study revealed that 74\% of IPv4 and 56\% of IPv6 routes traverse at least one load balancer. Additionally, 23\% of IPv4 and 18\% of IPv6 load balancers have three or more next hops, indicating complex load balancing configurations.
+
+Building on this work, part of our research uses MCA to map the global presence of load balancers and analyze their impact on network performance and reliability. 
+
+\section{MDA vs MCA}
+While MCA offers significant improvements in identifying and classifying load balancers by considering a broader range of packet header bits, it is less accessible for fine-tuning and practical use. For my research, I opted to use MDA due to its better integrability with existing tools and faster runtime performance. MDA's established methodologies and ease of implementation make it a more practical choice for large-scale measurements. The decision to use MDA is further justified by its compatibility with current infrastructure and the ability to conduct measurements efficiently. Detailed explanations of MDA's integration and performance in my study will be provided in a later section of this document.
+
+
+
+\chapter{Datasets}
+\section{Alexa Top 1 Million Websites}
+
+The Alexa Top 1 Million Websites list was utilized as the primary dataset for this research. The latest update to this list was in February 2023, ensuring its relevance at the start of the study. The Alexa list is renowned for its accuracy in ranking the most visited websites globally, making it an ideal source for identifying widely used routes on the Internet.
+
+Alexa rank employs a proprietary methodology that combines visitor engagement and estimated traffic to generate the ranking list. Data is analyzed over the past three months, considering factors such as unique daily visitors and page views. Unique visitors are defined as the number of distinct Alexa users visiting a site on a single day, while page views represent the total number of URL requests generated by Alexa users for a site. The Alexa Toolbar, available as a browser extension for Chrome, Internet Explorer, and Firefox, facilitates data collection by recording URLs and IP addresses, sending traffic data to Alexa's central server.
+
+The Alexa ranking is particularly useful for this research as it includes a diverse range of popular websites. This diversity is crucial for finding load balancers on heavily trafficked routes, allowing for a comprehensive analysis of load balancing behavior across different types of web traffic and services. By focusing on these high-traffic websites, the study can better capture the impact of load balancing on Internet reliability and performance.
+
+It should be noted that while Alexa provides reliable rankings for the top 100,000 websites, its accuracy diminishes for lower-ranked sites due to limited data. This limitation is not heavily impacting  our data collection as we are taking 2000 random samples from those top 100,000 websites for different stages of the data collection.
+
+The domain names from the Alexa list are then resolved into the most current IP addresses using the DNS lookup tool. In the context of this project, this ensures that the analysis is based on up-to-date routing information, allowing for accurate identification and characterization of load balancers on the most heavily trafficked Internet routes.
+
+\section{Team Cymru IP to ASN List}
+
+For this research, the Team Cymru IP to ASN mapping service was utilized to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). Team Cymru provides a robust service dedicated to mapping IP numbers to BGP prefixes and ASNs, based on BGP feeds from over 50 peers, updated at four-hour intervals.
+
+This service supports multiple query methods, including WHOIS (TCP 43), DNS (UDP 53), and HTTPS (TCP 443). The information obtained includes:
+\begin{itemize}
+    \item BGP Origin ASN
+    \item BGP Peer ASN
+    \item BGP Prefix
+    \item Prefix Country Code (assigned)
+    \item Prefix Registry (assigned)
+    \item Prefix Allocation date
+    \item ASN Country Code (assigned)
+    \item ASN Registry (assigned)
+    \item ASN Allocation date
+    \item ASN Description
+\end{itemize}
+
+It is important to note that the IP to ASN mapping service is not a GeoIP service. The country code, registry, and allocation date are based on data from regional registries, such as ARIN, RIPE, AFRINIC, APNIC, and LACNIC. As such, the accuracy of this information depends on the data present in the RIR databases.
+
+In the context of this project, the Team Cymru service was essential for obtaining accurate WHOIS lookup results and mapping IP addresses to their respective ASNs. This allowed for a detailed analysis of the network routes and the identification of load balancers in the paths. The resolved IP addresses were then used to investigate the global distribution of load balancers and their impact on network performance and reliability.
+
+By leveraging Team Cymru's comprehensive and frequently updated data, this research could accurately map the network topology and assess the role of load balancing in maintaining a stable and efficient Internet infrastructure.
 
 
 \chapter{This is the Third Chapter}
