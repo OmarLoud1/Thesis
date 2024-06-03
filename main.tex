@@ -13,7 +13,7 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, linkcolor=black, filecolor=black, urlcolor=black, citecolor=black}
 \urlstyle{same}
-\usepackage[acronym,toc]{glossaries}
+% \usepackage[acronym,toc]{glossaries}
 \usepackage[intoc]{nomencl}
 \renewcommand{\nomname}{List of Symbols}
 
@@ -21,7 +21,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
-\usepackage{newtxtext,newtxmath}
+
 
 \newcommand{\dif}{\mathrm{d}}
 \newcommand{\Dif}{\mathrm{D}}
@@ -41,14 +41,14 @@
 % Name of your .bib file(s)
 \addbibresource{example.bib}
 
-\makeglossaries
+% \makeglossaries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Glossary entries
 
 
 %Acronyms to include in the list of acronyms
-\newacronym{mda}{MDA}{Multipath Discovery Algorithm}
-\newacronym{mca}{MCA}{Multipath Classification Algorithm}
+% \newacronym{mda}{MDA}{Multipath Discovery Algorithm}
+% \newacronym{mca}{MCA}{Multipath Classification Algorithm}
 
 \begin{document}
 \pagenumbering{roman}
@@ -71,7 +71,7 @@
 \committeeThree{Mehmet Koyuturk} %Committee member #3's name
 
 %%  If you'd like to add the CWRU logo from your title page, simply add the "[logo]" text to the maketitle command. Note that the School of Graduate Studies doesn't like this.
-\maketitle[logo]
+\maketitle
 
 \begin{dedication} 	 
   TBD
@@ -91,10 +91,10 @@
 
 %If you have acroynms you wish to define, include this line. If not, you may delete it. See https://www.overleaf.com/learn/latex/Glossaries#Acronyms for more information about how to use Acronyms.
 
-\printglossary[type=\acronymtype, title=List of Abbreviations]
+% \printglossary[type=\acronymtype, title=List of Abbreviations]
 
 %If you have terms you wish to define in a glossary, include this line. If not, you may delete it. See https://www.overleaf.com/learn/latex/Glossaries for more information about how to use Glossaries
-\printglossary
+% \printglossary
 
 %If you have a nomenclature section for defining symbols, include this line. If not, you may delete it. See https://www.overleaf.com/learn/latex/Nomenclatures for more information about how to use Nomenclatures
 \printnomenclature
