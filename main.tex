@@ -251,31 +251,63 @@ The domain names from the Alexa list are then resolved into the most current IP 
 
 \section{Team Cymru IP to ASN List}
 
-For this research, the Team Cymru IP to ASN mapping service was utilized to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). Team Cymru provides a robust service dedicated to mapping IP numbers to BGP prefixes and ASNs, based on BGP feeds from over 50 peers, updated at four-hour intervals.
+For this project, the Team Cymru IP to ASN mapping service was utilized to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). Team Cymru provides a robust service dedicated to mapping IP numbers to BGP prefixes and ASNs, based on BGP feeds from over 50 peers, updated at four-hour intervals.
 
-This service supports multiple query methods, including WHOIS (TCP 43), DNS (UDP 53), and HTTPS (TCP 443). The information obtained includes:
-\begin{itemize}
-    \item BGP Origin ASN
-    \item BGP Peer ASN
-    \item BGP Prefix
-    \item Prefix Country Code (assigned)
-    \item Prefix Registry (assigned)
-    \item Prefix Allocation date
-    \item ASN Country Code (assigned)
-    \item ASN Registry (assigned)
-    \item ASN Allocation date
-    \item ASN Description
-\end{itemize}
+This service supports multiple query methods, including WHOIS (TCP 43), DNS (UDP 53), and HTTPS (TCP 443). Here is an example of an entry with definitions of the fields:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Field} & \textbf{Example} \\
+        \hline
+        BGP Origin ASN & 23489 \\
+        \hline
+        BGP Peer ASN & 199.88.100.1 \\
+        \hline
+        BGP Prefix & 199.88.100.0/24 \\
+        \hline
+        Prefix Country Code (assigned) & US \\
+        \hline
+        Prefix Registry (assigned) & arin \\
+        \hline
+        Prefix Allocation Date & 1994-03-28 \\
+        \hline
+        ASN Country Code (assigned) & US \\
+        \hline
+        ASN Registry (assigned) & arin \\
+        \hline
+        ASN Allocation Date & 1994-03-28 \\
+        \hline
+        ASN Description & MARINK12, US \\
+        \hline
+    \end{tabular}
+    \caption{BGP and ASN Information}
+    \label{tab:bgp_asn_info}
+\end{table}
 
 It is important to note that the IP to ASN mapping service is not a GeoIP service. The country code, registry, and allocation date are based on data from regional registries, such as ARIN, RIPE, AFRINIC, APNIC, and LACNIC. As such, the accuracy of this information depends on the data present in the RIR databases.
 
-In the context of this project, the Team Cymru service was essential for obtaining accurate WHOIS lookup results and mapping IP addresses to their respective ASNs. This allowed for a detailed analysis of the network routes and the identification of load balancers in the paths. The resolved IP addresses were then used to investigate the global distribution of load balancers and their impact on network performance and reliability.
-
-By leveraging Team Cymru's comprehensive and frequently updated data, this research could accurately map the network topology and assess the role of load balancing in maintaining a stable and efficient Internet infrastructure.
+In the context of this project, the Team Cymru service was essential for obtaining accurate WHOIS lookup results and mapping IP addresses to their respective ASNs. My advisor, Professor Mark Allman, automated a script that pulls all their current IP to ASN mappings every month. This list was used to cross-reference the IPs identified as load balancers, their next hop, and their destination IPs. This comprehensive cross-referencing provided detailed insights into the load balancers discovered. 
 
 
-\chapter{This is the Third Chapter}
-See? I can reference the first chapter from all the way down here. I think the first chapter was Chapter
+
+
+\chapter{Data Collection}
+\section{Discovering Load Balancers}
+
+The data collection process for this research involved using a Python script to automate the execution of the Paris traceroute tool and process its output. The script was designed to systematically gather information about network routes and load balancers.
+
+The process begins by reading the top 2000 domains from the Alexa Top 1 Million Websites list, which is stored in a CSV file. This ensures that the analysis focuses on high-traffic websites that are likely to traverse significant portions of the Internet's infrastructure.
+
+For each domain, the script runs the Paris traceroute tool using the Multipath Detection Algorithm (MDA). The traceroute is executed with a timeout of 40 seconds to prevent any hanging processes. The output from the traceroute is captured and saved to a file in a designated output directory. If a timeout or error occurs, appropriate messages are logged to keep track of any issues during execution.
+
+Once the traceroute output is obtained, the script parses the data using regular expressions to extract relevant IP addresses and paths. This parsed data is then organized into a JSON structure, mapping each source IP to its multiple destination IPs. This structure is essential for analyzing the network paths and identifying load balancers.
+
+
+In addition to the traceroute data, the script utilizes the Team Cymru IP to ASN mapping service to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). This list was used to cross-reference the IPs identified as load balancers, as well as their next hops and destination IPs. 
+
+
 
 \chapter{This is the Fourth Chapter}
 \chapter{This is the Fifth Chapter}
