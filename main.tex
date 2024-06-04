@@ -148,7 +148,7 @@ In summary, load balancing is key to Internet reliability, and this project aims
 
 
 
-\chapter{Related Works} \label{chap:related}
+\chapter{Related Works} \label{chap:intro}
 \section{Paris Traceroute}
 
 \subsection{General Introduction}
@@ -286,7 +286,8 @@ This service supports multiple query methods, including WHOIS (TCP 43), DNS (UDP
 
 It is important to note that the IP to ASN mapping service is not a GeoIP service. The country code, registry, and allocation date are based on data from regional registries, such as ARIN, RIPE, AFRINIC, APNIC, and LACNIC. As such, the accuracy of this information depends on the data present in the RIR databases.
 
-In the context of this project, the Team Cymru service was essential for obtaining accurate WHOIS lookup results and mapping IP addresses to their respective ASNs. My advisor, Professor Mark Allman, automated a script that pulls all their current IP to ASN mappings every month. This list was used to cross-reference the IPs identified as load balancers, their next hop, and their destination IPs. This comprehensive cross-referencing provided detailed insights into the load balancers discovered. 
+In the context of this project, the Team Cymru service was essential for obtaining accurate WHOIS lookup results and mapping IP addresses to their respective ASNs. We harvested all ASN-to-IPv4 address information from Team Cymru (with their permission) every month. This list was used to cross-reference the IPs identified as load balancers, their next hops, and their destination IPs. This comprehensive cross-referencing provided detailed insights into the load balancers discovered.
+
 
 
 
