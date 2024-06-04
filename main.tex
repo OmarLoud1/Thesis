@@ -109,16 +109,18 @@
 
 \chapter{Introduction} \label{chap:intro}
 \section{Load Balancing} \label{sec:Loadsection}
-Load balancing is a key network management technique that distributes traffic across multiple servers, preventing any single server from becoming overwhelmed. Originally developed as network-based hardware, load balancing now plays a crucial role in modern infrastructure by ensuring high availability, scalability, security, and performance.
 
-Applications today must handle millions of simultaneous sessions. Load balancers dynamically distribute traffic across servers with duplicate data, ensuring reliable and fast data delivery. This process also provides redundancy; if a server fails, traffic is redirected to maintain continuous access.
+Load balancing is a critical network management technique that distributes traffic across multiple servers or network paths. A load balancer is a piece of network equipment that can direct packets to one of several available routes, anticipating that each route will yield a similar result. This distribution helps prevent any single server from becoming overwhelmed and ensures efficient use of network resources.
 
-Load balancing enhances security by minimizing attack surfaces and rerouting traffic if a server is compromised. 
+Originally developed as network-based hardware, load balancing now often functions within routers. It plays a crucial role in modern infrastructure by ensuring high availability, scalability, security, and performance. Applications today must handle millions of simultaneous sessions, and load balancers dynamically distribute this traffic across servers with duplicate data, ensuring reliable and fast data delivery. This process also provides redundancy; if a server fails, traffic is redirected to maintain continuous access.
 
-It also optimizes performance by managing resource use and traffic spikes. Various algorithms, such as round-robin and least connections, help distribute traffic based on real-time conditions.
+Load balancing enhances security by minimizing attack surfaces and rerouting traffic if a server is compromised. Additionally, it optimizes performance by managing resource use and traffic spikes. Various algorithms, such as round-robin and least connections, help distribute traffic based on real-time conditions.
 
+A significant application of load balancing is the ability to utilize more capacity by aggregating multiple smaller links. For example, combining two 1 Gbps links instead of a single 10 Gbps link may be more cost-effective or easier to implement. This approach can improve network reliability, as multiple servers or router interfaces can mitigate some failure points. However, it is important to note that load balancing itself can become a single point of failure if the load balancer goes down.
 
-The goal of this project is to measure load balancing behavior on the Internet and map the presence of load balancers worldwide. This will enhance our understanding of their impact on network performance and security.
+\section{Project Motivation and Goals}
+
+The primary motivation for this project was to quantify the prevalence and characteristics of load balancing in the Internet. By measuring load balancing behavior and mapping the presence of load balancers across most used paths in the internet, this research aims to enhance our understanding of their impact on network performance and security. The project focuses on identifying and categorizing load balancers, analyzing their deployment, and understanding the resulting network paths and their implications for the broader Internet infrastructure.
 
 
 \section{Impact of Load Balancing on Internet Reliability}
@@ -152,18 +154,17 @@ In summary, load balancing is key to Internet reliability, and this project aims
 \subsection{General Introduction}
 The traditional model of the Internet assumes a single path between a pair of end-hosts. However, modern commercial routers often include load balancing capabilities, creating multiple active paths between hosts. This shift challenges the conventional single-path assumption used by many Internet applications, network simulation models, and measurement tools.
 
-In their paper \textit{Measuring Load-balanced Paths in the Internet}, Brice Augustin, Timur Friedman, and Renata Teixeira from LIP6 at Université Pierre et Marie Curie present a comprehensive study on load-balanced paths. They highlight the significance of recognizing load balancing in contemporary networking by demonstrating how it affects traffic distribution and path diversity.
+In their paper \textit{Measuring Load-balanced Paths in the Internet}, Augustin et al. [1] from LIP6 at Université Pierre et Marie Curie present a comprehensive study on load-balanced paths. They highlight the significance of recognizing load balancing in contemporary networking by demonstrating how it affects traffic distribution and path diversity. Published in 2007, the paper's conclusions may be somewhat outdated given the advancements in networking technology since then.
 
 The authors enhance a traceroute-like tool called \textit{Paris traceroute}, designed to find all paths between a pair of hosts. Their methodology involves identifying load-balancing routers and characterizing the load-balanced paths. By conducting measurements from 15 sources to over 68,000 destinations, their study reveals that the traditional single-path concept no longer holds. They found that 39\% of source-destination pairs traverse a load balancer, and this percentage rises to 70\% when considering paths between a source and a destination network.
 
-Their work contributes significantly to understanding Internet path diversity by:
-\begin{enumerate}
-    \item Developing Paris traceroute’s Multipath Detection Algorithm (MDA) to find all paths from a source to a destination under different types of load balancing.
-    \item Characterizing the load-balanced paths in terms of length, width, and asymmetry.
-    \item Establishing a methodology to measure round-trip times (RTTs) of load-balanced paths, considering delays on both forward and return paths.
-\end{enumerate}
-
 This study underscores the necessity for the research community to reconsider the concept of a single Internet path and highlights the importance of accurately measuring and understanding load-balanced paths. The insights gained from this work are critical for developing more realistic network models and improving the design and reliability of Internet applications.
+
+\subsection{Traceroute}
+
+Traceroute is a network diagnostic tool used to track the path packets take from one IP address to another. It works by sending packets with gradually increasing time-to-live (TTL) values. Each router along the path decreases the TTL of the packet by one. When the TTL reaches zero, the router sends back an error message to the sender, revealing its IP address. This process is repeated with incrementing TTL values, allowing traceroute to map out the entire route to the destination.
+
+Traceroute provides insights into the structure and behavior of the network. By identifying each hop along the route, it helps diagnose network congestion, detect points of failure, and understand the network's topology. Traditional traceroute, however, may not handle load-balanced paths well, as it can be misled by the varying paths packets may take. To address this,  Paris traceroute and MDA are used to obtain more accurate measurements by maintaining consistent flow identifiers, thus avoiding misinterpretation caused by load balancers.
 
 \subsection{Multipath Detection Algorithm (MDA)}
 
@@ -173,25 +174,22 @@ The MDA operates hop-by-hop, sending probes to identify all interfaces at each h
 
 To determine the number of probes \(k\) needed to discover all paths with a high degree of confidence, MDA assumes \(r\) is part of a load balancer that splits traffic evenly across \(n\) paths. If fewer than \(n\) interfaces are found, MDA stops. Otherwise, it increases \(n\) and sends additional probes to test the hypothesis.
 
-To identify whether a load balancer uses per-packet or per-flow balancing, MDA sends probes with a constant flow identifier. If responses come from multiple interfaces, it indicates per-packet balancing. If all responses come from the same interface, it suggests per-flow balancing. MDA uses statistical methods to ensure a high level of confidence (typically 95%) in its classification.
+To identify whether a load balancer uses per-packet or per-flow balancing, MDA sends probes with a constant flow identifier. If responses come from multiple interfaces, it indicates per-packet balancing. If all responses come from the same interface, it suggests per-flow balancing. MDA uses statistical methods to ensure a high level of confidence (typically 95\%) in its classification.
 
 For instance, to reject the hypothesis of \(n = 2\) with 95\% confidence, MDA sends \(k = 6\) probes. If load balancing across up to 16 interfaces is suspected, MDA may send up to \(k = 96\) probes to ensure all paths are discovered. This process allows MDA to effectively enumerate all paths and classify the type of load balancing in use.
 
-
-
-
 \subsection{Usage of Paris Traceroute}
-The paper by Augustin, Friedman, and Teixeira is one of the few studies that actively measures the presence and behavior of load balancers in the Internet.
 
-Building on the foundational work of Augustin et al., my research aims to further explore the presence and behavior of load balancers in the Internet. By leveraging Paris traceroute and its MDA, I will conduct extensive measurements to map the global distribution of load balancers and analyze their impact on network performance and reliability.
+The paper by Augustin et al. [1] is one of the few studies that actively measures the presence and behavior of load balancers in the Internet. Although their work provides a strong foundation, further investigation is needed to account for the evolving nature of Internet infrastructure and load balancing techniques.
+
+Building on the foundational work of Augustin et al., this research aims to further explore the presence and behavior of load balancers in the Internet. By leveraging Paris traceroute and its MDA, extensive measurements will be conducted to map the global distribution of load balancers and analyze their impact on network performance and reliability.
 
 This study will add to the existing knowledge by:
 \begin{itemize}
     \item Expanding the scope of measurement to include a more diverse set of source-destination pairs.
     \item Investigating the effects of load balancing on different types of network traffic and applications.
-
 \end{itemize}
-\newpage
+
 \section{Scamper}
 
 \subsection{Introduction}
@@ -202,7 +200,7 @@ In 2005, facing funding challenges, the Internet measurement community organized
 
 This paper addresses a small part of this problem by focusing on building a packet-prober for large-scale measurements and well-defined data archiving. A packet-prober should simplify the coordination of measurements, provide APIs for operating system differences, offer accurate timing information, and produce detailed, easy-to-process output. This approach helps researchers avoid system programming and administrative challenges, allowing them to implement new measurement techniques and focus on analysis and validation.
 
-
+\newpage
 \subsection{Scamper Features}
 
 Scamper is a powerful packet-prober designed to support large-scale Internet measurement. It includes feature-rich implementations of traceroute, ping, MDA traceroute, four alias resolution techniques, Sting, and parts of TBIT.
@@ -232,7 +230,7 @@ The study revealed that 74\% of IPv4 and 56\% of IPv6 routes traverse at least o
 Building on this work, part of our research uses MCA to map the global presence of load balancers and analyze their impact on network performance and reliability. 
 
 \section{MDA vs MCA}
-While MCA offers significant improvements in identifying and classifying load balancers by considering a broader range of packet header bits, it is less accessible for fine-tuning and practical use. For my research, I opted to use MDA due to its better integrability with existing tools and faster runtime performance. MDA's established methodologies and ease of implementation make it a more practical choice for large-scale measurements. The decision to use MDA is further justified by its compatibility with current infrastructure and the ability to conduct measurements efficiently. Detailed explanations of MDA's integration and performance in my study will be provided in a later section of this document.
+While MCA offers significant improvements in identifying and classifying load balancers by considering a broader range of packet header bits, it is less accessible for fine-tuning and practical use. For my research, we opted to use MDA due to its better integrability with existing tools and faster runtime performance. MDA's established methodologies and ease of implementation make it a more practical choice for large-scale measurements. The decision to use MDA is further justified by its compatibility with current infrastructure and the ability to conduct measurements efficiently. Detailed explanations of MDA's integration and performance in my study will be provided in a later section of this document.
 
 
 
@@ -293,24 +291,85 @@ In the context of this project, the Team Cymru service was essential for obtaini
 
 
 
-\chapter{Data Collection}
+\chapter{Data Collection and Analysis}
 \section{Discovering Load Balancers}
 
 The data collection process for this research involved using a Python script to automate the execution of the Paris traceroute tool and process its output. The script was designed to systematically gather information about network routes and load balancers.
 
-The process begins by reading the top 2000 domains from the Alexa Top 1 Million Websites list, which is stored in a CSV file. This ensures that the analysis focuses on high-traffic websites that are likely to traverse significant portions of the Internet's infrastructure.
+The process begins by reading two distinct datasets from the Alexa Top 1 Million Websites list, stored in a CSV file. This ensures that the analysis focuses on high-traffic websites likely to traverse significant portions of the Internet's infrastructure. The two datasets used are:
 
-For each domain, the script runs the Paris traceroute tool using the Multipath Detection Algorithm (MDA). The traceroute is executed with a timeout of 40 seconds to prevent any hanging processes. The output from the traceroute is captured and saved to a file in a designated output directory. If a timeout or error occurs, appropriate messages are logged to keep track of any issues during execution.
+\begin{itemize}
+    \item \textbf{Rand-2000 Dataset:} This dataset comprises 2000 random domains selected from the top 100,000 websites on the Alexa list. It aims to provide statistically significant data about the overall Alexa dataset and to examine the Internet's topology comprehensively.
+    \item \textbf{Top-2000 Dataset:} This dataset includes the top 2000 domains from the Alexa list. It is designed to cover an important chunk of the most used websites around the Internet, ensuring that the analysis captures the behavior and infrastructure of highly significant web traffic.
+\end{itemize}
+
+
+
+\subsection{Paris-Traceroute on datasets}
+
+For each domain in these datasets, the script runs the Paris traceroute tool using the Multipath Detection Algorithm (MDA). The traceroute is executed with a timeout of 40 seconds to prevent any hanging processes. The output from the traceroute is captured and saved to a file in a designated output directory. If a timeout or error occurs, appropriate messages are logged to keep track of any issues during execution.
 
 Once the traceroute output is obtained, the script parses the data using regular expressions to extract relevant IP addresses and paths. This parsed data is then organized into a JSON structure, mapping each source IP to its multiple destination IPs. This structure is essential for analyzing the network paths and identifying load balancers.
 
+In addition to the traceroute data, the script utilizes the Team Cymru IP to ASN mapping service to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). This list is used to cross-reference the IPs identified as load balancers, as well as their next hops and destination IPs.
 
-In addition to the traceroute data, the script utilizes the Team Cymru IP to ASN mapping service to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). This list was used to cross-reference the IPs identified as load balancers, as well as their next hops and destination IPs. 
+By combining these datasets and cross-referencing the information, the study aims to provide a comprehensive analysis of the Internet's load balancing behavior and network topology. This approach ensures that both a broad overview and a focused examination of the most significant web traffic are achieved.
+
+\subsection{Measurement Frequency and Timeline}
+
+To ensure the feasibility of daily measurements, 2000 IP addresses were chosen for the Paris traceroute process. Each IP takes an average of 40 seconds to return a complete trace with load balancer information. This duration allows the script to run through all 2000 IPs in approximately 23 hours, making it possible to conduct measurements on a daily basis.
+
+The measurements were run continuously from January 23rd, 2024, to April 16th, 2024, on the ICSI virtual machines based in California. This timeline ensured the collection of extensive data over several months, capturing potential variations and trends in load balancing behavior and network topology over time.
 
 
 
-\chapter{This is the Fourth Chapter}
-\chapter{This is the Fifth Chapter}
+\section{Data Analysis}
+
+The data analysis process for this research involved systematically processing and analyzing the traceroute data collected earlier. This analysis aimed to identify and categorize load balancers, as well as to visualize the results effectively.
+
+Initially, the collected JSON data, which contains information about network routes and load balancers, was loaded for processing. A dictionary was used to keep track of load balancers and their associated IP groups. For each domain in the JSON data, the load balancer information was processed, grouping the IPs by their AS information while filtering out entries without information about ASs.
+
+\subsection{Finding Common Next Hops Across Domains}
+The analysis started with identifying common next hops shared by multiple load balancers across different domains. The first step was loading the mapping of destinations to load balancers and their next hops from the JSON data. Additionally, AS information for IPs was loaded to provide context for the identified next hops. A dictionary was populated to store next hops for each load balancer, and another dictionary was used to store sets of load balancers sharing the same next hops. The analysis focused on finding next hops that were common to at least three load balancers across different domains. The results provided insights into common paths used by different domains, highlighting shared infrastructure.
+
+\subsection{Counting Matches and Mismatches of Next Hop AS}
+The next part of the analysis involved counting how often the AS of a next hop matched or mismatched the AS of the load balancer. This step aimed to understand the distribution of next hops in relation to their associated load balancers. The process involved loading the JSON data and counting the occurrences of matches and mismatches. The results were then visualized using a bar chart to compare the frequency of matches and mismatches for the top 20 next hop ASs. This analysis provided a detailed view of the relationships between load balancers and their next hops.
+
+\subsection{Characterizing Next Hop Counts}
+To gain further insights into the behavior of load balancers, the number of next hops for each load balancer was analyzed. This step involved loading the JSON data and counting the number of next hops for each load balancer. The mean, median, and mode of the next hop counts were calculated to summarize the distribution. The results were visualized using a histogram, showing the frequency distribution of next hop counts. This analysis helped characterize the diversity of paths taken by traffic after passing through load balancers.
+
+\subsection{Filtering Subnet Consistency}
+The analysis also included filtering entries to ensure that all IP addresses associated with a load balancer were within the same subnet. This step aimed to identify inconsistencies and refine the dataset. The process involved checking if IP addresses in each group belonged to the same subnet. Entries that did not meet this criterion were filtered out. The filtered dataset provided a more accurate representation of network routes and load balancers.
+
+\subsection{Mapping IPs to ASNs}
+To enrich the dataset with AS information, IP addresses were mapped to their corresponding ASNs. This process involved creating and managing an index of IP to ASN mappings. The index was used to resolve IP addresses found in the traceroute data. For each domain, the load balancer IPs and their next hop IPs were mapped to their respective ASNs. 
+
+\subsection{Identifying Top Load Balancer Groups}
+Finally, the analysis identified the top load balancer groups based on the number of domains they served. The process involved loading the JSON data and grouping load balancers by their AS information. The groups were then flattened into a list of tuples, each containing the count of domains, load balancer IP, AS information, and the list of domains. The list was sorted by count to identify the most significant load balancer groups. The results were saved to a text file and visualized using a horizontal bar chart. This analysis highlighted the most prominent load balancers and their impact on network traffic.
+
+
+
+\chapter{Topography of Load Balancers}
+\section{Statistics on Load Balancers Found}
+
+Still running code over all my data
+
+\section{Analysis of Common Next Hops}
+The analysis over a dataset from 02-21-2024 \textbf{(I will change this to include over the whole time, just wanted to give an example, won't be included in final)} revealed a total of 262 common next hops shared by at least three load balancers across different domains. The distribution of these common next hops is illustrated in Figure \ref{fig:common_next_hops_distribution}. The bar chart shows the frequency of next hops shared by varying numbers of load balancers, providing insights into the prevalence of shared network paths.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/common_next_hops_distribution.png}
+    \caption{Distribution of Common Next Hops Across Different Load Balancers }
+    \label{fig:common_next_hops_distribution}
+\end{figure}
+
+With 262 occurrences of next hops shared by at least three load balancers, it suggests that network providers often deploy load balancers in a centralized manner. This results in multiple load balancers directing traffic to a common set of next hop IP addresses within the same Autonomous System (AS). This strategy likely enhances network performance and redundancy.
+
+Another possibility is that load balancers may lead to other load balancers, creating a layered load balancing architecture. This could result in shared next hops across different domains as traffic is further distributed. These hypotheses were further tested by examining the AS information for the load balancers and their next hops, which will be detailed in the next section. Understanding these patterns is crucial for comprehending the deployment and operation of load balancers in the Internet's topology.
+
+
+
 \chapter{This is the Sixth Chapter}
 \chapter{This is the Seventh Chapter}
 \chapter{This is the Eighth Chapter}
