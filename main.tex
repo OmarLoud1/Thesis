@@ -351,9 +351,39 @@ Finally, the analysis identified the top load balancer groups based on the numbe
 
 
 \chapter{Topography of Load Balancers}
-\section{Statistics on Load Balancers Found}
 
-Still running code over all my data
+\section{Analysis of Load Balancer Distribution}
+
+\subsection{Top-2000 Dataset}
+
+The Top-2000 dataset consists of 117 data points collected between November 9, 2023, and April 16, 2024. During this period, the number of domains with at least one load balancer ranged from a minimum of 279 to a maximum of 1680. The average number of domains with load balancers was 1644.08, indicating that 82.2\% of the paths to these top domains include load balancers. The median value of 1668 further supports the observation that the majority of these domains consistently use load balancers, highlighting the importance of load balancing in maintaining the reliability and performance of high-traffic websites.
+
+This data suggests that for the remaining 17.8\% of paths that do not show a load balancer, it may be due to the absence of a load balancer or that the load balancer was not logged during the data collection process.
+
+
+
+\subsection{Rand-2000 Dataset}
+
+The Rand-2000 dataset includes 112 data points collected over the same period, from November 9, 2023, to April 16, 2024. The number of domains with at least one load balancer in this dataset varied between 1205 and 1297. The average number of domains with load balancers was 1251.29, with a median of 1252. These statistics suggest that 62.5\% of the paths to these randomly selected domains include load balancers, indicating a substantial use of load balancers across a diverse set of websites.
+
+
+The scatter plot in Figure \ref{fig:scatter_plot_domains} illustrates the number of domains with at least one load balancer over time for both the Top-2000 and Rand-2000 datasets. 
+This visual representation helps to understand the distribution and frequency of load balancers across the datasets.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/scatter_plot_domains.png}
+    \caption{Number of Domains with at least one Load Balancer Over Time}
+    \label{fig:scatter_plot_domains}
+\end{figure}
+\subsection{Comparison and Insights}
+
+
+The higher average and median values in the Top-2000 dataset underscore the higher usage of load balancers in managing traffic for the most visited websites. These sites likely experience higher and more variable traffic, necessitating robust load balancing solutions to ensure uptime and performance. Meanwhile, the Rand-2000 dataset demonstrates that load balancing is also very prevalent for a broad spectrum of domains.
+
+
+
+
 
 \section{Analysis of Common Next Hops}
 The analysis over a dataset from 02-21-2024 \textbf{(I will change this to include over the whole time, just wanted to give an example, won't be included in final)} revealed a total of 262 common next hops shared by at least three load balancers across different domains. The distribution of these common next hops is illustrated in Figure \ref{fig:common_next_hops_distribution}. The bar chart shows the frequency of next hops shared by varying numbers of load balancers, providing insights into the prevalence of shared network paths.
