@@ -237,7 +237,7 @@ While MCA offers significant improvements in identifying and classifying load ba
 \chapter{Background Information }
 
 This chapter details the sources of data used to construct our list of domains for the subsequent measurements conducted. The Alexa Top 1 Million Websites list was used to obtain hostnames for our study.
-Additionally, the Team Cymru IP to ASN mapping service was utilized to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). These datasets and tools provided the necessary foundation for our analysis.
+Additionally, the Team Cymru IP to ASN mapping service was utilized to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). These lists and tools provided the necessary foundation for our analysis.
 
 \section{Alexa Top 1 Million Websites}
 
@@ -298,26 +298,21 @@ In this project, the Team Cymru service was essential for mapping IP addresses t
 
 \chapter{Data Collection and Analysis}
 
-This chapter details the methods used to collect and analyze data for detecting and characterizing load balancers in network paths. We employed two datasets derived from the Alexa Top 1 Million Websites list and performed Paris traceroute measurements to these hostnames. The collected data was then processed to identify load balancers and analyze their behavior.
+This chapter details the methods used to collect and analyze data for detecting and characterizing load balancers in network paths. We employed two lists derived from the Alexa Top 1 Million Websites list and performed Paris traceroute measurements to these hostnames. The collected data was then processed to identify load balancers and analyze their behavior.
 
 \section{Discovering Load Balancers}
 
-The primary objective of this research is to record the paths between our vantage point and a set of popular hosts, and to detect and characterize load balancers along these paths. To achieve this, we used two distinct datasets obtained from the Alexa Top 1 Million Websites list.
+The primary objective of this research is to record the paths between our vantage point and a set of popular hosts, and to detect and characterize load balancers along these paths. To achieve this, we used two distinct lists obtained from the Alexa Top 1 Million Websites list.
 
-\subsection{Datasets}
+\subsection{IP Lists}
 
-Two distinct datasets were used for this study:
+Two distinct Lists were used for this study:
 \begin{itemize}
-   \item \textbf{Rand-2000 Dataset:} This dataset comprises 2000 random domains selected from the top 100,000 websites on the Alexa list, with a new random selection made each time we ran the measurement. It aims to provide statistically significant data about the overall Alexa dataset and to examine the Internet's topology comprehensively.
+   \item \textbf{Rand-2000 List:} This list comprises 2000 random domains selected from the top 100,000 websites on the Alexa list, with a new random selection made each time we ran the measurement. It aims to provide statistically significant data about the overall Alexa list and to examine the Internet's topology comprehensively.
 
-    \item \textbf{Top-2000 Dataset:} This dataset includes the top 2000 domains from the Alexa list. It is designed to cover an important chunk of the most used websites around the Internet, ensuring that the analysis captures the behavior and infrastructure of significant routes.
+    \item \textbf{Top-2000 list:} This list includes the top 2000 domains from the Alexa list. It is designed to cover an important chunk of the most used websites around the Internet, ensuring that the analysis captures the behavior and infrastructure of significant routes.
 \end{itemize}
 
-\subsection{Paris-Traceroute on Datasets}
-
-For each domain in these datasets, the Paris traceroute tool was used with the Multipath Detection Algorithm (MDA) to conduct traceroute measurements. 
-
-Additionally, the IP to ASN mapping service was used to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). This information was used to cross-reference the IPs identified as load balancers, as well as their next hops and destination IPs.
 
 \subsection{Measurement Frequency and Timeline}
 
@@ -328,6 +323,12 @@ The measurements were run continuously from January 23, 2024, to April 16, 2024,
 \section{Data Analysis}
 
 The data analysis process involved systematically processing and analyzing the traceroute data collected earlier. This analysis aimed to identify and categorize load balancers, as well as to visualize the results effectively.
+
+\subsection{Paris-Traceroute on IP List}
+
+For each domain in thes rand-2000 and top-2000 lists, the Paris traceroute tool was used with the Multipath Detection Algorithm (MDA) to conduct traceroute measurements. 
+
+Additionally, the IP to ASN mapping service was used to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). This information was used to cross-reference the IPs identified as load balancers, as well as their next hops and destination IPs.
 
 
 \subsection{Finding Common Next Hops Across Domains}
@@ -355,7 +356,7 @@ Finally, the analysis identified the top load balancer groups based on the numbe
 
 \chapter{Topography of Load Balancers}
 
-In this chapter, we examine the distribution and prevalence of load balancers across two different datasets: the Top-2000 and the Rand-2000. By analyzing these datasets, we aim to understand how load balancers are utilized in the infrastructure of popular and randomly selected websites. 
+In this chapter, we examine the distribution and prevalence of load balancers across two different datasets resulting from two distinct lists: the Top-2000 and the Rand-2000. By analyzing these datasets, we aim to understand how load balancers are utilized in the infrastructure of popular and randomly selected websites. 
 
 \section{Analysis of Load Balancer Distribution}
 
@@ -363,13 +364,13 @@ In this chapter, we examine the distribution and prevalence of load balancers ac
 
 The Top-2000 dataset consists of 117 data points collected between November 9, 2023, and April 16, 2024. During this period, the number of domains with at least one load balancer ranged from a minimum of 279 to a maximum of 1680. The average number of domains with load balancers was 1644.08, indicating that 82.2\% of the paths to these top domains include load balancers. The median value of 1668 further supports the observation that the majority of these domains consistently use load balancers, highlighting the importance of load balancing in maintaining the reliability and performance of high-traffic websites.
 
-This data suggests that for the remaining 17.8\% of paths that do not show a load balancer, it may be due to the absence of a load balancer or that the load balancer was not logged during the data collection process.
+This data shows that for the remaining 17.8\% of paths that do not show a load balancer, it may be due to the absence of a load balancer or that the load balancer was not logged during the data collection process.
 
 
 
 \subsection{Rand-2000 Dataset}
 
-The Rand-2000 dataset includes 112 data points collected over the same period, from November 9, 2023, to April 16, 2024. The number of domains with at least one load balancer in this dataset varied between 1205 and 1297. The average number of domains with load balancers was 1251.29, with a median of 1252. These statistics suggest that 62.5\% of the paths to these randomly selected domains include load balancers, indicating a substantial use of load balancers across a diverse set of websites.
+The Rand-2000 dataset includes 112 data points collected over the same period, from November 9, 2023, to April 16, 2024. The number of domains with at least one load balancer in this dataset varied between 1205 and 1297. The average number of domains with load balancers was 1251.29, with a median of 1252. These statistics show that 62.5\% of the paths to these randomly selected domains include load balancers, indicating a substantial use of load balancers across a diverse set of websites.
 
 
 The scatter plot in Figure \ref{fig:scatter_plot_domains} illustrates the number of domains with at least one load balancer over time for both the Top-2000 and Rand-2000 datasets. 
@@ -390,19 +391,31 @@ The higher average and median values in the Top-2000 dataset underscore the high
 
 
 
-\section{Analysis of Common Next Hops}
-The analysis over a dataset from 02-21-2024 \textbf{(I will change this to include over the whole time, just wanted to give an example, won't be included in final)} revealed a total of 262 common next hops shared by at least three load balancers across different domains. The distribution of these common next hops is illustrated in Figure \ref{fig:common_next_hops_distribution}. The bar chart shows the frequency of next hops shared by varying numbers of load balancers, providing insights into the prevalence of shared network paths.
+\section{Analysis of Next Hops After Load Balancers}
+
+We focused on understanding the behavior of next hops after load balancers. This analysis helps us gain insights into how load distribution is managed.
+
+
+\subsection{Top-2000 Dataset}
+The Top-2000 dataset consists of 192,357 load balancers. The analysis reveals that the number of next hops after a load balancer ranges from a minimum of 2 to a maximum of 102. The average number of next hops is approximately 3.90, indicating a moderate level of load distribution across multiple paths. The median value stands at 2.0, suggesting that half of the load balancers have two or fewer next hops. The standard deviation is 5.75, reflecting significant variability in the number of next hops. Furthermore, the 75th percentile is at 3.0, while the 95th percentile reaches 13.0, showing that a small number of load balancers have a high number of next hops.
+
+\subsection{Rand-2000 Dataset}
+In comparison, the Rand-2000 dataset includes 140,144 load balancers. Here, the number of next hops ranges from a minimum of 1 to a maximum of 25. The average number of next hops is 1.58, indicating a lower level of load distribution compared to the Top-2000 dataset. The median number of next hops is 1, suggesting that more than half of the load balancers have only one next hop. The standard deviation is 1.34, indicating less variability. The 75th percentile is 2.0, and the 95th percentile is 3.0, showing a more concentrated distribution of next hops.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/common_next_hops_distribution.png}
-    \caption{Distribution of Common Next Hops Across Different Load Balancers }
-    \label{fig:common_next_hops_distribution}
+    \includegraphics[width=\linewidth]{figures/cdf_next_hops.png}
+    \caption{CDF of Next Hops After Load Balancers for Top-2000 and Rand-2000 Datasets}
+    \label{fig:cdf_next_hops}
 \end{figure}
 
-With 262 occurrences of next hops shared by at least three load balancers, it suggests that network providers often deploy load balancers in a centralized manner. This results in multiple load balancers directing traffic to a common set of next hop IP addresses within the same Autonomous System (AS). This strategy likely enhances network performance and redundancy.
+Figure \ref{fig:cdf_next_hops} illustrates the cumulative distribution function (CDF) of the number of next hops after load balancers for both the Top-2000 and Rand-2000 datasets. The CDF provides a visual representation of the distribution and helps in comparing the two datasets. As shown, the Top-2000 dataset demonstrates a wider spread with more load balancers having a higher number of next hops, whereas the Rand-2000 dataset shows a more concentrated distribution with most load balancers having fewer next hops.
 
-Another possibility is that load balancers may lead to other load balancers, creating a layered load balancing architecture. This could result in shared next hops across different domains as traffic is further distributed. These hypotheses were further tested by examining the AS information for the load balancers and their next hops, which will be detailed in the next section. Understanding these patterns is crucial for comprehending the deployment and operation of load balancers in the Internet's topology.
+\subsection{Discussion}
+The differences in the number of next hops between the two datasets highlight the varying network configurations and load distribution strategies. The higher variability in the Top-2000 dataset suggests a more complex and distributed network structure. In contrast, the Rand-2000 dataset's lower variability and fewer next hops suggest a simpler network configuration for less commonly used paths.
+
+
+
 
 
 
