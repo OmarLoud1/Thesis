@@ -331,11 +331,7 @@ For each domain in thes rand-2000 and top-2000 lists, the Paris traceroute tool 
 Additionally, the IP to ASN mapping service was used to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). This information was used to cross-reference the IPs identified as load balancers, as well as their next hops and destination IPs.
 
 
-\subsection{Finding Common Next Hops Across Domains}
 
-The analysis started with identifying common next hops shared by multiple load balancers across different domains. The first step was loading the mapping of destinations to load balancers and their next hops from the  data. Additionally, AS information for IPs was loaded to provide context for the identified next hops. 
-
-The analysis focused on finding next hops that were common to at least three load balancers across different domains. The results provided insights into common paths used by different domains, highlighting shared infrastructure.
 
 \subsection{Counting Matches and Mismatches of Next Hop AS}
 
@@ -352,7 +348,11 @@ To gain further insights into the behavior of load balancers, the number of next
 Finally, the analysis identified the top load balancer groups based on the number of domains they served. By examining the number of domains associated with each load balancer, we were able to determine the most significant load balancer groups. The results highlighted the most prominent load balancers , showing which load balancers serve the highest number of domains. 
 
 
+\subsection{Finding Common Next Hops Across Domains}
 
+The analysis started with identifying common next hops shared by multiple load balancers across different domains. The first step was loading the mapping of destinations to load balancers and their next hops from the  data. Additionally, AS information for IPs was loaded to provide context for the identified next hops. 
+
+The analysis focused on finding next hops that were common to at least three load balancers across different domains. The results provided insights into common paths used by different domains, highlighting shared infrastructure.
 
 \chapter{Topography of Load Balancers}
 
@@ -414,6 +414,86 @@ Figure \ref{fig:cdf_next_hops} illustrates the cumulative distribution function 
 \subsection{Discussion}
 The differences in the number of next hops between the two datasets highlight the varying network configurations and load distribution strategies. The higher variability in the Top-2000 dataset suggests a more complex and distributed network structure. In contrast, the Rand-2000 dataset's lower variability and fewer next hops suggest a simpler network configuration for less commonly used paths.
 
+\newpage
+\section{Overall Analysis of Next Hop ASes Matches and Mismatches}
+
+In our comprehensive analysis across all load balancers, we identified significant patterns in the matching and mismatching of next hops. 
+
+Our results revealed that out of a total of 192,357 load balancers analyzed in the Top-2000 dataset, and 140,144 load balancers in the Rand-2000 dataset, we observed a total of 104,214 unique load balancers. Among these, 80,979 were fully matching, where every next hop AS matched the load balancer AS, representing 77.7\% of the total unique load balancers. Fully matching next hops indicate a high degree of routing consistency within the AS.
+
+Partially matching next hops, where at least one but not all next hops matched the load balancer AS, accounted for 402 instances, or 0.4\% of the total. These partial matches suggest a mixed routing strategy where some paths are optimized within the AS, while others diverge.
+
+Next hops with no matching AS comprised 22,833 instances, making up 21.9\% of the total load balancers. This scenario points to significant routing divergence, potentially due to dynamic routing policies or external influences.\newpage
+
+Figure~\ref{fig:overall_match_mismatch} illustrates the overall distribution of fully matching, partially matching, and no matching next hops. The pie chart provides a clear visual representation of the dominant patterns in next hop routing behavior.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{figures/overall_match_mismatch.png}
+    \caption{Overall Load Balancer Next Hop Matching}
+    \label{fig:overall_match_mismatch}
+\end{figure}
+
+
+
+Our analysis also highlighted the top Autonomous Systems (ASes) based on the number of matches and mismatches. Table \ref{tab:match_mismatch}
+presents the top ASes in each category.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Top 10 ASes with Fully Matching Next Hops}} \\
+        \hline
+        \textbf{AS} & \textbf{Count} \\
+        \hline
+        UCB, US & 30,890 \\
+        Google, US & 13,516 \\
+        ChinaNet Backbone No.31, Jin-Rong Street, CN & 6,420 \\
+        Comcast-7922, US & 5,460 \\
+        China169-BJ China Unicom Beijing Province Network, CN & 4,028 \\
+        KDDI Corporation, JP & 3,204 \\
+        Facebook, US & 2,321 \\
+        Microsoft-Corp-MSN-AS-Block, US & 2,260 \\
+        Cogent-174, US & 1,769 \\
+        KIXS-AS-KR Korea Telecom, KR & 1,744 \\
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Top 10 ASes with Partially Matching Next Hops}} \\
+        \hline
+        \textbf{AS} & \textbf{Count} \\
+        \hline
+        ChinaNet-IDC-BJ-AP IDC, China Telecommunications Corporation, CN & 158 \\
+        ChinaNet Backbone No.31, Jin-Rong Street, CN & 125 \\
+        RelianceJio-IN Reliance Jio Infocomm Limited, IN & 30 \\
+        Yandex, RU & 18 \\
+        Global\_DC, FI & 17 \\
+        Level3, US & 15 \\
+        NL-Gigapop, US & 12 \\
+        HiNetUSA HiNet Service Center in U.S.A, TW & 12 \\
+        Alibaba-CN-Net Hangzhou Alibaba Advertising Co., Ltd., CN & 4 \\
+        Alibaba-CN-Net Alibaba US Technology Co., Ltd., CN & 4 \\
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Top 10 ASes with No Matching Next Hops}} \\
+        \hline
+        \textbf{AS} & \textbf{Count} \\
+        \hline
+        CONE, US & 6,908 \\
+        Domain\_AS & 5,580 \\
+        UCB, US & 2,525 \\
+        CSUNET-NW, US & 2,440 \\
+        ChinaNet Backbone No.31, Jin-Rong Street, CN & 854 \\
+        Level3, US & 849 \\
+        Yahoo-1, US & 608 \\
+        CSUNET-NE, US & 312 \\
+        Google, US & 216 \\
+        BTN-ASN, US & 207 \\
+        \hline
+    \end{tabular}
+    \caption{Top 10 ASes with Fully Matching, Partially Matching, and No Matching Next Hops}
+    \label{tab:match_mismatch}
+\end{table}
+\newpage
+Overall, the findings suggest that while a majority of next hops maintain consistency within their ASes, there are notable instances of partial and no matches. This indicates that ASes mostly perform load balancing for their own nodes rather than for external nodes. This behavior makes sense because load balancing for external nodes would be costly without significant benefits to internal networks. However, the 22.3\% of non-matching load balancers is quite surprising. This could imply that load balancing from network providers or CDNs like Cloudflare is offered as a service, or it could suggest that there might be some inaccuracies in AS matching in certain cases.
+ 
 
 
 
