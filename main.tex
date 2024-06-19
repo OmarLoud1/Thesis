@@ -1,5 +1,4 @@
-%%%%%%%%%%%%
-%% This is the CWRU thesis template for PhD and Masters degree theses. The template file cwru_thesis.cls and this main.tex file follow the guidelines of the school of graduate studies found at https://case.edu/gradstudies/current-students/electronic-theses-and-dissertation-guidelines as of February 2023, with the inclusion of an additional List of Symbols if desired.
+
 %%
 %% This .tex file is for use with BibLaTeX.
 %%
@@ -8,6 +7,7 @@
 
 \documentclass[12pt]{cwru_thesis}
 \usepackage[hyphens]{url}
+\usepackage{indentfirst}
 \usepackage{lipsum}
 \usepackage{tabularx}
 \usepackage{graphicx}
@@ -110,7 +110,6 @@
 
 \chapter{Introduction} 
 \label{chap:intro}
-
 Networks are fundamental to modern society, enabling communication, commerce, and data exchange. These networks are built from an array of user devices, routers, and servers. Understanding the architecture and dynamics of these networks is crucial for enhancing their efficiency and reliability. Research has long focused on mapping and analyzing network structures to improve their performance and resilience (Paxson, 1996). A key aspect of network optimization is load balancing, a practice employed by network operators to manage traffic distribution and scale network capacity. Keeping a current understanding of both network structures and load balancing techniques is essential for maintaining robust and efficient network operations.
 
 Load balancing is a critical network management technique that distributes traffic across multiple servers or network paths. A load balancer is a piece of network equipment that can direct packets to one of several available routes, anticipating that each route will yield a similar result. This distribution helps prevent any single server from becoming overwhelmed and ensures efficient use of network resources.
@@ -180,6 +179,8 @@ For instance, to reject the hypothesis of \(n = 2\) with 95\% confidence, MDA se
 The paper by Augustin et al. \cite{Augustin2007} is one of the few studies that actively measures the presence and behavior of load balancers in the Internet. Although their work provides a strong foundation, further investigation is needed to account for the evolving nature of Internet infrastructure and load balancing techniques.
 
 Building on the foundational work of Augustin et al., this research aims to further explore the presence and behavior of load balancers in the Internet. By leveraging Paris traceroute and its MDA, we conduct extensive measurements to map the global distribution of load balancers and analyze their impact on network performance and reliability.
+
+
 
 This study will add to the existing knowledge by:
 \begin{itemize}
@@ -618,21 +619,37 @@ The least consistent load balancers in the Rand-2000 dataset, each appearing for
 
 The analysis shows that load balancers are mostly dynamic and not static, changing over time. Even though the graph for the number of load balancers (fig \ref{fig:scatter_plot_domains}) shows that the number remains relatively stable, the individual load balancers themselves change frequently. This is more evident in the random data because it doesn't consistently target the same paths, leading to higher variability. The average duration of presence further supports this, with load balancers in the Top-2000 dataset averaging 31.10 days, while those in the Rand-2000 dataset average only 12.49 days. This indicates that load balancers adapt to varying network conditions and demands, demonstrating the dynamic nature of network infrastructure.
 
-\newpage
 
-\subsection{Autonomous Systems Specific Statistics}
+\subsection{Autonomous Systems}
 
 This subsection presents the AS-specific statistics for both the Top-2000 and Rand-2000 datasets, focusing on daily averages and key metrics related to ASes.
+
+The AS with the most additions per day indicates which AS consistently introduces the most new load balancers. This can reflect the AS's dynamic nature and high level of activity in adjusting its load balancing infrastructure.
+
+The AS with the most removals per day shows which AS frequently removes load balancers. High removal rates can suggest either significant changes in traffic patterns when the load balancing functions are turned off, frequent updates to the network infrastructure when next hops are down, or issues requiring frequent load balancer replacement. It could also be caused by a different route being taken when accessing that website. 
+
+The AS with the longest average duration of presence has load balancers that remain active the longest on average. This indicates a more stable and persistent load balancing infrastructure.
+
+The most consistent AS is present for the most number of times, indicating the AS's load balancers are active across the majority of the observation period, reflecting stability.
+
+The most inconsistent AS is the one that is present for the fewest number of times, suggesting either sporadic use of load balancers or frequent changes in infrastructure. It could also mean that the measurment was a false positive and that it was not truly a load balancer.
+
+The most fluctuating AS has the highest number of load balancer changes, indicating a high level of dynamism in their load balancing strategy, possibly reflecting a need to adapt rapidly to changing traffic conditions or network requirements.
+
+\textbf{Note:} The UCB, US AS was excluded from these statistics as it would consistently be the most reliable AS, given that our tests are conducted from within it.
+
 
 \subsubsection{Top-2000 Dataset}
 
 For the Top-2000 dataset, observed over 116 days:
 
 \begin{itemize}
-    \item The AS with the most additions per day is UCB, US, with an average of 1,649.95 load balancers added daily.
-    \item The AS with the most removals per day is CHINANET-BACKBONE No.31, Jin-rong Street, CN, with an average of 50.17 load balancers removed daily.
-    \item The AS with the most reappearances per day is CHINANET-BACKBONE No.31, Jin-rong Street, CN, with an average of 108.31 reappearances daily.
-    \item The most consistent AS is UCB, US, with a net change of 101,345 load balancers over 116 days.
+    \item \textbf{AS with most additions per day:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Added: 50.34 per day
+    \item \textbf{AS with most removals per day:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Removed: 50.17 per day
+    \item \textbf{AS with longest average duration:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Average Duration: 159.62 days
+    \item \textbf{Most consistent AS:} GOOGLE, US, Present: 75863 times
+    \item \textbf{Most inconsistent AS:} AS-NETIA Warszawa 02-822, PL, Present: 1 time
+    \item \textbf{Most fluctuating AS:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Changes: 11660 over 116 days
 \end{itemize}
 
 \subsubsection{Rand-2000 Dataset}
@@ -640,15 +657,96 @@ For the Top-2000 dataset, observed over 116 days:
 For the Rand-2000 dataset, observed over 111 days:
 
 \begin{itemize}
-    \item The AS with the most additions per day is UCB, US, with an average of 251.27 load balancers added daily.
-    \item The AS with the most removals per day is CHINANET-BACKBONE No.31, Jin-rong Street, CN, with an average of 29.40 load balancers removed daily.
-    \item The AS with the most reappearances per day is GOOGLE, US, with an average of 19.84 reappearances daily.
-    \item The most consistent AS is UCB, US, with a net change of 27,873 load balancers over 111 days.
-
+    \item \textbf{AS with most additions per day:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Added: 29.12 per day
+    \item \textbf{AS with most removals per day:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Removed: 29.40 per day
+    \item \textbf{AS with longest average duration:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Average Duration: 44.09 days
+    \item \textbf{Most consistent AS:} GOOGLE, US, Present: 11153 times
+    \item \textbf{Most inconsistent AS:} MTS, RU, Present: 1 time
+    \item \textbf{Most fluctuating AS:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Changes: 6495 over 111 days
 \end{itemize}
 
+\section{Shared Next Hops Analysis}
 
-\chapter{This is the Sixth Chapter}
+This section analyzes the shared next hops between load balancers in both the Top-2000 and Rand-2000 datasets. The objective is to understand the extent to which next hops are shared among multiple load balancers, indicating the presence of common infrastructure and potential load balancing strategies.
+
+\subsection{Top-2000 Dataset}
+
+For the Top-2000 dataset, a total of 9,492 unique next hops were identified. The number of load balancers sharing a next hop ranged from a minimum of 1 to a maximum of 52. On average, each next hop was shared by 5.31 load balancers, with a median value of 2.0. The standard deviation of 6.70 indicates considerable variability in the number of load balancers sharing a next hop. The 75th percentile value was 7.0, and the 95th percentile value was 18.0, showing that a small number of next hops were highly shared among load balancers.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{figures/shared_next_hops_combined.png}
+    \caption{Distribution of Shared Next Hops for Top-2000 and Rand-2000}
+    \label{fig:shared_next_hops_combined}
+\end{figure}
+
+\subsection{Rand-2000 Dataset}
+
+The Rand-2000 dataset revealed 15,797 unique next hops. The number of load balancers sharing a next hop ranged from a minimum of 1 to a maximum of 42. The average number of load balancers sharing a next hop was 3.35, with a median of 2.0. The standard deviation was 4.17, indicating a moderate level of variability. The 75th percentile value was 4.0, and the 95th percentile value was 13.0, suggesting that most next hops were shared by a relatively small number of load balancers.
+\newpage
+
+The analysis of shared next hops between load balancers in both datasets highlights key differences and similarities. The Top-2000 dataset shows a higher average number of load balancers sharing a next hop compared to the Rand-2000 dataset. This suggests that the infrastructure supporting the most popular websites is more interconnected and utilizes shared pathways more frequently than the broader, randomly selected websites.
+
+The distribution of shared next hops, as depicted in Figure~\ref{fig:shared_next_hops_combined}, indicates that while most next hops are shared by a small number of load balancers, there are a few next hops that are highly shared, particularly in the Top-2000 dataset. This can be attributed to the reliance on major network infrastructure providers and common routing paths for high-traffic websites.
+
+Overall, the presence of shared next hops signifies the use of common infrastructure, which can enhance efficiency but also poses risks in terms of single points of failure. The variability in the number of shared next hops across both datasets underscores the complexity and dynamic nature of load balancing in different segments of the internet.
+
+
+\chapter{Layer 3 Load Balancing}
+In my research, I found specific load balancers within the Internet2 AS. The Internet2 Network was established to support data-intensive research and advanced campus and cloud computing needs. Internet2's GlobalNOC-developed Router Proxy tool allows users to run commands against network devices, enabling limited testing and viewing active configuration and state information.
+
+These load balancers were accessible via the Internet2 looking glass, allowing deeper analysis of their load balancing techniques. Specifically, we observed that many of the next hops for these load balancers were defined in Cisco Express Forwarding (CEF) tables. The following sections elaborate on the workings of CEF and its role in load balancing.
+
+\section{Network Layer Load Balancing}
+Layer 3, known as the network layer, plays a crucial role in load balancing by routing packets based on their IP addresses. This approach focuses on the distribution of traffic across multiple servers without inspecting the packet contents. Unlike higher layers that can make decisions based on the data within the packets, Layer 3 load balancers rely solely on IP addresses and routing tables. This method is efficient and fast but offers less granularity in traffic management, as it does not consider the type or state of the application data. They cannot make decisions based on the content of the traffic, user sessions, or specific application states, which are critical for more advanced load balancing strategies. This means that while Layer 3 load balancers can efficiently manage large volumes of traffic, they lack the detailed traffic management capabilities provided by higher-layer solutions. Nevertheless, technologies like Cisco Express Forwarding (CEF) enhance the efficiency of Layer 3 load balancing by pre-computing forwarding information, ensuring rapid and reliable packet forwarding across the network.
+
+\section{Cisco Express Forwarding (CEF)}
+
+Cisco Express Forwarding (CEF) is a Layer 3 switching technology used to optimize network performance. CEF employs a forwarding information base (FIB) and an adjacency table to expedite the packet forwarding process. The following outlines the critical components and operations of CEF:
+
+\subsection{CEF Components}
+
+\textbf{Forwarding Information Base (FIB)}: The FIB is used by CEF to make IP destination prefix-based switching decisions. It is conceptually similar to a routing table, maintaining a mirror image of the forwarding information in the IP routing table. When routing or topology changes occur, the IP routing table updates, and these changes are reflected in the FIB. The FIB ensures all known routes are covered, eliminating the need for route cache maintenance.
+
+\textbf{Adjacency Table}: The adjacency table complements the FIB by storing Layer 2 addressing information necessary for packet forwarding. Nodes in the network that can reach each other with a single hop across a link layer have their Layer 2 next-hop addresses stored in this table.
+
+\subsection{CEF Operation Modes}
+
+\textbf{Central CEF Mode}: In this mode, both the FIB and adjacency tables reside on the route processor, which performs all express forwarding. This mode is useful when line cards are not available for CEF switching or when features incompatible with distributed CEF switching are needed.
+
+\newpage
+
+\textbf{Distributed CEF (dCEF) Mode}: In dCEF mode, line cards maintain identical copies of the FIB and adjacency tables, enabling them to perform express forwarding independently. This offloads the route processor from being involved in the switching operation, making it particularly efficient for high-performance environments like the Cisco 12000 Series Router.
+
+\subsection{Packet Forwarding Process}
+
+The line cards play a crucial role in forwarding. When a packet arrives, it is placed into input buffers on the receiving line card. The Layer 2/Layer 3 forwarding engine accesses the packet's information and determines its route based on the FIB and adjacency table. The appropriate Layer 2 information is then appended to the packet using data from the adjacency table, and the packet is forwarded to its next-hop destination.
+
+\subsection{Synchronization and Updates}
+
+An Inter-Process Communication (IPC) mechanism ensures synchronization of FIBs and adjacency tables between the route processor and line cards. The GRP (route processor) updates the network routing table and sends forwarding update messages to the FIB tables on the line cards. It also updates the adjacency tables whenever new Layer 2 information is received.
+
+\section{Summary and Findings}
+
+CEF's efficiency in packet forwarding is achieved through its use of optimized data structures (FIB and adjacency tables) and its ability to distribute the forwarding process across different components of the router, particularly in environments where high-speed processing is required. This structured approach allows for rapid and reliable routing of packets across a network, enhancing overall network performance and scalability.
+
+The insights gained from analyzing the Internet2 load balancers revealed that most of the next hops for these load balancers are defined within CEF. This ensures high efficiency and reliability in handling the vast amount of data traffic traversing the Internet2 network. It also means that CEF load balancing is less resource-intensive and does not require any deeper look at the packets.
+
+
+
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width =\linewidth]{figures/internet2_next_hops_pie_chart.png}
+    \caption{Pie Chart of discovered Internet2 Load Balancers}
+    \label{fig:pie_chart_internet2}
+\end{figure}
+
+The implementation of load balancing at Layer 3 using CEF highlights the techniques employed to manage network traffic. This leads us to think that a lot of load balancers can be hidden behind the CEF forwarding, which is not usually visible using tools like Paris traceroute. The pie chart \ref{fig:pie_chart_internet2} showing the percentage of next hops found by MDA and the looking glass. Only 1.9\% of the next hops were found using MDA, while the looking glass revealed that 97.9\% were not found by our measurements, either because not enough probes were sent out by MDA, next hops were hidden, or they were not accessible on the specific route taken.
+This could mean that a great amount of load balancers are not identifiable using network probing tools and that they are a hidden part of 
+
+\chapter{}
 \chapter{This is the Seventh Chapter}
 \chapter{This is the Eighth Chapter}
 
