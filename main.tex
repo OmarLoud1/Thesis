@@ -135,18 +135,16 @@ This thesis investigates the deployment and operation of load balancers in inter
 
 \section{Introduction to Load Balancing}
 
-Networks are crucial to the Internet we rely on today by enabling communication, commerce, and entertainment on a global scale. These networks are constructed through an interconnected array of user devices, routers, and servers. Understanding the architecture and dynamics of these networks is vital for enhancing their efficiency and reliability. Research has focused on mapping and analyzing network structures to improve their performance and resilience for last 25 years, as \cite{paxson_endtoend96} emphasizes.
+Networks are essential to the Internet, facilitating communication, commerce, and entertainment on a global scale. These networks consist of an interconnected framework of user devices, routers, and servers. Understanding the architecture and dynamics of these networks has been pivotal in enhancing their efficiency and reliability over the last 25 years \cite{paxson_endtoend96}.
 
-A key aspect of network optimization is load balancing, a practice employed by network operators to manage traffic distribution and scale network capacity. By distributing traffic across multiple servers or network paths, load balancing ensures that no single server becomes overwhelmed, promoting both efficiency and reliability. It is essential to maintain a current understanding of both network structures and load balancing techniques to sustain robust and efficient network operations  \cite{10371400}.
+Load balancing, a crucial network optimization strategy, manages traffic distribution and scales network capacity to prevent any single server from becoming overwhelmed, thus promoting efficiency and reliability \cite{10371400}. Initially, load balancers were standalone network devices designed to direct packets across multiple routes to balance server load \cite{bourke2001server}. This function is now often integrated within routers, playing a vital role in ensuring high availability, scalability, security, and performance of modern infrastructure \cite{f52023loadbalancing}.
 
-Originally, load balancers were standalone pieces of network equipment, developed to manage the distribution of network traffic \cite{bourke2001server}. A load balancer directs packets to one of several available routes, anticipating that each route will yield a similar result. This strategy helps prevent any single server from becoming overwhelmed, ensuring efficient use of network resources \cite{f52023loadbalancing}.
+Modern applications require the ability to handle millions of simultaneous sessions, and load balancers distribute this traffic across servers with duplicate data to ensure reliable and rapid data delivery. Although load balancers enhance system redundancy—redirecting traffic to maintain access if a server fails—they are not fail-proof and can become single points of failure if not part of a redundant setup \cite{chang2005complex}.
 
-Over time, the function of load balancing has often been integrated within routers. Today, load balancing plays a crucial role in modern infrastructure by ensuring high availability, scalability, security, and performance. Applications now must handle millions of simultaneous sessions, and load balancers dynamically distribute this traffic across servers with duplicate data, ensuring reliable and fast data delivery. This process also provides redundancy; if a server fails, traffic can be redirected to maintain continuous access. However, it is important to note that while load balancers can provide redundancy, they are not inherently fail-proof. If the load balancer itself fails and it is not part of a redundant setup \cite{chang2005complex}.
+Furthermore, load balancing enhances security by minimizing attack surfaces. It reduces the risk of individual servers being overwhelmed by distributing traffic, thus decreasing the overall attack surface and enhancing system resilience against attacks. However, the security benefits depend heavily on the secure configuration and robustness of the load balancer itself \cite{10.1145/3098593.3098595}.
 
+Performance optimization is another benefit of load balancing, which utilizes algorithms like round-robin and least connections to distribute traffic based on real-time conditions. This prevents any server from becoming a bottleneck, ensuring the network operates smoothly and efficiently \cite{8316818}.
 
-Load balancing has several benefits, including enhancing security by potentially minimizing attack surfaces and rerouting traffic if a server is compromised. By distributing traffic, load balancers reduce the risk of a single server being targeted and overwhelmed by an attack. An attack surface refers to the number of entry points through which an attacker can try to enter or extract data from a system. With load balancing, the exposure of any single server is minimized, thereby reducing the overall attack surface. However, for the security benefits to be effective, the load balancer itself must be secure and properly configured  \cite{10.1145/3098593.3098595}.
-
-Additionally, load balancing optimizes performance by managing resource use and handling traffic spikes. Various algorithms, such as round-robin and least connections, help distribute traffic based on real-time conditions. This ensures that all servers share the load equally and prevents any single server from becoming a bottleneck, thereby maintaining smooth and efficient operation of the network  \cite{8316818}.\\
 
 \section{Project Motivation and Goals}
 
@@ -160,13 +158,13 @@ Understanding how load balancing affects network performance and reliability is 
 
 \section{Areas of Study}
 
-In the following chapters, we explore several aspects of web traffic and network optimization. We begin by discussing related work in Chapter 2. This chapter covers essential tools and methodologies such as Traceroute, the Multipath Detection Algorithm (MDA), Paris Traceroute, and Scamper, including their features and applications in detecting and classifying load balancers in the Internet.
+In the following chapters, we explore the presence of load balancers across the Internet. We begin by discussing related work in Chapter 2, which covers essential tools we use, such as Traceroute, the Multipath Detection Algorithm (MDA), Paris Traceroute, and Scamper. We will delve into their features and applications in detecting and classifying load balancers on the Internet.
 
-In Chapter 3, we provide an overview of our research methodology. This includes background information on datasets like the Alexa Top 1 Million Websites and the Team Cymru IP to ASN list. We detail our approach to discovering load balancers, including measurement frequency, and IP list compilation.
+In Chapter 3, we provide an overview of our research methodology. This includes background information on resources like the Alexa Top 1 Million Websites and the Team Cymru IP to ASN list. Our approach to discovering load balancers is detailed, including measurement frequency and IP list compilation.
 
-Chapter 4 examines the topography of load balancers. We analyze the distribution of load balancers using our datasets, and compare insights from these datasets. We also delve into the analysis of next hops after load balancers, identifying Autonomous Systems with the most next hops, and exploring changes over time.
+Chapter 4 examines the topography of load balancers. We analyze the distribution of load balancers using our datasets, compare insights from these datasets, and delve into the analysis of next hops after load balancers. We identify Autonomous Systems with the most next hops and explore changes over time.
 
-In Chapter 5, we study Layer 3 load balancing, focusing on network layer load balancing and Cisco Express Forwarding (CEF). We also discuss modifications to the MDA algorithm and the challenges and future work associated with enhanced probing trials.
+In Chapter 5, we focus on Layer 3 load balancing, particularly the modifications to the MDA algorithm for better network layer load balancing efficacy. We discuss the challenges and future work associated with enhanced probing trials and the integration of Cisco Express Forwarding (CEF) into our analysis. This chapter aims to provide concrete insights into the application of advanced network routing technologies to optimize traffic distribution.
 
 
 
@@ -179,7 +177,7 @@ In Chapter 5, we study Layer 3 load balancing, focusing on network layer load ba
 
 \chapter{Related Works}
 
-Traceroute is a network diagnostic tool used to track the path packets take from one IP address to another. It works by sending packets with gradually increasing time-to-live (TTL) values. Each router along the path decreases the TTL of the packet by one. When the TTL reaches zero, the router sends back an error message to the sender, revealing its IP address. This process is repeated with incrementing TTL values, allowing Traceroute to map out the entire route to the destination.
+Traceroute is a network diagnostic tool used to track the path packets take from one IP address to another. The tool works by sending packets with gradually increasing time-to-live (TTL) values. Each router along the path decreases the TTL of the packet by one. When the TTL reaches zero, the router sends back an error message to the sender, revealing its IP address. This process is repeated with incrementing TTL values, allowing Traceroute to map out the entire route to the destination.
 
 Traceroute provides insights into the structure and behavior of the network by identifying each hop along the route. However, traditional Traceroute may not handle load-balanced paths well, as it can be misled by the varying paths packets may take. To address this, Paris Traceroute and MDA are used to obtain more accurate measurements by maintaining consistent flow identifiers, thus avoiding misinterpretation caused by load balancers.
 
@@ -199,13 +197,13 @@ The Multipath Detection Algorithm (MDA) is a key component of Paris Traceroute, 
 
 The MDA operates hop-by-hop, sending probes to identify all interfaces at each hop. For a given interface \(r\) at hop \(h-1\), MDA generates several flow identifiers to ensure probes reach \(r\). Flow identifiers are unique markers within packet headers, such as combinations of source and destination IP addresses, port numbers, and protocol types . It then sends these probes one hop further to discover the next-hop interfaces \(s_1, s_2, \ldots, s_n\).
 
-To determine the number of probes \(k\) needed to discover all paths with a high degree of confidence, MDA assumes \(r\) is part of a load balancer that splits traffic evenly across \(n\) paths. If fewer than \(n\) interfaces are found, MDA stops. Otherwise, it increases \(n\) and sends additional probes to test the hypothesis.
+To determine the number of probes \(k\) needed to discover all paths with a high degree of confidence, MDA assumes \(r\) is part of a load balancer that splits traffic evenly across \(n\) paths. If fewer than \(n\) interfaces are found, MDA stops. Otherwise, the number of probes increases \(n\) and sends additional probes to test the hypothesis.
 
 To identify whether a load balancer uses per-packet or per-flow balancing, MDA sends probes with a constant flow identifier. If responses come from multiple interfaces, it indicates per-packet balancing. If all responses come from the same interface, it suggests per-flow balancing. MDA uses statistical methods to ensure a high level of confidence (typically 95\%) in its classification.
 
 Per-flow balancing means that all packets within the same flow (i.e., packets sharing the same source and destination IP addresses, port numbers, and protocol) follow the same path through the network. This ensures that packets arrive in order, which is crucial for the correct reassembly and processing of data streams.
 
-Per-packet balancing, on the other hand, distributes individual packets across multiple paths. While this can maximize the use of available network resources, it can lead to packet reordering since packets from the same flow might take different paths and arrive out of order. This can complicate the reassembly process and potentially impact the performance of applications sensitive to packet order.
+Per-packet balancing, on the other hand, distributes individual packets across multiple paths. While this can maximize the use of available network resources, this type of balancing can lead to packet reordering since packets from the same flow might take different paths and arrive out of order. This can complicate the reassembly process and potentially impact the performance of applications sensitive to packet order.
 
 
 For instance, to reject the hypothesis of \(n = 2\) with 95\% confidence, MDA sends \(k = 6\) probes. If load balancing across up to 16 interfaces is suspected, MDA may send up to \(k = 96\) probes to ensure all paths are discovered. This process allows MDA to effectively enumerate all paths and classify the type of load balancing in use.
@@ -218,7 +216,7 @@ By leveraging Paris Traceroute and MDA, we conduct extensive measurements to map
 
 \section{Scamper}
 
-Scamper, presented in  \cite{luckie2010scamper}, is a versatile tool used for conducting large-scale Internet measurements. It was easily modified to support more fine-tuned measurements using the Multipath Detection Algorithm (MDA), enhancing its capability to identify and analyze load-balanced paths.
+Scamper, presented in  \cite{luckie2010scamper}, is a versatile tool used for conducting large-scale Internet measurements. Scamper's code was easily modified to support more fine-tuned measurements using the Multipath Detection Algorithm (MDA), enhancing its capability to identify and analyze load-balanced paths.
 
 
 
@@ -241,7 +239,7 @@ Despite these advancements, using MCA was not feasible for our research due to i
 
 
 
-While MCA offers improvements in identifying and classifying load balancers, it is less accessible for fine-tuning and practical use. For our research, we opted to use MDA due to its better integrability with existing tools (scamper) and faster runtime performance in order to conduct daily measurments. MDA's established methodologies and ease of implementation make it a more practical choice for large-scale measurements. 
+While MCA offers improvements in identifying and classifying load balancers, it is less accessible for fine-tuning and practical use. For our research, we opted to use MDA due to its better integrability with existing tools (scamper) and faster runtime performance in order to conduct daily measurments. MDA's established methodologies and ease of implementation which makes it a more practical choice for large-scale measurements. 
  
 
 \chapter{Methodology}
@@ -252,7 +250,7 @@ This chapter details the methods used to collect data for detecting and characte
 
 To ensure the feasibility of daily measurements, pilot measurements were conducted, which indicated that approximately 2000 hostnames could be processed per day. This constraint informed our selection of two distinct subsets from the Alexa list, enabling daily measurements while managing logistical constraints.
 
-The Alexa Top 1 Million Websites list was used to obtain hostnames for this research. A current version of the Alexa list was obtained when we started our data collection in November 2023. The Alexa list is widely used in network measurement studies due to its popularity, since it is not known for high accuracy for ranks below 100,000 sites  \cite{alexa2023top1m}, only the top 100,000 is in consideration.
+The Alexa Top 1 Million Websites list was used to obtain hostnames for this research. A current version of the Alexa list was obtained when we started our data collection in November 2023. The Alexa list is widely used in network measurement studies due to its popularity, since the list is not known for high accuracy for ranks below 100,000 sites  \cite{alexa2023top1m}, only the top 100,000 is in consideration.
 
 For our study, we selected two distinct subsets from the Alexa list:
 \begin{itemize}
@@ -272,7 +270,7 @@ To ensure the feasibility of daily measurements, 2000 hostnames were chosen for 
 
 The goal of daily measurements is to assess trends and variations in load balancing behavior over time. To maintain feasibility, we ran measurements in parallel for the Top-2000 list and the Rand-2000 list each day. Each measurement started at 5 am EST and ran in Alexa rank order for Top-2000 and in the random order the list was created in Rand-2000. After completing the measurements, there was a one-hour buffer before the next run began at 5 am the following day.
 
-The measurements were run continuously from December 1, 2023, to April 16, 2024, on a Linux machine at the International Computer Science Institute (ICSI) in Berkeley, CA. Some pilot measurements were also run beforehand from both machines at ICSI and at CWRU.
+The measurements were run continuously from November 9, 2023, to April 16, 2024, on a Linux machine at the International Computer Science Institute (ICSI) in Berkeley, CA. Some pilot measurements were also run beforehand from both machines at ICSI and at CWRU.
 This timeline ensured the collection of extensive data over several months, capturing potential variations and trends in load balancing behavior and network topology over time. 
 
 Using the top 2000 websites allows us to measure load balancers on sites that are heavily accessed, providing insights into the infrastructure of widely used services. The random selection of 2000 sites from the top 100,000 ensures a broader view of the Internet's topology, capturing data from a diverse set of sites.
@@ -631,7 +629,7 @@ Overall, while a majority of load balancers manage traffic within their own AS, 
 \end{table}
 
 
-In the case of no matching, it is possible that entities like CyrusOne (CONE) and Cogent, which are major players in the data center and ISP sectors respectively, might have connections to multiple other ISPs. This setup allows them to balance loads across these connections to enhance network robustness, it could also be potentially offering load balancing services to smaller data centers or their clients.
+In the case of no matching, it is possible that entities like CyrusOne (CONE) and Cogent, which are major players in the data center and ISP sectors respectively, might have connections to multiple other ISPs. This setup allows them to balance loads across these connections to enhance network robustness, no matching could also potentially mean that ISPs are offering load balancing services to smaller data centers or their clients.
 While ChinaNet load balancers do show up in the no matching category, they are not the dominant presence there. Instead, ChinaNet is more frequently observed in the matching load balancers category. This suggests that despite potential involvement in censorship, ChinaNet predominantly employs its load balancing capabilities to manage internal network traffic.
 
 
@@ -821,7 +819,7 @@ These findings imply that:
 1. A significant number of load balancers could be hidden in the network because Cisco routers did not see the need to update the table with a second next hop.
 
 
-2. The prevalence of CEF load balancing in the Internet2 network suggests that while load balancing may appear dynamic in the previous chapter, it is not dynamic in real-time. Instead, it learns from previous data for efficiency and does not adapt to specific details within the packets.
+2. The prevalence of CEF load balancing in the Internet2 network suggests that while load balancing may appear dynamic in the previous chapter, it is not dynamic in real-time. Instead, CEF learns from previous data for efficiency and does not adapt to specific details within the packets.
 
 
 \section{Modifications to the MDA Algorithm}
