@@ -22,7 +22,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
-
+\usepackage{xstring}
 
 \newcommand{\dif}{\mathrm{d}}
 \newcommand{\Dif}{\mathrm{D}}
@@ -35,10 +35,29 @@
 \newcommand{\norm}[1]{\lVert#1\rVert}
 
 % Must use biblatex to produce the Published Contents and Contributions, per-chapter bibliography (if desired), etc.
-\usepackage[style=authoryear, sorting=none, citestyle=authoryear-comp]{biblatex}
+\usepackage[backend=biber, style=alphabetic, sorting=none, maxalphanames=1]{biblatex}
+
+
+% Custom label format
+\DeclareLabelalphaTemplate{
+  \labelelement{
+    \field[final]{shorthand}
+    \field{label}
+    \field[strwidth=3, strside=left, ifnames=1]{labelname}
+    \field[strwidth=1, strside=left, ifnames=2]{labelname}
+    \field[strwidth=1, strside=left, ifnames=3+]{labelname}
+  }
+  \labelelement{
+    \field[strwidth=2,strside=right]{year}
+  }
+}
+
+% Apply bold and uppercase formatting to the entire citation label
+\DeclareFieldFormat{labelalpha}{\textbf{\MakeUppercase{#1}}}
+\DeclareFieldFormat{extraalpha}{\textbf{\MakeUppercase{\mknumalph{#1}}}}
+
 % Name of your .bib file(s)
 \addbibresource{example.bib}
-
 
 
 % \makeglossaries
@@ -100,14 +119,11 @@
 \printnomenclature
 
 \begin{abstract}
-This thesis examines the prevalence and characteristics of load balancing on the Internet. Using data collected daily from November 2023 to April 2024, we analyzed web traffic to understand load balancing behavior and its impact on network performance.\\
 
-Measurements were conducted using Paris Traceroute with the Multipath Detection Algorithm (MDA). Our findings show that 82.2\% of paths in the Top-2000 dataset and 62.5\% in the Rand-2000 dataset contain load balancers.\\
+This thesis investigates the deployment and operation of load balancers in internet routing, emphasizing their prevalence on various internet pathways. Data collection spanned from November 2023 to April 2024, employing Paris Traceroute equipped with the Multipath Detection Algorithm (MDA) to analyze path measurements across the internet. Our analysis reveals that load balancers are present on 71.9\% of paths to popular websites and on 52.3\% to a broader, randomly selected set of sites, highlighting their critical role in managing network traffic. The study observed load balancers exhibiting frequent changes, maintaining an average presence of approximately one month on popular site paths and about two weeks on paths to random sites. Although Layer 3 load balancing techniques such as Cisco Express Forwarding (CEF) were noted, specific impacts and efficiencies are part of ongoing investigations. This work lays the foundation for understanding load balancing dynamics and identifies aspects for future research to enhance detection methods and improve the accuracy of network performance analyses.
 
-Load balancers exhibited dynamic behavior, with frequent changes and an average presence duration of about a month in the Top-2000 dataset and about two weeks in the Rand-2000 dataset. We also explored Layer 3 load balancing, focusing on Cisco Express Forwarding (CEF), noting both its efficiency and drawbacks.\\
-
-Our study provides insights into the structure and dynamics of load balancing across the Internet. Future work includes expanding the number of destinations, adapting advanced algorithms for better load balancer detection, and developing tools to improve identification accuracy.
 \end{abstract}
+
 
 
 \mainmatter
@@ -119,17 +135,18 @@ Our study provides insights into the structure and dynamics of load balancing ac
 
 \section{Introduction to Load Balancing}
 
-Networks are crucial to the Internet we rely on today by enabling communication, commerce, and data exchange on a global scale. These networks are constructed through an interconnected array of user devices, routers, and servers. Understanding the architecture and dynamics of these networks is vital for enhancing their efficiency and reliability. Research has long focused on mapping and analyzing network structures to improve their performance and resilience \textbf{[\cite{paxson_endtoend96}]}.
+Networks are crucial to the Internet we rely on today by enabling communication, commerce, and entertainment on a global scale. These networks are constructed through an interconnected array of user devices, routers, and servers. Understanding the architecture and dynamics of these networks is vital for enhancing their efficiency and reliability. Research has focused on mapping and analyzing network structures to improve their performance and resilience for last 25 years, as \cite{paxson_endtoend96} emphasizes.
 
-A key aspect of network optimization is load balancing, a practice employed by network operators to manage traffic distribution and scale network capacity. By distributing traffic across multiple servers or network paths, load balancing ensures that no single server becomes overwhelmed, promoting both efficiency and reliability. It is essential to maintain a current understanding of both network structures and load balancing techniques to sustain robust and efficient network operations \textbf{[\cite{10371400}]}.
+A key aspect of network optimization is load balancing, a practice employed by network operators to manage traffic distribution and scale network capacity. By distributing traffic across multiple servers or network paths, load balancing ensures that no single server becomes overwhelmed, promoting both efficiency and reliability. It is essential to maintain a current understanding of both network structures and load balancing techniques to sustain robust and efficient network operations  \cite{10371400}.
 
-Load balancing is a network management technique that distributes traffic across multiple servers or network paths. A load balancer is a piece of network equipment that can direct packets to one of several available routes, anticipating that each route will yield a similar result. This distribution helps prevent any single server from becoming overwhelmed and ensures efficient use of network resources \textbf{[\cite{f52023loadbalancing}]}.
+Originally, load balancers were standalone pieces of network equipment, developed to manage the distribution of network traffic \cite{bourke2001server}. A load balancer directs packets to one of several available routes, anticipating that each route will yield a similar result. This strategy helps prevent any single server from becoming overwhelmed, ensuring efficient use of network resources \cite{f52023loadbalancing}.
 
-Originally developed as network-based hardware, load balancing now often functions within routers \textbf{[\cite{bourke2001server}]}. It plays a crucial role in modern infrastructure by ensuring high availability, scalability, security, and performance. Applications today must handle millions of simultaneous sessions, and load balancers dynamically distribute this traffic across servers with duplicate data, ensuring reliable and fast data delivery. This process can also provide redundancy. If a server fails, traffic may be redirected to maintain continuous access. However, it is important to note that while load balancers can provide redundancy, this is not always the case. If the load balancer itself fails and it is not part of a redundant setup, it can become a single point of failure.
+Over time, the function of load balancing has often been integrated within routers. Today, load balancing plays a crucial role in modern infrastructure by ensuring high availability, scalability, security, and performance. Applications now must handle millions of simultaneous sessions, and load balancers dynamically distribute this traffic across servers with duplicate data, ensuring reliable and fast data delivery. This process also provides redundancy; if a server fails, traffic can be redirected to maintain continuous access. However, it is important to note that while load balancers can provide redundancy, they are not inherently fail-proof. If the load balancer itself fails and it is not part of a redundant setup \cite{chang2005complex}.
 
-Load balancing has several benefits, including enhancing security by potentially minimizing attack surfaces and rerouting traffic if a server is compromised. By distributing traffic, load balancers reduce the risk of a single server being targeted and overwhelmed by an attack. An attack surface refers to the number of entry points through which an attacker can try to enter or extract data from a system. With load balancing, the exposure of any single server is minimized, thereby reducing the overall attack surface. However, for the security benefits to be effective, the load balancer itself must be secure and properly configured \textbf{[\cite{10.1145/3098593.3098595}]}.
 
-Additionally, load balancing optimizes performance by managing resource use and handling traffic spikes. Various algorithms, such as round-robin and least connections, help distribute traffic based on real-time conditions. This ensures that all servers share the load equally and prevents any single server from becoming a bottleneck, thereby maintaining smooth and efficient operation of the network \textbf{[\cite{8316818}]}.\\
+Load balancing has several benefits, including enhancing security by potentially minimizing attack surfaces and rerouting traffic if a server is compromised. By distributing traffic, load balancers reduce the risk of a single server being targeted and overwhelmed by an attack. An attack surface refers to the number of entry points through which an attacker can try to enter or extract data from a system. With load balancing, the exposure of any single server is minimized, thereby reducing the overall attack surface. However, for the security benefits to be effective, the load balancer itself must be secure and properly configured  \cite{10.1145/3098593.3098595}.
+
+Additionally, load balancing optimizes performance by managing resource use and handling traffic spikes. Various algorithms, such as round-robin and least connections, help distribute traffic based on real-time conditions. This ensures that all servers share the load equally and prevents any single server from becoming a bottleneck, thereby maintaining smooth and efficient operation of the network  \cite{8316818}.\\
 
 \section{Project Motivation and Goals}
 
@@ -167,9 +184,9 @@ Traceroute is a network diagnostic tool used to track the path packets take from
 Traceroute provides insights into the structure and behavior of the network by identifying each hop along the route. However, traditional Traceroute may not handle load-balanced paths well, as it can be misled by the varying paths packets may take. To address this, Paris Traceroute and MDA are used to obtain more accurate measurements by maintaining consistent flow identifiers, thus avoiding misinterpretation caused by load balancers.
 
 \section{Paris Traceroute}
-In \textbf{[\cite{4261334}]}, the authors present an enhanced version of Traceroute to indentify load balancers along with a comprehensive study on load-balanced paths, highlighting the significance of recognizing load balancing in contemporary networking by demonstrating how it affects traffic distribution and path diversity. 
+In  \cite{4261334}, the authors present an enhanced version of Traceroute to indentify load balancers along with a comprehensive study on load-balanced paths, highlighting the significance of recognizing load balancing in contemporary networking by demonstrating how it affects traffic distribution and path diversity. 
 
-In their second paper \textbf{[\cite{augustin2010measuring}]}, which aimed to measure the presence of load balancers in the Internet by conducting measurements from 15 sources to over 68,000 destinations, their study reveals that the traditional single-path concept no longer holds. They found that the routes to 39\% of the destinations traversed a load balancer. Some of their results suggest up to 72\% when considering different types of load balancing. While the specifics of these different types of load balancing are out of scope for this project, our goal is to update the community's understanding of the topology of load balancers almost 10 years after their paper.
+In their second paper  \cite{augustin2010measuring}, which aimed to measure the presence of load balancers in the Internet by conducting measurements from 15 sources to over 68,000 destinations, their study reveals that the traditional single-path concept no longer holds. They found that the routes to 39\% of the destinations traversed a load balancer. Some of their results suggest up to 72\% when considering different types of load balancing. While the specifics of these different types of load balancing are out of scope for this project, our goal is to update the community's understanding of the topology of load balancers almost 10 years after their paper.
 
 
 This study was significant in showing the prevalence of load balancers. The insights gained from this work are critical for developing more realistic network models and improving the design and reliability of Internet applications.
@@ -194,14 +211,14 @@ Per-packet balancing, on the other hand, distributes individual packets across m
 For instance, to reject the hypothesis of \(n = 2\) with 95\% confidence, MDA sends \(k = 6\) probes. If load balancing across up to 16 interfaces is suspected, MDA may send up to \(k = 96\) probes to ensure all paths are discovered. This process allows MDA to effectively enumerate all paths and classify the type of load balancing in use.
 
 
-The paper by \textbf{[\cite{4261334}]} is one of the few studies that actively measures the presence and behavior of load balancers in the Internet. Although their work provides a strong foundation, further investigation is needed to account for the evolving nature of Internet infrastructure and load balancing techniques.
+The paper by  \cite{4261334} is one of the few studies that actively measures the presence and behavior of load balancers in the Internet. Although their work provides a strong foundation, further investigation is needed to account for the evolving nature of Internet infrastructure and load balancing techniques.
 
 By leveraging Paris Traceroute and MDA, we conduct extensive measurements to map the global distribution of load balancers and analyze their impact on network performance and reliability.
 
 
 \section{Scamper}
 
-Scamper, presented in \textbf{[\cite{luckie2010scamper}]}, is a versatile tool used for conducting large-scale Internet measurements. It was easily modified to support more fine-tuned measurements using the Multipath Detection Algorithm (MDA), enhancing its capability to identify and analyze load-balanced paths.
+Scamper, presented in  \cite{luckie2010scamper}, is a versatile tool used for conducting large-scale Internet measurements. It was easily modified to support more fine-tuned measurements using the Multipath Detection Algorithm (MDA), enhancing its capability to identify and analyze load-balanced paths.
 
 
 
@@ -215,7 +232,7 @@ Scamper's MDA Traceroute functionality was used to conduct scheduled data collec
 
 \section{Multipath Classification Algorithm (MCA)}
 
-Recent advances in network technology and the adoption of IPv6 have enabled more complex load balancing strategies. \textbf{[\cite{9155387}]} introduced the Multipath Classification Algorithm (MCA), which enhances the existing Multipath Detection Algorithm (MDA). While MDA systematically varies probes' flow identifiers to identify load-balanced paths, MCA extends this by considering arbitrary combinations of bits in the packet header for load balancing.
+Recent advances in network technology and the adoption of IPv6 have enabled more complex load balancing strategies.  \cite{9155387} introduced the Multipath Classification Algorithm (MCA), which enhances the existing Multipath Detection Algorithm (MDA). While MDA systematically varies probes' flow identifiers to identify load-balanced paths, MCA extends this by considering arbitrary combinations of bits in the packet header for load balancing.
 
 The key contributions of MCA include enhanced classification and comprehensive measurements. MCA identifies the specific bits in the packet header used by load balancers, providing a more detailed and accurate classification than MDA. Additionally, MCA characterizes load balancing on both IPv4 and IPv6 Internet paths, showing that load balancing is more prevalent and sophisticated than previously reported.
 
@@ -235,7 +252,7 @@ This chapter details the methods used to collect data for detecting and characte
 
 To ensure the feasibility of daily measurements, pilot measurements were conducted, which indicated that approximately 2000 hostnames could be processed per day. This constraint informed our selection of two distinct subsets from the Alexa list, enabling daily measurements while managing logistical constraints.
 
-The Alexa Top 1 Million Websites list was used to obtain hostnames for this research. A current version of the Alexa list was obtained when we started our data collection in November 2023. The Alexa list is widely used in network measurement studies due to its popularity, since it is not known for high accuracy for ranks below 100,000 sites \textbf{[\cite{alexa2023top1m}]}, only the top 100,000 is in consideration.
+The Alexa Top 1 Million Websites list was used to obtain hostnames for this research. A current version of the Alexa list was obtained when we started our data collection in November 2023. The Alexa list is widely used in network measurement studies due to its popularity, since it is not known for high accuracy for ranks below 100,000 sites  \cite{alexa2023top1m}, only the top 100,000 is in consideration.
 
 For our study, we selected two distinct subsets from the Alexa list:
 \begin{itemize}
@@ -260,13 +277,43 @@ This timeline ensured the collection of extensive data over several months, capt
 
 Using the top 2000 websites allows us to measure load balancers on sites that are heavily accessed, providing insights into the infrastructure of widely used services. The random selection of 2000 sites from the top 100,000 ensures a broader view of the Internet's topology, capturing data from a diverse set of sites.
 
+\subsection{Sample Measurement}
+Below is the annotated output of a Paris traceroute measurement, detailing the path from a local network to various network nodes. Annotations are provided to highlight the starting point and the presence of a load balancer.
+\begin{verbatim}
+This is the start:
+192.150.187.1 -> [ 169.229.0.140 ]
+This is what a load balancer looks like, it creates two branches:
+169.229.0.140 -> [ 128.32.255.6, 128.32.255.8 ]
+First Branch
+128.32.255.6 -> [ 128.32.0.38 ]
+128.32.0.38 -> [ 137.164.3.26 ]
+137.164.3.26 -> [ 137.164.11.94 ]
+137.164.11.94 -> [ 4.15.122.45 ]
+A hidden next hop, the IP of the next hop was hidden (None)
+4.15.122.45 -> [ None, 200.189.213.6 ]
+The IP of the load balancer was hidden
+None -> [ 8.243.153.10, 8.243.152.12 ]
+200.189.213.6 -> [ 8.243.153.10 ]
+8.243.153.10
+Second Branch 
+128.32.255.8 -> [ 137.164.11.94 ]
+137.164.11.94 -> [ 4.15.122.40 ]
+
+A load balancer with three next hops, all three seem to belong
+to the same /24
+4.15.122.40 -> [ 200.189.213.42, 200.189.213.6, 200.189.213.38 ]
+.
+.
+8.243.153.10
+\end{verbatim}
+
 
 
 \section{Team Cymru IP to ASN List}
 
 An Autonomous System (AS) is a collection of IP networks and routers under the control of a single organization that presents a common routing policy to the internet. Each AS is assigned a unique identifier known as an Autonomous System Number (ASN), which facilitates the routing of data between different ASes. ASes play a critical role in the overall structure of the internet, as they help manage the flow of data, ensuring efficient and reliable connectivity across various networks. They are often managed by internet service providers (ISPs), large enterprises, or educational and government institutions.
 
-To map routers to organizations in our analysis, we used the Team Cymru IP to ASN mapping service to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). Team Cymru maps IP numbers to BGP prefixes and ASNs using data from over 50 BGP feeds, updated every four hours \textbf{[\cite{teamcymru2023ipasn}]}.\\  
+To map routers to organizations in our analysis, we used the Team Cymru IP to ASN mapping service to resolve IP addresses to their corresponding Autonomous System Numbers (ASNs). Team Cymru maps IP numbers to BGP prefixes and ASNs using data from over 50 BGP feeds, updated every four hours  \cite{teamcymru2023ipasn}.\\  
 
 
  
@@ -312,35 +359,40 @@ For each domain in the Rand-2000 and Top-2000 lists, the Paris Traceroute tool w
 
 This research adhered to strict ethical standards to ensure no harm was caused during data collection. We performed active measurements with care, ensuring they did not overflood the network. We ran only the two necessary probes in parallel to prevent any network disruptions.
 
-No personal information was collected in our data. We ensured that our data collection methods did not cause any disruptions. Ethical considerations were carefully followed based on the recommendations in \textbf{[\cite{partridge2016ethical}]}
+No personal information was collected in our data. We ensured that our data collection methods did not cause any disruptions. Ethical considerations were carefully followed based on the recommendations in  \cite{partridge2016ethical}
 
 
 
-\chapter{Topography of Load Balancers}
+\chapter{Data Analysis}
 
-In this chapter, we examine the distribution and prevalence of load balancers across two different datasets resulting from two distinct lists: the Top-2000 and the Rand-2000. By analyzing these datasets, we aim to understand how load balancers are utilized in the infrastructure of popular and randomly selected websites.
+In this chapter, we examine the distribution and prevalence of load balancers across two distinct datasets derived from previously described hostname lists: Top-2000 and Rand-2000. Our aim is to understand the deployment of load balancers in the infrastructures of both popular and randomly selected websites.
 
-\section{Analysis of Load Balancer Distribution}
+\section{Load Balancer Distribution}
 
-This section examines the distribution of load balancers in out datasets by looking at paths that have at least one load balancer when accessing a domain. To provide a clearer picture of global usage, we also exclude entries related to UCB,US, which reflect local network conditions. 
+The datasets analyzed cover data collected over 117 days from November 9, 2023, to April 16, 2024. We exclude data from UCB as it reflects local network conditions rather than the global internet trends we aim to analyze. This exclusion provides a clearer picture of how load balancers are utilized globally.
 
-\subsection{Top-2000 Dataset}
+The Top-2000 dataset initially revealed that the number of domains with at least one load balancers ranged from 81 to 1482 domains, with an average of 1439.03 and a median of 1463, revealing that 71.9\% of paths include load balancers.
 
-The Top-2000 dataset consists of 117 days of data collected between November 9, 2023, and April 16, 2024. During this period, the number of domains with at least one load balancer ranged from a minimum of 279 to a maximum of 1680. The average number of domains with load balancers was 1644.08, indicating that 82.2\% of the paths to these top domains include load balancers. The median value of 1668 further supports the observation that the majority of these domains consistently use load balancers.
+Conversely, the Rand-2000 dataset, spanning 112 days within the same period, showed that the numbers of load balancers range from 994 to 1094 domains, with an average of 1046.27 and a median of 1046, indicating a 52.3\% usage of load balancers among these randomly selected domains.\\
 
-The minimum of 279, along with the lower bound outliers, are usually due to measurement interruptions either caused by hardware issues or by an error or timeout that was not caught by our error checking. We made sure to adjust our code as the measurements went on to make it more reliable.
+The following table summarizes the key statistics for both datasets:
 
-When we exclude UCB,US data, which accounts for local network dependencies and may not be representative of the entire internet, we see a different picture. The adjusted dataset without UCB,US shows that the number of domains with at least one load balancer ranges from 81 to 1482, with an average of 1439.03 and a median of 1463. This indicates that 71.9\% of the paths to these top domains include load balancers when excluding local network influences.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Dataset} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Median} &\textbf{\% of Total Routes}\\
+\hline
 
-\subsection{Rand-2000 Dataset}
+\textbf{Top-2000 (without UCB)} & 81 & 1482 & 1439.03 & 1463 & \textbf{71.9} \\
+\textbf{Rand-2000 (without UCB)} & 994 & 1094 & 1046.27 & 1046 & \textbf{52.3}  \\
+\hline
+\end{tabular}
+\caption{Statistical Overview of Load Balancer Usage}
+\label{tab:stats_overview}
+\end{table}
 
-The Rand-2000 dataset includes 112 days of data collected over the same period, from November 9, 2023, to April 16, 2024. The number of domains with at least one load balancer in this dataset varied between 1205 and 1297. The average number of domains with load balancers was 1251.29, with a median of 1252. These statistics show that 62.5\% of the paths to these randomly selected domains include load balancers, indicating a substantial use of load balancers across a diverse set of websites.
-
-When excluding UCB,US data, the Rand-2000 dataset shows that the number of domains with at least one load balancer ranges from 994 to 1094, with an average of 1046.27 and a median of 1046. This shows that 52.3\% of the paths to these randomly selected domains include load balancers when excluding local network influences.
-
-\subsection{Comparison and Insights}
-
-The plot in Figure \ref{fig:stat_plot} illustrates the number of domains with at least one load balancer over time for both the Top-2000 and Rand-2000 datasets, including the adjusted data excluding UCB,US. This visual representation shows that the number of detected load balancers is relatively constant over the measurement period.
+Figure \ref{fig:stat_plot} illustrates the number of domains with at least one load balancer over time for both datasets, both including and excluding UCB influences.
 
 \begin{figure}[h]
 \centering
@@ -349,27 +401,37 @@ The plot in Figure \ref{fig:stat_plot} illustrates the number of domains with at
 \label{fig:stat_plot}
 \end{figure}
 
-Counting UCB,US would not make sense as that is dependent on our local network, and not all local networks have load balancers. Hence, we need to show the representation considering the local network and not considering the local network to illustrate the difference. 
+The higher average and median values in the Top-2000 dataset reflect the more frequent use of load balancers in managing traffic for the most visited websites. Such sites often experience higher and more variable traffic, necessitating robust load balancing solutions to maintain uptime and performance. Conversely, the Rand-2000 dataset indicates that load balancing is prevalent across a wide variety of domains. By excluding UCB data, we obtain a clearer representation of load balancer usage that is unaffected by local network biases.
 
-The higher average and median values in the Top-2000 dataset are indicate the higher usage of load balancers in managing traffic for the most visited websites. These sites likely experience higher and more variable traffic, necessitating robust load balancing solutions to ensure uptime and performance. Meanwhile, the Rand-2000 dataset demonstrates that load balancing is also prevalent for a broad range of domains. Excluding UCB,US data, we see a more accurate representation of load balancer usage that is independent of local network influences.
-
-The plot clearly shows two trends: one with the influence of the local network and one without. The light colors represent the original data, while the dark colors show the adjusted data excluding UCB,US. This is to put our data in context and not let our local netwrok bias the image we are getting of the global network. 
+The plot distinctly illustrates two trends: one influenced by the local network and one without. Light colors represent the original data, while dark colors depict the adjusted data, excluding UCB. This approach helps contextualize our data, ensuring that local network characteristics do not skew our understanding of the global network.
 
 
-While it is important to isolate local load balancers when evaluating the global picture, the UCB load balancers will still be considered in the following sections unless otherwise noted. Their behavior still provides valuable insights into the general workings of load balancers.
-\newpage
+
+
 
 \section{Analysis of Next Hops After Load Balancers}
 
-We focused on understanding the behavior of next hops after load balancers. This analysis helps us gain insights into how load distribution is managed.
+We focus on understanding the behavior of next hops after load balancers to gain insights into how load distribution is managed across various domains. 
 
-\subsection{Top-2000 Dataset}
+The Top-2000 dataset comprises 192,357 load balancers. The analysis shows that the number of next hops after a load balancer ranges from 2 to 102, with an average of approximately 3.90. This indicates a moderate level of load distribution across multiple paths. The median value is 3.0, suggesting that half of the load balancers distribute to either three or fewer next hops. The standard deviation, at 5.75, points to significant variability in the number of next hops. The 75th percentile stands at 5.0, while the 95th percentile reaches 13.0.
 
-The Top-2000 dataset consists of 192,357 load balancers. The analysis reveals that the number of next hops after a load balancer ranges from a minimum of 2 to a maximum of 102. The average number of next hops is approximately 3.90, indicating a moderate level of load distribution across multiple paths. The median value stands at 3.0, suggesting that half of the load balancers have either three or two next hops. The standard deviation is 5.75, which means a significant variability in the number of next hops. Furthermore, the 75th percentile is at 5.0, while the 95th percentile reaches 13.0, showing that a small number of load balancers have a very high number of next hops (\>15).
+In comparison, the Rand-2000 dataset includes 140,144 load balancers, where the number of next hops ranges from 2 to 25. The average number of next hops is 2.58, suggesting that more than half of the load balancers distribute to only two next hops. This dataset shows lower variability with a standard deviation of 1.34. The 75th percentile is 2.0, and the 95th percentile is 3.0, indicating that most load balancers in this dataset are simpler, primarily distributing to 2 or 3 next hops, with some outliers having up to 25.
 
-\subsection{Rand-2000 Dataset}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Dataset} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Median} & \textbf{Standard Deviation} \\
+\hline
+Top-2000 & 2 & 102 & 3.90 & 3.0 & 5.75 \\
+Rand-2000 & 2 & 25 & 2.58 & 2.0 & 1.34 \\
+\hline
+\end{tabular}
+\caption{Statistical Overview of Next Hop Distribution After Load Balancers}
+\label{tab:next_hop_stats}
+\end{table}
 
-In comparison, the Rand-2000 dataset includes 140,144 load balancers. Here, the number of next hops ranges from a minimum of 2 to a maximum of 25. The average number of next hops is 2.58, indicating a higher level of load distribution compared to the Top-2000 dataset. The median number of next hops is 2, suggesting that more than half of the load balancers have only two next hops. The standard deviation is 1.34, indicating lower variability. The 75th percentile is 2.0, and the 95th percentile is 3.0. This shows that most load balancers in this dataset are less complex compared to those in the Top-2000 dataset. They primarily have only 2 or 3 next hops, with some outliers having up to 25, but the general majority are simple 2-3 next hop load balancers.
+This analysis highlights the differences in load balancing complexity between the datasets, reflecting the broader range of load distribution strategies and setups in environments with varying traffic loads and requirements.
 
 \begin{figure}[h]
     \centering
@@ -383,54 +445,64 @@ Figure \ref{fig:cdf_next_hops} illustrates the cumulative distribution function 
 
 
 The differences in the number of next hops between the two datasets highlight the varying network configurations and load distribution strategies. The higher variability in the Top-2000 dataset suggests a more complex and distributed network structure, indicating the need for more expansive infrastructure due to the higher traffic these sites receive. In contrast, the Rand-2000 dataset's lower variability and fewer next hops suggest a simpler network configuration for less commonly used paths. These findings align with our hypothesis that the most visited websites require more extensive load balancing to manage their significant traffic demands.
-
+\newpage
 \section{Analysis of ASes with Most Next Hops}
 
-The analysis of Autonomous Systems (ASes) with the highest average number of next hops reveals significant insights into the infrastructure and load balancing requirements of these networks. 
-The ASes with the most next hops typically indicate a robust infrastructure with a greater need for load balancing. This could be due to a high volume of traffic, requiring efficient distribution across multiple servers to avoid bottlenecks, or due to specific requirements such as traffic filtering based on the source. Table \ref{tab:as_next_hops} shows the ASes that own the load balancers with the most next hops accross both datasets.\\
+We next aim to understand the Autonomous Systems (ASes) with the highest average number of next hops.  This reveals significant insights into the infrastructure and load balancing at an organizational level.
+The ASes with the most next hops typically indicate a robust infrastructure with a greater need for load balancing. This could be due to a high volume of traffic, requiring efficient distribution across multiple servers to avoid bottlenecks, or due to specific requirements such as traffic filtering based on the source. Table \ref{tab:top2000_as_next_hops} shows the ASes that own the load balancers with the most next hops accross top-2000. While table \ref{tab:rand2000_as_next_hops} shows the data for rand-2000. The AS names come directly from the Cymru list. \\
 
 \begin{table}[h!]
     \centering
-    \begin{tabularx}{\textwidth}{|X|r|}
+    \begin{tabularx}{\textwidth}{|X|r|r|}
         \hline
-        \multicolumn{2}{|c|}{\textbf{Top 10 ASes by Average Number of Next Hops (Top-2000)}} \\
+        \multicolumn{3}{|c|}{\textbf{Top 10 ASes by Average Number of Next Hops (Top-2000)}} \\
         \hline
-        \textbf{AS} & \textbf{Average Next Hops} \\
+        \textbf{AS} & \textbf{AS Number} & \textbf{Average Next Hops} \\
         \hline
-        ORACLE-BMC-31898, US & 90.69 \\
-        FACEBOOK, US & 24.97 \\
-        GOOGLE, US& 24.16 \\
-        ADJUST-, DE & 20.59 \\
-        CHINA169-BJ China Unicom Beijing , CN & 19.82 \\
-        CHINANET-BJ-AP, China Telecommunications, CN & 15.44 \\
-        CLOUDFLARENET, US & 13.95 \\
-        ALIBABA-CN-NET Alibaba Advertising , Ltd., CN & 13.89 \\
-        CHINANET-SCIDC-AS-AP CHINANET SiChuan, CN & 13.82 \\
-        CHINANET-BACKBONE No.31, Jin-rong Street, CN & 13.74 \\
-        \hline
-        \multicolumn{2}{|c|}{\textbf{Top 10 ASes by Average Number of Next Hops (Rand-2000)}} \\
-        \hline
-        \textbf{AS} & \textbf{Average Next Hops} \\
-        \hline
-        ORACLE-BMC-31898, US & 23.03 \\
-        FACEBOOK, US & 7.88 \\
-        CHINA169-BJ China Unicom Beijing, CN  & 6.78 \\
-        CHINANET-SH-AP China Telecom Group, CN & 5.20 \\
-        ADJUST-, DE& 4.36 \\
-        CHINANET-SCIDC-AS-AP CHINANET SiChuan, CN & 3.25 \\
-        CT-IDC No.287, Jin-rong Street, CN  & 2.95 \\
-        CHINANET-BACKBONE No.31, Jin-rong Street, CN & 2.78 \\
-        CT-HANGZHOU-IDC No.288, Fu-chun Road, CN & 2.28 \\
-        CHINANET-BJ-AP, China Telecommunications, CN & 2.20 \\
+        ORACLE-BMC-31898, US & 31898 & 90.69 \\
+        FACEBOOK, US & 32934 & 24.97 \\
+        GOOGLE, US & 15169 & 24.16 \\
+        ADJUST-, DE & 205184 & 20.59 \\
+        CHINA169-BJ Unicom Beijing, CN & 4808 & 19.82 \\
+        CHINANET-BJ-AP, China Telecom, CN & 23724 & 15.44 \\
+        CLOUDFLARENET, US & 13335 & 13.95 \\
+        ALIBABA-CN-NET Alibaba Ads, , CN & 37963 & 13.89 \\
+        CHINANET-SCIDC-AS-AP, CN & 38283 & 13.82 \\
+        CHINANET-BACKBONE No.31, CN & 4134 & 13.74 \\
         \hline
     \end{tabularx}
-    \caption{Top 10 ASes by Average Number of Next Hops for Top-2000 and Rand-2000}
-    \label{tab:as_next_hops}
+    \caption{Top 10 ASes by Average Number of Next Hops for Top-2000}
+    \label{tab:top2000_as_next_hops}
 \end{table}
 
-The order of ASes is about the same across both datasets, indicating that larger ASes with more budget tend to develop their infrastructure and add many next hops to their load balancers. This means that even if an AS already has a lot of infrastructure, it remains prevalent even in the less popular paths.
+\begin{table}[h!]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|r|r|}
+        \hline
+        \multicolumn{3}{|c|}{\textbf{Top 10 ASes by Average Number of Next Hops (Rand-2000)}} \\
+        \hline
+        \textbf{AS} & \textbf{AS Number} & \textbf{Average Next Hops} \\
+        \hline
+        ORACLE-BMC-31898, US & 31898 & 23.03 \\
+        FACEBOOK, US & 32934 & 7.88 \\
+        CHINA169-BJ Unicom Beijing, CN & 4808 & 6.78 \\
+        CHINANET-SH China Telecom, CN & 134768 & 5.20 \\
+        ADJUST-, DE & 205184 & 4.36 \\
+        CHINANET-SCIDC-AS-AP, CN & 38283 & 3.25 \\
+        CT-IDC No.287, Jin-rong Street, CN & 24353 & 2.95 \\
+        CHINANET-BACKBONE No.31, CN & 4134 & 2.78 \\
+        CT-HANGZHOU-IDC No.288, CN & 58461 & 2.28 \\
+        CHINANET-BJ-AP, China Telecom, CN & 23724 & 2.20 \\
+        \hline
+    \end{tabularx}
+    \caption{Top 10 ASes by Average Number of Next Hops for Rand-2000}
+    \label{tab:rand2000_as_next_hops}
+\end{table}
 
-We see a significant presence of Chinese load balancers. According to Bhaskar et al. \textbf{[\cite{bhaskar2021}]}, some Chinese providers use load balancers to enforce censorship, which explains their prevalence. Their study found that packet headers, such as source IP address and source port, can influence DNS censorship. They discovered that 37\% of IPs across 56\% of ASes showed changes in censorship behavior based on these parameters. This means that Chinese load balancers are used not only for load distribution but also to control access to information, demonstrating their dual role in managing traffic and enforcing censorship.
+
+The order of ASes is has many similarities across both datasets, suggesting that larger ASes with more budget tend to develop their infrastructure and add many next hops to their load balancers. This means that even if an AS already has a lot of infrastructure, it remains prevalent even in the less popular paths.
+
+We see a significant presence of Chinese load balancers. According to Bhaskar et al.  \cite{bhaskar2021}, some Chinese providers use load balancers to enforce censorship, which may explain their prevalence. Their study found that packet headers, such as source IP address and source port, can influence DNS censorship. They discovered that 37\% of IPs across 56\% of ASes showed changes in censorship behavior based on these parameters. This means that Chinese load balancers are used not only for load distribution but also to control access to information, demonstrating their dual role in managing traffic and enforcing censorship.
 
 In the Rand-2000 dataset, the top 7 to 10 ASes have an average number of next hops below three. Since the minimum is two, these numbers aren't as significant, indicating that most load balancers in this range are of similar rank and complexity.
 
@@ -438,30 +510,39 @@ Despite the similarities in the order of ASes, the Top-2000 dataset shows higher
 
 \newpage
 \section{Overall Analysis of Next Hop ASes Matches and Mismatches}
+The next section examines how often load balancers and their next hops belong to the same Autonomous System (AS) and the implications of matching and non-matching pairs.
 
-In our comprehensive analysis across all load balancers, we identified significant patterns in the matching and mismatching of next hops.
+Figure~\ref{fig:overall_match_mismatch} shows the distribution of fully matching, partially matching, and no matching next hops, indicating how ASes manage their network traffic. 
 
-Our results revealed that out of a total of 192,357 load balancers analyzed in the Top-2000 dataset, and 140,144 load balancers in the Rand-2000 dataset, we observed a total of 104,214 unique load balancers. Among these, 80,979 were fully matching, where every next hop AS matched the load balancer AS, representing 77.7\% of the total unique load balancers. Fully matching next hops indicate that the AS ensures its load balancers are dedicated to managing the load for that specific AS and not for others.
-
-
-Partially matching next hops, where at least one but not all next hops matched the load balancer AS, accounted for 402 instances, or 0.4\% of the total. These partial matches suggest a mixed routing strategy where some paths are optimized within the AS, while others diverge.
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.6]{figures/overall_match_mismatch.png}
+    \includegraphics[scale=0.4]{figures/overall_match_mismatch.png}
     \caption{Overall Load Balancer Next Hop Matching}
     \label{fig:overall_match_mismatch}
 \end{figure}
 
+Following the distribution illustration, Table~\ref{tab:summary_data} presents a detailed summary of the data, showing the total counts for load balancers across different categories of match-mismatch scenarios.\\
 
-Next hops with no matching AS comprised 22,833 instances, making up 21.9\% of the total load balancers. A no match indicates that a service provider is managing and balancing the load of a node that it does not own. This could mean that load balancing is offered as a paid service by that provider. Additionally, it could be that the AS deems it necessary to balance the load for the integrity of the network, especially if the network is directly adjacent to them, as disruptions could occur if there is an overload close to their nodes. It could also be government-mandated, as seen with some Chinese public providers.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Category} & \textbf{Number} &\textbf{\%} \\
+\hline
+Fully Matching & 50,089 & 70.7 \\
+Partially Matching & 402 & 0.6 \\
+No Matching & 20,308 & 28.7 \\
+\hline
+Total Unique Load Balancers & 70,799& 100 \\
+\hline
+\end{tabular}
+\caption{Summary of Load Balancer Matching Statistics}
+\label{tab:summary_data}
+\end{table}
 
-Figure~\ref{fig:overall_match_mismatch} illustrates the overall distribution of fully matching, partially matching, and no matching next hops. The pie chart provides a clear visual representation of the dominant patterns in next hop routing behavior.
 
-
-Our analysis also highlighted the top Autonomous Systems (ASes) based on the number of matches and mismatches. Table \ref{tab:match_no_match} presents the top ASes in each category.
-
-Overall, the findings suggest that while a majority of next hops maintain consistency within their ASes, there are notable instances of partial and no matches. This indicates that ASes mostly perform load balancing for their own nodes rather than for external nodes. This behavior makes sense because load balancing for external nodes would be costly without significant benefits to internal networks. However, the 22.3\% of non-matching load balancers is quite surprising, with some of the reasons it could happen explained above. 
-
+Fully matching next hops, where every next hop AS matched the load balancer AS, accounted for a significant portion of all unique load balancers. This demonstrates that large organizations often manage their network traffic internally. Internal load balancing is not only a coherent strategy but also cost-effective, especially for organizations expecting substantial traffic. 
+Table~\ref{tab:fully_matching} presents the top ASes with fully matching next hops.
 
 \begin{table}[h!]
     \centering
@@ -471,7 +552,6 @@ Overall, the findings suggest that while a majority of next hops maintain consis
         \hline
         \textbf{AS} & \textbf{Count} \\
         \hline
-        UCB, US & 30,890 \\
         Google, US & 13,516 \\
         ChinaNet Backbone No.31, Jin-Rong Street, CN & 6,420 \\
         Comcast-7922, US & 5,460 \\
@@ -481,8 +561,21 @@ Overall, the findings suggest that while a majority of next hops maintain consis
         Microsoft-Corp-MSN-AS-Block, US & 2,260 \\
         Cogent-174, US & 1,769 \\
         KIXS-AS-KR Korea Telecom, KR & 1,744 \\
+        CLOUDFLARENET, US  & 1,290 \\
         \hline
-        \textbf{Total} & 80,979 \\
+        \textbf{Total} & 42,012 \\
+        \hline
+    \end{tabular}
+    \caption{Top 10 ASes with Fully Matching Next Hops}
+    \label{tab:fully_matching}
+\end{table}
+
+Partially matching next hops, where at least one but not all next hops matched the load balancer AS, suggest a mixed routing strategy. This approach might optimize some paths within the AS while others diverge to external networks. Table~\ref{tab:partially_matching} details the top ASes with partially matching next hops. However, the amount of load balancers with partially matching next hops is negligible. 
+\newpage
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|r|}
         \hline
         \multicolumn{2}{|c|}{\textbf{Top 10 ASes with Partially Matching Next Hops}} \\
         \hline
@@ -501,13 +594,26 @@ Overall, the findings suggest that while a majority of next hops maintain consis
         \hline
         \textbf{Total} & 402 \\
         \hline
+    \end{tabular}
+    \caption{Top 10 ASes with Partially Matching Next Hops}
+    \label{tab:partially_matching}
+\end{table}
+
+Next hops with no matching AS comprised a smaller percentage, where the load balancer AS did not match any next hop AS, suggesting external load balancing services. Table~\ref{tab:no_matching} lists the top ASes with no matching next hops.
+
+Overall, while a majority of load balancers manage traffic within their own AS, the presence of partial and no matches suggests a diverse range of load balancing strategies.
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
         \multicolumn{2}{|c|}{\textbf{Top 10 ASes with No Matching Next Hops}} \\
         \hline
         \textbf{AS} & \textbf{Count} \\
         \hline
         CONE, US & 6,908 \\
         Cogent-174, US & 2,580 \\
-        UCB, US & 2,525 \\
         ChinaNet Backbone No.31, Jin-Rong Street, CN & 2,440 \\
         ChinaNet-IDC-BJ-AP IDC, China Telecommunications Corporation, CN & 854 \\
         Level3, US & 849 \\
@@ -515,61 +621,27 @@ Overall, the findings suggest that while a majority of next hops maintain consis
         CSUNET-NE, US & 312 \\
         Google, US & 216 \\
         BTN-ASN, US & 207 \\
+        CT-HANGZHOU-IDC No.288, CN & 205 \\
         \hline
-        \textbf{Total} & 22,833 \\
+        \textbf{Total} & 15,179 \\
         \hline
     \end{tabular}
-    \caption{Top 10 ASes with Fully Matching, Partially Matching, and No Matching Next Hops}
-    \label{tab:match_no_match}
+    \caption{Top 10 ASes with No Matching Next Hops}
+    \label{tab:no_matching}
 \end{table}
 
 
-\newpage
+In the case of no matching, it is possible that entities like CyrusOne (CONE) and Cogent, which are major players in the data center and ISP sectors respectively, might have connections to multiple other ISPs. This setup allows them to balance loads across these connections to enhance network robustness, it could also be potentially offering load balancing services to smaller data centers or their clients.
+While ChinaNet load balancers do show up in the no matching category, they are not the dominant presence there. Instead, ChinaNet is more frequently observed in the matching load balancers category. This suggests that despite potential involvement in censorship, ChinaNet predominantly employs its load balancing capabilities to manage internal network traffic.
 
 
-UCB, US, is the local Autonomous System, and therefore it is normal to find great amounts of load balancers belonging to it. The presence of UCB, US in the table highlights how load balancing typically works, with the majority of its load balancers managing internal nodes within its network. Although UCB, US appears on the no matching list, the number is significantly lower. This could indicate that it has allocated some load balancers to external nodes, either to minimize their impact on adjacent networks or through agreements with other ASes, such as Internet2, given their academic basis and potential collaboration to maintain network stability.
 
-Another noteworthy AS is CONE, which refers to CyrusOne, one of the largest data center companies in the world. This presence supports the hypothesis that no matching load balancers are being sold as a service to their customers. Similarly, Cogent, a major internet service provider, appears prominently in the list, reinforcing this notion.
-
-While ChinaNet load balancers do show up in the no matching category, they are not the dominant presence there. Instead, ChinaNet is more prevalent in the matching load balancers category. This indicates that, despite their possible role in censorship and strict network controls, ChinaNet primarily uses its load balancers to manage internal network traffic.
-\newpage
 \section{Change Over Time}
 
-This section presents the statistics for the Top-2000 and Rand-2000 datasets, including the total number of days observed, the average daily changes, and the number of reappearances. Additionally, the top 5 most consistent and least consistent load balancers for both datasets are listed.
+This section presents the statistics for the Top-2000 and Rand-2000 datasets, including the total number of days observed, the average daily changes, and the number of reappearances. In terms of daily changes, "added" load balancers refer to those that were not present in the dataset from the previous day but appeared in the current day's list. Conversely, "lost" load balancers were present in the dataset on the previous day but did not appear in the current day's list. This dynamic illustrates the fluctuation and turnover within the dataset, showing how frequently load balancers enter and exit the observation scope.
 
-\subsection{Top-2000 Dataset}
 
-Over the observation period of 116 days, an average of approximately 253.47 load balancers were added per day in the Top-2000 dataset. Conversely, an average of 251.21 load balancers were lost each day. The dataset also recorded a total of 82,318 reappearances, indicating the number of times load balancers reappeared after having been previously lost. The average duration of presence for a load balancer in this dataset was 31.10 days.
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{Most Consistent Load Balancers} & \textbf{Duration (days)} \\ \hline
-        169.229.0.140 : UCB, US & 116 \\ \hline
-        137.164.11.94 : CSUNET-NW, US & 116 \\ \hline
-        157.240.81.224 : FACEBOOK, US & 116 \\ \hline
-        157.240.112.88 : FACEBOOK, US & 116 \\ \hline
-        129.134.118.175 : FACEBOOK, US & 116 \\ \hline
-    \end{tabular}
-    \caption{Top 5 Most Consistent Load Balancers in Top-2000 Dataset}
-\end{table}
-
-In contrast, the least consistent load balancers, each appearing for only a single day, are shown in the following table:
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{Least Consistent Load Balancers} & \textbf{Duration (days)} \\ \hline
-        202.97.27.181 : CHINANET-BACKBONE, CN & 1 \\ \hline
-        203.208.151.181 : SINGTEL-AS-AP, SG & 1 \\ \hline
-        203.208.178.185 : SINGTEL-AS-AP, SG & 1 \\ \hline
-        203.208.154.45 : SINGTEL-AS-AP, SG & 1 \\ \hline
-        203.208.171.9 : SINGTEL-AS-AP, SG & 1 \\ \hline
-    \end{tabular}
-    \caption{Top 5 Least Consistent Load Balancers in Top-2000 Dataset}
-\end{table}
+\textbf{Top-2000 Dataset:} Over the observation period of 116 days, an average of approximately 253 load balancers were added per day in the Top-2000 dataset, and an average of about 251 load balancers were lost each day. The dataset also recorded a total of 82,318 reappearances, indicating the number of times load balancers reappeared after having been previously lost. The average duration of presence for a load balancer in this dataset was roughly 31 days.
 
 \begin{figure}[h!]
     \centering
@@ -578,45 +650,7 @@ In contrast, the least consistent load balancers, each appearing for only a sing
     \label{fig:top2000_changes}
 \end{figure}
 
-Figure \ref{fig:top2000_changes} illustrates the dynamic nature of load balancer management in the Top-2000 dataset. The green line represents the number of added load balancers, while the red line represents the number of lost load balancers. The figure shows that while the total number of load balancers remains relatively stable throughout the study period, they are not always the same load balancers. The number of deleted load balancers closely matches the number of new load balancers, indicating a continuous process of adding and removing load balancers to maintain the network's efficiency and performance.
-
-The average duration of presence for a load balancer being 31.10 days indicates that load balancers in the Top-2000 list can be dynamic, often being added when traffic is expected to be more congested. Future work on the presence of load balancers on a more granular hourly basis might reveal whether this dynamic aspect holds true. Such studies could investigate if there is a higher presence of load balancers during peak traffic hours, suggesting that load balancers are actively managed in response to real-time traffic demands.
-
-\newpage
-
-\subsection{Rand-2000 Dataset}
-
-The Rand-2000 dataset, observed over 111 days, provided the following insights: On average, approximately 161.02 load balancers were added per day, while an average of 162.22 load balancers were lost each day. The dataset also recorded a total of 12,139 reappearances, highlighting the instances where load balancers reappeared after being lost. The average duration of presence for a load balancer in this dataset was 12.49 days.
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{Most Consistent Load Balancers} & \textbf{Duration (days)} \\ \hline
-        169.229.0.140 : UCB, US & 111 \\ \hline
-        137.164.11.94 : CSUNET-NW, US & 41 \\ \hline
-        142.251.231.97 : GOOGLE, US & 40 \\ \hline
-        142.251.231.99 : GOOGLE, US & 32 \\ \hline
-        74.125.50.18 : GOOGLE, US & 30 \\ \hline
-    \end{tabular}
-    \caption{Top 5 Most Consistent Load Balancers in Rand-2000 Dataset}
-\end{table}
-
-The least consistent load balancers in the Rand-2000 dataset, each appearing for a single day, are shown below:
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{Least Consistent Load Balancers} & \textbf{Duration (days)} \\ \hline
-        104.44.19.140 : MICROSOFT-CORP-MSN-AS-BLOCK, US & 1 \\ \hline
-        104.44.18.166 : MICROSOFT-CORP-MSN-AS-BLOCK, US & 1 \\ \hline
-        157.240.51.143 : FACEBOOK, US & 1 \\ \hline
-        202.97.53.13 : CHINANET-BACKBONE, CN & 1 \\ \hline
-        163.253.2.16 : INTERNET2-RESEARCH-EDU, US & 1 \\ \hline
-    \end{tabular}
-    \caption{Top 5 Least Consistent Load Balancers in Rand-2000 Dataset}
-\end{table}
+\textbf{Rand-2000 Dataset:} Similarly, the Rand-2000 dataset, observed over 111 days, showed that on average, approximately 161 load balancers were added per day, while an average of about 162 load balancers were lost each day. The dataset also recorded a total of 12,139 reappearances, highlighting the instances where load balancers reappeared after being lost. The average duration of presence for a load balancer in this dataset was roughly 12 days.
 
 \begin{figure}[h!]
     \centering
@@ -625,26 +659,31 @@ The least consistent load balancers in the Rand-2000 dataset, each appearing for
     \label{fig:rand2000_changes}
 \end{figure}
 
-The analysis shows that load balancers are mostly dynamic and not static, changing over time. The daily change and variability is more evident in the random data because it doesn't consistently target the same paths, leading to higher variability. The average duration of presence further supports this, with load balancers in the Top-2000 dataset averaging 31.10 days, while those in the Rand-2000 dataset average only 12.49 days. 
+Both datasets illustrate the dynamic nature of load balancer presence, with frequent entries and exits from the datasets. To further analyze the consistency of load balancer presence, Figure~\ref{fig:cdf_durations} which the cumulative distribution function (CDF) for the duration of load balancers across both datasets.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{figures/cdf_load_balancer_durations_comparison.png}
+    \caption{Cumulative Distribution Function of Load Balancer Durations}
+    \label{fig:cdf_durations}
+\end{figure}
+
+This CDF plot provides insights into the duration that load balancers typically remain active within each dataset. While the operational durations for the bottom 30\% of the sets are similar, the datasets start to diverge around the 40\% mark. Notably, load balancers in the Top-2000 dataset tend to stay active for longer periods compared to those in the Rand-2000 dataset. This divergence suggests that the most visited sites, typically represented in the Top-2000, maintain their load balancers for longer durations once a path is identified to have high traffic loads. This indicates that there is a longer turnover value for load balancers at highly visited sites. The constant for which a load balancer remains active when introduced to the network seems higher on the most visited sites.
 
 
-\subsection{Autonomous Systems}
 
-This subsection presents the AS-specific statistics for both the Top-2000 and Rand-2000 datasets, focusing on daily averages and key metrics related to ASes.
+Future work on the presence of load balancers on a more granular hourly basis might reveal whether this dynamic aspect holds true. Such studies could investigate if there is a higher presence of load balancers during peak traffic hours, suggesting that load balancers are actively managed in response to real-time traffic demands.
 
-The AS with the most additions per day indicates which AS consistently introduces the most new load balancers. This can reflect the AS's dynamic nature and high level of activity in adjusting its load balancing infrastructure.
 
-The AS with the most removals per day shows which AS frequently removes load balancers. High removal rates can suggest either significant changes in traffic patterns when the load balancing functions are turned off, frequent updates to the network infrastructure when next hops are down, or issues requiring frequent load balancer replacement. It could also be caused by a different route being taken when accessing that website. 
+\section{Change Over Time for Autonomous Systems}
 
-The AS with the longest average duration of presence has load balancers that remain active the longest on average. This indicates a more stable and persistent load balancing infrastructure.
+This section presents the Autonomous System (AS)-specific statistics for both the Top-2000 and Rand-2000 datasets, focusing on key metrics that illustrate how each AS manages its load balancing infrastructure over time. These metrics include the daily rate of load balancer additions and removals, indicating the dynamism and adaptability of the infrastructure; the average duration of load balancer presence, reflecting stability; and the consistency of presence, highlighting the reliability of each AS's load management strategy.
 
-The most consistent AS is present for the most number of times, indicating the AS's load balancers are active across the majority of the observation period, reflecting stability.
+\textbf{The AS with the most additions per day} indicates which AS actively scales up its load balancing infrastructure, reflecting a dynamic response to changing network demands. \textbf{The AS with the most removals per day} highlights those ASes that frequently decrease their load balancer counts, possibly due to varying traffic patterns, network updates, or temporary route changes. \textbf{The AS with the longest average duration of presence} typically suggests stability within the network, showing persistent load balancing. \textbf{The most consistent AS} is characterized by load balancers that are active throughout most of the observation period, denoting reliability and operational stability. \textbf{The most inconsistent AS}, on the other hand, indicates sporadic or irregular use of load balancers, possibly due to infrastructural changes or misidentifications. Lastly, \textbf{the AS with the most fluctuating} number of load balancers shows a high level of dynamism, potentially adapting quickly to network requirements or changing traffic conditions.
 
-The most inconsistent AS is the one that is present for the fewest number of times, suggesting either sporadic use of load balancers or frequent changes in infrastructure. It could also mean that the measurement was a false positive and that it was not truly a load balancer.
+To further clarify the metrics analyzed, each AS can have multiple unique load balancers listed in our dataset. When any of these load balancers is added or removed, it contributes to the total count for that AS in the respective category. For example, \textbf{fluctuation} is calculated based on the number of times any unique load balancer from the same AS was either added or removed across all observed days. Conversely, \textbf{consistency} measures only the presence of load balancers, counting how many separate times any load balancer from the AS is active throughout the entire duration of the study, without considering the changes per day. 
 
-The most fluctuating AS has the highest number of load balancer changes, indicating a high level of dynamism in their load balancing strategy, possibly reflecting a need to adapt rapidly to changing traffic conditions or network requirements.
 
-\textbf{Note:} The UCB, US AS was excluded from these statistics as it would consistently be the most reliable AS, given that our tests are conducted from within it.\\
 
 \subsubsection{Top-2000 Dataset}
 
@@ -653,7 +692,7 @@ For the Top-2000 dataset, observed over 116 days:
 \begin{itemize}
     \item \textbf{AS with most additions per day:} FACEBOOK, US, Added: 50.34 per day
     \item \textbf{AS with most removals per day:} CSUNET-NW, US, Removed: 50.17 per day
-    \item \textbf{AS with longest average duration:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Average Duration: 159.62 days
+    \item \textbf{AS with longest average duration:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Average Duration: 59.62 days
     \item \textbf{Most consistent AS:} GOOGLE, US, Present: 75,863 times
     \item \textbf{Most inconsistent AS:} AS-NETIA Warszawa 02-822, PL, Present: 1 time
     \item \textbf{Most fluctuating AS:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Changes: 11,660 over 116 days
@@ -677,17 +716,47 @@ The most consistent AS, GOOGLE, US, likely expects a high volume of traffic cons
 
 The fact that the same AS, such as GOOGLE, US, is consistent in the Top-2000 dataset but not as consistent in the Rand-2000 dataset suggests deliberate adjustments based on traffic expectations. The Top-2000 list likely experiences more predictable high traffic, requiring continuous load balancing, whereas the Rand-2000 list may see more variable traffic patterns, leading to less consistency.
 
+Although such figures for ASes like GOOGLE, US, highlight them as outliers, these ASes are amongst the most popular across our dataset. Interestingly, there was only one AS that had just one load balancer, notable enough to be mentioned as the least consistent in both datasets. Furthermore, the most fluctuating AS stands out significantly, with a difference of 1000 from the second most fluctuating AS, making it a focal point of analysis. The fluctuation of CHINANET-BACKBONE No.31, despite having a relatively average total number of load balancers, raises intriguing questions about the factors driving such high variability in its load balancing activities.
+
 \newpage
 
 
 
 \section{Shared Next Hops Analysis}
 
-This section analyzes the shared next hops between load balancers in both the Top-2000 and Rand-2000 datasets. The objective is to understand the extent to which next hops are shared among multiple load balancers, indicating the presence of common infrastructure and potential load balancing strategies.
+This section analyzes the shared next hops between load balancers in both the Top-2000 and Rand-2000 datasets to understand the extent to which next hops are shared among multiple load balancers, indicating the presence of common infrastructure and potential load balancing strategies.
 
-\subsection{Top-2000 Dataset}
+In the \textbf{Top-2000} dataset, a total of 90,492 unique next hops were identified, with each next hop shared by an average of 5.31 load balancers and a median of 2.0. The sharing ranged from a minimum of 1 to a maximum of 52 load balancers per next hop, with a standard deviation of 6.70, suggesting considerable variability. The 75th percentile for shared next hops was 7.0, and the 95th percentile reached 18.0.
 
-For the Top-2000 dataset, a total of 9,492 unique next hops were identified. The number of load balancers sharing a next hop ranged from a minimum of 1 to a maximum of 52. On average, each next hop was shared by 5.31 load balancers, with a median value of 2.0. The standard deviation of 6.70 indicates considerable variability in the number of load balancers sharing a next hop. The 75th percentile value was 7.0, and the 95th percentile value was 18.0, showing that a small number of next hops were highly shared among load balancers.
+Comparatively, the \textbf{Rand-2000} dataset included 85,797 unique next hops. Here, the average number of load balancers sharing a next hop was lower at 3.35, with the same median of 2.0. The range of sharing extended from 1 to 42, and the standard deviation was 4.17, indicating a moderate level of variability. The 75th percentile in this dataset was 4.0, while the 95th percentile was 13.0.
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|r|r|}
+        \hline
+        \textbf{Metric} & \textbf{Top-2000} & \textbf{Rand-2000} \\
+        \hline
+        Total Unique Next Hops & 90,492 & 85,797 \\
+        Minimum Load Balancers per Next Hop & 1 & 1 \\
+        Maximum Load Balancers per Next Hop & 52 & 42 \\
+        Average Load Balancers per Next Hop & 5.31 & 3.35 \\
+        Median Load Balancers per Next Hop & 2.0 & 2.0 \\
+        Standard Deviation & 6.70 & 4.17 \\
+        75th Percentile & 7.0 & 4.0 \\
+        95th Percentile & 18.0 & 13.0 \\
+        \hline
+    \end{tabular}
+    \caption{Summary of Shared Next Hops Statistics in the Top-2000 and Rand-2000 Datasets}
+    \label{tab:shared_next_hops_summary}
+\end{table}
+
+Table~\ref{tab:shared_next_hops_summary} shows the shared next hops statistics across the Top-2000 and Rand-2000 datasets, highlighting the distribution and variability of load balancers sharing next hops.
+
+
+
+The distribution of shared next hops, as depicted in Figure~\ref{fig:shared_next_hops_combined}, illustrates that most next hops are shared by a relatively small number of load balancers. However, a small subset of next hops in the Top-2000 dataset are highly shared, reflecting more interconnected infrastructure and the utilization of common pathways more frequently than in the broader, randomly selected websites of the Rand-2000 dataset.
+
 
 \begin{figure}[h!]
     \centering
@@ -695,14 +764,6 @@ For the Top-2000 dataset, a total of 9,492 unique next hops were identified. The
     \caption{Distribution of Shared Next Hops for Top-2000 and Rand-2000}
     \label{fig:shared_next_hops_combined}
 \end{figure}
-
-\subsection{Rand-2000 Dataset}
-
-The Rand-2000 dataset revealed 15,797 unique next hops. The number of load balancers sharing a next hop ranged from a minimum of 1 to a maximum of 42. The average number of load balancers sharing a next hop was 3.35, with a median of 2.0. The standard deviation was 4.17, indicating a moderate level of variability. The 75th percentile value was 4.0, and the 95th percentile value was 13.0, suggesting that most next hops were shared by a relatively small number of load balancers.
-
-The analysis of shared next hops between load balancers in both datasets highlights key differences and similarities. The Top-2000 dataset shows a higher average number of load balancers sharing a next hop compared to the Rand-2000 dataset. This suggests that the infrastructure supporting the most popular websites is more interconnected and utilizes shared pathways more frequently than the broader, randomly selected websites.
-
-The distribution of shared next hops, as depicted in Figure~\ref{fig:shared_next_hops_combined}, indicates that while most next hops are shared by a small number of load balancers, there are a few next hops that are highly shared, particularly in the Top-2000 dataset. This can be attributed to the reliance on major network infrastructure providers and common routing paths for high-traffic websites.
 
 Overall, the presence of shared next hops signifies the use of common infrastructure, which can enhance efficiency but also poses risks in terms of single points of failure. The variability in the number of shared next hops across both datasets underscores the complexity and dynamic nature of load balancing in different segments of the Internet.
 
@@ -714,12 +775,12 @@ The load balancers we found were accessible via the Internet2 looking glass, all
 
 \section{Network Layer Load Balancing}
 
-Layer 3, known as the network layer, plays a specific role in load balancing by routing packets based on their IP addresses as opposed to considering the current load on the network. This approach focuses on the distribution of traffic across multiple servers without inspecting the packet contents. Unlike higher layers that can make decisions based on the data within the packets, Layer 3 load balancers rely solely on IP addresses and routing tables. This method is efficient and fast but offers less granularity in traffic management, as it does not consider the type or state of the application data. They cannot make decisions based on the content of the traffic, user sessions, or specific application states, which are usually used in more common load balancing strategies. This means that while Layer 3 load balancers can efficiently manage expected large volumes of traffic, they lack detailed and live traffic management capabilities provided by higher-layer solutions \textbf{[\cite{zhang}]}.
+Layer 3, known as the network layer, plays a specific role in load balancing by routing packets based on their IP addresses as opposed to considering the current load on the network. This approach focuses on the distribution of traffic across multiple servers without inspecting the packet contents. Unlike higher layers that can make decisions based on the data within the packets, Layer 3 load balancers rely solely on IP addresses and routing tables. This method is efficient and fast but offers less granularity in traffic management, as it does not consider the type or state of the application data. They cannot make decisions based on the content of the traffic, user sessions, or specific application states, which are usually used in more common load balancing strategies. This means that while Layer 3 load balancers can efficiently manage expected large volumes of traffic, they lack detailed and live traffic management capabilities provided by higher-layer solutions  \cite{zhang}.
 Cisco Express Forwarding (CEF) enhance the efficiency of Layer 3 load balancing by pre-computing forwarding information based on previous data on network usage.
 
 \section{Cisco Express Forwarding (CEF)}
 
-Cisco Express Forwarding (CEF)  is a Layer 3 switching technology used to optimize network performance. CEF employs a forwarding information base (FIB) and an adjacency table to expedite the packet forwarding process \textbf{[\cite{cisco2017cef}]}. The following outlines the critical components and operations of CEF:\\
+Cisco Express Forwarding (CEF)  is a Layer 3 switching technology used to optimize network performance. CEF employs a forwarding information base (FIB) and an adjacency table to expedite the packet forwarding process  \cite{cisco2017cef}. The following outlines the critical components and operations of CEF:\\
 
 \textbf{Forwarding Information Base (FIB)}: The FIB is used by CEF to make IP destination prefix-based switching decisions. It is conceptually similar to a routing table, maintaining a mirror image of the forwarding information in the IP routing table. When routing or topology changes occur, the IP routing table updates, and these changes are reflected in the FIB. The FIB ensures all known routes are covered, eliminating the need for route cache maintenance.
 
@@ -808,7 +869,7 @@ In Chapters 3 and 4, we detailed our methodology for data collection, which invo
 
 We observed significant trends in load balancer distribution:
 \begin{itemize}
-    \item The Top-2000 dataset showed a high prevalence of load balancers, with an average of 82.2\% of paths containing load balancers. The Rand-2000 dataset had 62.5\%, indicating widespread use across diverse websites. Previous data from \textbf{[\cite{augustin2010measuring}]} showed that 39\% of paths traversed load balancers, with up to 72\% when considering different types of load balancing. Our data focuses on the most common paths, providing a different perspective. Our overall average is about the same as their highest value, which could suggest that the overall number has remained similar.
+    \item The Top-2000 dataset showed a high prevalence of load balancers, with an average of 82.2\% of paths containing load balancers. The Rand-2000 dataset had 62.5\%, indicating widespread use across diverse websites. Previous data from  \cite{augustin2010measuring} showed that 39\% of paths traversed load balancers, with up to 72\% when considering different types of load balancing. Our data focuses on the most common paths, providing a different perspective. Our overall average is about the same as their highest value, which could suggest that the overall number has remained similar.
     \item Analysis of next hops revealed that popular websites often utilize more complex load balancing structures, while randomly selected sites showed simpler configurations.
     \item Our next hop analysis suggested that the infrastructure supporting the most popular websites is more interconnected and utilizes shared pathways more frequently than the broader, randomly selected websites.
     \item The consistent presence of ASes like GOOGLE, US and CONE,US , in the Top-2000 dataset but their inconsistent presence in the Rand-2000 dataset suggests deliberate adjustments based on traffic expectations. The Top-2000 list likely experiences more predictable high traffic, requiring continuous load balancing, whereas the Rand-2000 list may see more variable traffic patterns, leading to less consistency.
