@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.31)  26 JUN 2024 12:18
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.31)  26 JUN 2024 13:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1030,32 +1030,32 @@ Package: blx-case-expl3 2024/03/21 v3.20 expl3 case changing code for biblatex
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 72.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 7
-2.
+7.
 
 (/usr/local/texlive/2024basic/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1100,7 +1100,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 Package color Info: Driver file: xetex.def on input line 149.
 
 (/usr/local/texlive/2024basic/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 72.
+Package hyperref Info: Link coloring ON on input line 77.
 
 (./main.out) (./main.out)
 \@outlinefile=\write5
@@ -1130,52 +1130,52 @@ Package biblatex Warning: The following entry could not be found
 (biblatex)                LaTeX afterwards.
 
 )
-Package biblatex Info: Reference section=0 on input line 72.
-Package biblatex Info: Reference segment=0 on input line 72.
+Package biblatex Info: Reference section=0 on input line 77.
+Package biblatex Info: Reference segment=0 on input line 77.
  [1
 
 ]
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 94.
+ 99.
  (/usr/local/texlive/2024basic/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 94.
+ 99.
 
 (/usr/local/texlive/2024basic/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 94.
+ 99.
 
 (/usr/local/texlive/2024basic/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 94.
+ 99.
 
 (/usr/local/texlive/2024basic/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 9
-4.
+9.
 
 (/usr/local/texlive/2024basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 99.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 99.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 99.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 99.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 99.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 99.
  [2
 
 ]
@@ -1209,19 +1209,23 @@ Missing character: There is no — ("2014) in font ptmr8t!
 
 
 
-] [2] [3] [4
+] [2] [3]
+
+LaTeX Warning: Citation 'rfc792' on page 4 undefined on input line 185.
+
+[4
 
 
 ] [5] [6]
 Missing character: There is no ’ ("2019) in font ptmr8t!
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 238--239
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
 [8]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-57.
+65.
  (/usr/local/texlive/2024basic/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
@@ -1230,17 +1234,17 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 
 ] [10]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-80.
+88.
  (/usr/local/texlive/2024basic/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Overfull \hbox (3.8902pt too wide) in paragraph at lines 283--283
+Overfull \hbox (3.8902pt too wide) in paragraph at lines 291--291
 []\T1/lmtt/m/n/12 This is what a load balancer looks like, it creates two branc
 hes:[] 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 314--315
+Underfull \hbox (badness 10000) in paragraph at lines 322--323
 
  []
 
@@ -1248,12 +1252,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 314--315
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 374--375
+Underfull \hbox (badness 10000) in paragraph at lines 382--383
 
  []
 
 
-Overfull \hbox (30.53258pt too wide) in paragraph at lines 380--389
+Overfull \hbox (30.53258pt too wide) in paragraph at lines 388--397
  [][] 
  []
 
@@ -1273,7 +1277,7 @@ File: figures/cdf_next_hops.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 449--451
+Underfull \hbox (badness 10000) in paragraph at lines 457--459
 
  []
 
@@ -1284,17 +1288,17 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: figures/overall_match_mismatch.png Graphic file (type bmp)
 <figures/overall_match_mismatch.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 522--523
+Underfull \hbox (badness 10000) in paragraph at lines 530--531
 
  []
 
 [20] [21]
-Overfull \hbox (11.18327pt too wide) in paragraph at lines 576--596
+Overfull \hbox (11.18327pt too wide) in paragraph at lines 584--604
  [][] 
  []
 
 
-Overfull \hbox (12.17952pt too wide) in paragraph at lines 607--627
+Overfull \hbox (12.17952pt too wide) in paragraph at lines 615--635
  [][] 
  []
 
@@ -1316,17 +1320,17 @@ File: figures/cdf_load_balancer_durations_comparison.png Graphic file (type bmp
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [24] [25] [26]
-Overfull \hbox (85.30763pt too wide) in paragraph at lines 696--711
+Overfull \hbox (85.30763pt too wide) in paragraph at lines 704--719
  [][] 
  []
 
 
-Overfull \hbox (20.537pt too wide) in paragraph at lines 719--736
+Overfull \hbox (20.537pt too wide) in paragraph at lines 727--744
  [][] 
  []
 
 
-Overfull \hbox (85.30763pt too wide) in paragraph at lines 746--761
+Overfull \hbox (85.30763pt too wide) in paragraph at lines 754--769
  [][] 
  []
 
@@ -1334,13 +1338,13 @@ Overfull \hbox (85.30763pt too wide) in paragraph at lines 746--761
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (5.92693pt too wide) in paragraph at lines 765--766
+Overfull \hbox (5.92693pt too wide) in paragraph at lines 773--774
 []\T1/ptm/m/n/12 In the Rand-2000 dataset, the AS with the most ad-di-tions per
  day is \T1/ptm/b/n/12 CHINANET-
  []
 
 
-Overfull \hbox (14.537pt too wide) in paragraph at lines 769--786
+Overfull \hbox (14.537pt too wide) in paragraph at lines 777--794
  [][] 
  []
 
@@ -1353,13 +1357,13 @@ File: figures/shared_next_hops_combined.png Graphic file (type bmp)
  [30]
 
 LaTeX Warning: Citation 'internet2_looking_glass' on page 31 undefined on input
- line 848.
+ line 856.
 
 [31
 
 
 ]
-Overfull \hbox (5.99956pt too wide) in paragraph at lines 862--863
+Overfull \hbox (5.99956pt too wide) in paragraph at lines 870--871
 []\T1/ptm/m/n/12 The \T1/ptm/b/n/12 Ad-ja-cency Ta-ble \T1/ptm/m/n/12 stores La
 yer 2 ad-dress-ing in-for-ma-tion nec-es-sary for packet
  []
@@ -1368,16 +1372,22 @@ yer 2 ad-dress-ing in-for-ma-tion nec-es-sary for packet
 
 
 ]
-Overfull \hbox (1.84894pt too wide) in paragraph at lines 922--923
+Overfull \hbox (1.84894pt too wide) in paragraph at lines 930--931
 \T1/ptm/m/n/12 31.10 days for the Top-2000 dataset and 12.49 days for the Rand-
 2000 dataset. 
  []
 
-[36] [37] [38
+[36] [37]
+Overfull \hbox (10.0079pt too wide) in paragraph at lines 965--966
+[]\T1/ptm/m/n/12 Additionally, fu-ture work could ex-plore the in-te-gra-tion o
+f both tech-niques. Specif-
+ []
+
+[38
 
 
 ] [39]
-Overfull \hbox (44.0423pt too wide) in paragraph at lines 969--969
+Overfull \hbox (44.0423pt too wide) in paragraph at lines 980--980
 \T1/ptm/m/n/12 As-so-ci-a-tion for Com-put-ing Ma-chin-ery, 2017, pp. 7^^U12. \
 T1/ptm/m/sc/12 isbn\T1/ptm/m/n/12 : 9781450350549.
  []
@@ -1385,23 +1395,17 @@ T1/ptm/m/sc/12 isbn\T1/ptm/m/n/12 : 9781450350549.
 ! Misplaced alignment tab character &.
 <argument> IEEE Communications Surveys &
                                          Tutorials
-l.969 \printbibliography[heading=bibintoc]
+l.980 \printbibliography[heading=bibintoc]
                                           
 ? 
 
-Overfull \hbox (19.41643pt too wide) in paragraph at lines 969--969
-\T1/ptm/m/n/12 vey''. In: \T1/ptm/m/it/12 IEEE Com-mu-ni-ca-tions Sur-veys  Tu-
-to-ri-als \T1/ptm/m/n/12 20.3 (2018), pp. 2324^^U
- []
-
-
-Overfull \hbox (3.52426pt too wide) in paragraph at lines 969--969
+Overfull \hbox (3.52426pt too wide) in paragraph at lines 980--980
 \T1/ptm/m/n/12 trac-ing with Paris tracer-oute''. In: \T1/ptm/m/it/12 2007 Work
 -shop on End-to-End Mon-
  []
 
 
-Overfull \hbox (13.80434pt too wide) in paragraph at lines 969--969
+Overfull \hbox (13.80434pt too wide) in paragraph at lines 980--980
 \T1/ptm/m/it/12 i-tor-ing Tech-niques and Ser-vices\T1/ptm/m/n/12 . 2007, pp. 1
 ^^U8. \T1/ptm/m/sc/12 doi\T1/ptm/m/n/12 : [][]$10 . 1109 / E2EMON .
  []
@@ -1409,13 +1413,7 @@ Overfull \hbox (13.80434pt too wide) in paragraph at lines 969--969
 [40
 
 
-]
-Overfull \hbox (16.93677pt too wide) in paragraph at lines 969--969
-\T1/ptm/m/it/12 Com-mu-ni-ca-tions\T1/ptm/m/n/12 . 2020, pp. 1987^^U1996. \T1/p
-tm/m/sc/12 doi\T1/ptm/m/n/12 : [][]$10 . 1109 / INFOCOM41043 .
- []
-
-[41] [42]
+] [41] [42]
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
@@ -1434,35 +1432,31 @@ L3 programming layer <2020/03/25>
 
 LaTeX Warning: There were undefined references.
 
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: D2936B690824304C42D5443169B440B3;6709.
 
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 9896BF39188A108C6B8779A08D3AA202;6784
-(rerunfilecheck)             After:  17A39D128A6F274BB5DEB6CCC35B4A41;6889.
-
-Package biblatex Warning: Please rerun LaTeX.
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
 
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  )
-(\end occurred when \iffalse on line 945 was incomplete)
-(\end occurred when \iffalse on line 900 was incomplete)
-(\end occurred when \iffalse on line 846 was incomplete)
-(\end occurred when \iffalse on line 364 was incomplete)
-(\end occurred when \iffalse on line 245 was incomplete)
-(\end occurred when \iffalse on line 178 was incomplete)
-(\end occurred when \iffalse on line 133 was incomplete) 
+(\end occurred when \iffalse on line 953 was incomplete)
+(\end occurred when \iffalse on line 908 was incomplete)
+(\end occurred when \iffalse on line 854 was incomplete)
+(\end occurred when \iffalse on line 372 was incomplete)
+(\end occurred when \iffalse on line 253 was incomplete)
+(\end occurred when \iffalse on line 183 was incomplete)
+(\end occurred when \iffalse on line 138 was incomplete) 
 Here is how much of TeX's memory you used:
- 23901 strings out of 476290
- 413430 string characters out of 5789828
+ 23902 strings out of 476290
+ 413446 string characters out of 5789828
  1932839 words of memory out of 5000000
- 45642 multiletter control sequences out of 15000+600000
+ 45643 multiletter control sequences out of 15000+600000
  598567 words of font info for 102 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 110i,12n,107p,1149b,5052s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 110i,12n,107p,1149b,5055s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on main.pdf (51 pages).

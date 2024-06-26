@@ -36,7 +36,7 @@
   <bcf:options component="biblatex" type="global">
     <bcf:option type="singlevalued">
       <bcf:key>alphaothers</bcf:key>
-      <bcf:value>+</bcf:value>
+      <bcf:value>\textsuperscript {+}</bcf:value>
     </bcf:option>
     <bcf:option type="multivalued">
       <bcf:key>extradatecontext</bcf:key>
@@ -92,11 +92,11 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxalphanames</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>4</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>6</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
@@ -104,7 +104,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>6</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -164,7 +164,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortalphaothers</bcf:key>
-      <bcf:value>+</bcf:value>
+      <bcf:value>\textsuperscript {+}</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortlocale</bcf:key>
@@ -327,11 +327,11 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxalphanames</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>4</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>6</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
@@ -339,7 +339,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>6</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -920,7 +920,10 @@
       <bcf:labelpart>label</bcf:labelpart>
       <bcf:labelpart substring_width="3" substring_side="left" ifnames="1">labelname</bcf:labelpart>
       <bcf:labelpart substring_width="1" substring_side="left" ifnames="2">labelname</bcf:labelpart>
-      <bcf:labelpart substring_width="1" substring_side="left" ifnames="3+">labelname</bcf:labelpart>
+      <bcf:labelpart substring_width="1" substring_side="left" ifnames="3">labelname</bcf:labelpart>
+      <bcf:labelpart substring_width="1" substring_side="left" ifnames="4">labelname</bcf:labelpart>
+      <bcf:labelpart substring_width="1" substring_side="left" ifnames="5">labelname</bcf:labelpart>
+      <bcf:labelpart substring_width="1" substring_side="left" ifnames="6">labelname</bcf:labelpart>
     </bcf:labelelement>
     <bcf:labelelement order="2">
       <bcf:labelpart substring_width="2" substring_side="right">year</bcf:labelpart>
@@ -2380,21 +2383,23 @@
     <bcf:citekey order="5" intorder="1">chang2005complex</bcf:citekey>
     <bcf:citekey order="6" intorder="1">10.1145/3098593.3098595</bcf:citekey>
     <bcf:citekey order="7" intorder="1">8316818</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">4261334</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">augustin2010measuring</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">4261334</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">luckie2010scamper</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">9155387</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">alexa2023top1m</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">teamcymru2023ipasn</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">partridge2016ethical</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">bhaskar2021</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">internet2_looking_glass</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">zhang</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">cisco2017cef</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">augustin2010measuring</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">augustin2010measuring</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">4261334</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">rfc792</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">4261334</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">augustin2010measuring</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">4261334</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">augustin2010measuring</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">luckie2010scamper</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">9155387</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">alexa2023top1m</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">teamcymru2023ipasn</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">partridge2016ethical</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">bhaskar2021</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">internet2_looking_glass</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">zhang</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">cisco2017cef</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">augustin2010measuring</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">augustin2010measuring</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">4261334</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

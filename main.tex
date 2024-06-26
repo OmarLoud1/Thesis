@@ -34,9 +34,7 @@
 \newcommand{\paren}[1]{\left( {#1} \right)}
 \newcommand{\norm}[1]{\lVert#1\rVert}
 
-% Must use biblatex to produce the Published Contents and Contributions, per-chapter bibliography (if desired), etc.
-\usepackage[backend=biber, style=alphabetic, sorting=none, maxalphanames=1]{biblatex}
-
+\usepackage[backend=biber, style=alphabetic, sorting=none, maxalphanames=4, maxbibnames=6]{biblatex}
 
 % Custom label format
 \DeclareLabelalphaTemplate{
@@ -45,19 +43,26 @@
     \field{label}
     \field[strwidth=3, strside=left, ifnames=1]{labelname}
     \field[strwidth=1, strside=left, ifnames=2]{labelname}
-    \field[strwidth=1, strside=left, ifnames=3+]{labelname}
+    \field[strwidth=1, strside=left, ifnames=3]{labelname}
+    \field[strwidth=1, strside=left, ifnames=4]{labelname}
+    \field[strwidth=1, strside=left, ifnames=5]{labelname}
+    \field[strwidth=1, strside=left, ifnames=6]{labelname}
   }
   \labelelement{
     \field[strwidth=2,strside=right]{year}
   }
 }
 
+% Custom label alpha for more than three authors
+\renewcommand*{\labelalphaothers}{\textsuperscript{+}}
+
 % Apply bold and uppercase formatting to the entire citation label
 \DeclareFieldFormat{labelalpha}{\textbf{\MakeUppercase{#1}}}
 \DeclareFieldFormat{extraalpha}{\textbf{\MakeUppercase{\mknumalph{#1}}}}
 
-% Name of your .bib file(s)
 \addbibresource{example.bib}
+
+
 
 
 % \makeglossaries
@@ -175,17 +180,21 @@ In Chapter 5, we focus on Layer 3 load balancing, particularly the modifications
 
 
 
-\chapter{Related Works}
+\chapter{Related Work}
 
-Traceroute is a network diagnostic tool used to track the path packets take from one IP address to another. The tool works by sending packets with gradually increasing time-to-live (TTL) values. Each router along the path decreases the TTL of the packet by one. When the TTL reaches zero, the router sends back an error message to the sender, revealing its IP address. This process is repeated with incrementing TTL values, allowing Traceroute to map out the entire route to the destination.
+Traceroute is a network diagnostic tool used to track the path packets take from one IP address to another. The tool works by sending packets with gradually increasing time-to-live (TTL) values. Each router along the path decreases the TTL of the packet by one. When the TTL reaches zero, the router sends back an Internet Control Message Protocol (ICMP) "time exceeded" error message to the sender, revealing the router's IP address \cite{rfc792}. This process is repeated with incrementing TTL values, allowing Traceroute to map out the entire route to the destination, providing insights into the structure and behavior of the network.
 
-Traceroute provides insights into the structure and behavior of the network by identifying each hop along the route. However, traditional Traceroute may not handle load-balanced paths well, as it can be misled by the varying paths packets may take. To address this, Paris Traceroute and MDA are used to obtain more accurate measurements by maintaining consistent flow identifiers, thus avoiding misinterpretation caused by load balancers.
+However, traditional Traceroute may not handle paths with load balancers effectively because each probe can only identify one router at each hop. Traditionally, Traceroute sends 1-3 packets per hop, which does not provide an opportunity to detect multiple routers at the same hop. This limitation reflects the fact that Traceroute was designed at a time when load balancing was not prevalent, so a single answer for a given TTL (Time to Live) was sufficient to characterize the path. 
+
+In the following sections, we discuss prior work that has addressed Traceroute's issues with load balancers, specifically focusing on Paris Traceroute and the Multipath Detection Algorithm (MDA), which aim to obtain more accurate measurements of load balancers.
+
 
 \section{Paris Traceroute}
-In  \cite{4261334}, the authors present an enhanced version of Traceroute to indentify load balancers along with a comprehensive study on load-balanced paths, highlighting the significance of recognizing load balancing in contemporary networking by demonstrating how it affects traffic distribution and path diversity. 
 
-In their second paper  \cite{augustin2010measuring}, which aimed to measure the presence of load balancers in the Internet by conducting measurements from 15 sources to over 68,000 destinations, their study reveals that the traditional single-path concept no longer holds. They found that the routes to 39\% of the destinations traversed a load balancer. Some of their results suggest up to 72\% when considering different types of load balancing. While the specifics of these different types of load balancing are out of scope for this project, our goal is to update the community's understanding of the topology of load balancers almost 10 years after their paper.
+In \cite{4261334}, the authors present an enhanced version of Traceroute to identify load balancers along with a comprehensive study on load-balanced paths, highlighting the significance of recognizing load balancing in contemporary networking by demonstrating how it affects traffic distribution and path diversity. Paris Traceroute allows users to specify the protocol used for probes, limited to ICMP or UDP. 
 
+
+In their second paper \cite{augustin2010measuring}, which aims to measure the presence of load balancers in the Internet by conducting measurements from 15 sources to over 68,000 destinations, their study reveals that the traditional single-path concept no longer holds. They found that the routes to 39\% of the destinations traversed a load balancer. Some of their results suggest up to 72\% of paths contain load balancers when considering different types of load balancing. While the specifics of these different types of load balancing are out of scope for this project, our goal is to update the community's understanding of the topology of load balancers almost 10 years after their paper.
 
 This study was significant in showing the prevalence of load balancers. The insights gained from this work are critical for developing more realistic network models and improving the design and reliability of Internet applications.
 
@@ -193,25 +202,23 @@ This study was significant in showing the prevalence of load balancers. The insi
 
 \section{Multipath Detection Algorithm (MDA)}
 
-The Multipath Detection Algorithm (MDA) is a key component of Paris Traceroute, designed to identify and trace multiple load-balanced paths between a source and a destination. Traditional Traceroute tools often fail to detect load balancing because they assume a single path. In contrast, MDA systematically discovers all paths by varying flow identifiers in probe packets.
+The Multipath Detection Algorithm (MDA) \cite{4261334} is a key component of Paris Traceroute, designed to identify and trace multiple load-balanced paths between a source and a destination. Traditional Traceroute tools often fail to detect load balancing because they assume a single path and therefore send only a few probes to each hop. In contrast, MDA systematically discovers all paths by varying flow identifiers in probe packets.
 
-The MDA operates hop-by-hop, sending probes to identify all interfaces at each hop. For a given interface \(r\) at hop \(h-1\), MDA generates several flow identifiers to ensure probes reach \(r\). Flow identifiers are unique markers within packet headers, such as combinations of source and destination IP addresses, port numbers, and protocol types . It then sends these probes one hop further to discover the next-hop interfaces \(s_1, s_2, \ldots, s_n\).
+MDA operates hop-by-hop, sending probes to identify all interfaces at each hop. For a given interface \(r\) at hop \(h-1\), MDA generates several flow identifiers to ensure probes reach \(r\). Flow identifiers are unique markers within packet headers, such as combinations of source and destination IP addresses, port numbers, and protocol types. It then sends these probes one hop further to discover the next-hop interfaces.
 
-To determine the number of probes \(k\) needed to discover all paths with a high degree of confidence, MDA assumes \(r\) is part of a load balancer that splits traffic evenly across \(n\) paths. If fewer than \(n\) interfaces are found, MDA stops. Otherwise, the number of probes increases \(n\) and sends additional probes to test the hypothesis.
+To determine the number of probes \(k\) needed to discover all paths with a high degree of confidence, MDA assumes \(r\) is part of a load balancer that splits traffic evenly across \(n\) paths. If fewer than \(n\) interfaces are found, MDA stops. Otherwise, the number of probes increases and sends additional probes to test the hypothesis.
 
 To identify whether a load balancer uses per-packet or per-flow balancing, MDA sends probes with a constant flow identifier. If responses come from multiple interfaces, it indicates per-packet balancing. If all responses come from the same interface, it suggests per-flow balancing. MDA uses statistical methods to ensure a high level of confidence (typically 95\%) in its classification.
 
-Per-flow balancing means that all packets within the same flow (i.e., packets sharing the same source and destination IP addresses, port numbers, and protocol) follow the same path through the network. This ensures that packets arrive in order, which is crucial for the correct reassembly and processing of data streams.
+Per-flow balancing means that all packets within the same flow (i.e., packets sharing the same source and destination IP addresses, port numbers, and protocol) follow the same path through the network. This ensures that packets arrive in order, which can be crucial for the correct reassembly and processing of data streams.
 
 Per-packet balancing, on the other hand, distributes individual packets across multiple paths. While this can maximize the use of available network resources, this type of balancing can lead to packet reordering since packets from the same flow might take different paths and arrive out of order. This can complicate the reassembly process and potentially impact the performance of applications sensitive to packet order.
 
+For instance, to ensure with 95\% confidence that the load balancer is not splitting traffic across two paths (\(n = 2\)), MDA sends \(k = 6\) probes. If load balancing across up to 16 interfaces is suspected, MDA may send up to \(k = 96\) probes to ensure all paths are discovered. This process allows MDA to effectively enumerate all paths and classify the type of load balancing in use.
 
-For instance, to reject the hypothesis of \(n = 2\) with 95\% confidence, MDA sends \(k = 6\) probes. If load balancing across up to 16 interfaces is suspected, MDA may send up to \(k = 96\) probes to ensure all paths are discovered. This process allows MDA to effectively enumerate all paths and classify the type of load balancing in use.
 
+Augustin et al.'s \cite{augustin2010measuring} is one of the few studies that actively measures the presence and behavior of load balancers in the Internet. Although their work provides a strong foundation, further investigation is needed to account for the evolving nature of Internet infrastructure and load balancing techniques. We use the foundation of Paris Traceroute and the Multipath Detection Algorithm (MDA) to conduct a study of the prevalence and characteristics of load balancers in the current Internet landscape. By leveraging these tools, we conduct extensive measurements to map the global distribution of load balancers and analyze their impact on network performance and reliability.
 
-The paper by  \cite{4261334} is one of the few studies that actively measures the presence and behavior of load balancers in the Internet. Although their work provides a strong foundation, further investigation is needed to account for the evolving nature of Internet infrastructure and load balancing techniques.
-
-By leveraging Paris Traceroute and MDA, we conduct extensive measurements to map the global distribution of load balancers and analyze their impact on network performance and reliability.
 
 
 \section{Scamper}
@@ -220,13 +227,12 @@ Scamper, presented in  \cite{luckie2010scamper}, is a versatile tool used for co
 
 
 
-\subsection{Multipath Detection Algorithm (MDA) in Scamper}
 
-Scamper implements the Multipath Detection Algorithm (MDA) described by Augustin et al. to infer all interfaces visited between a source and destination in a per-flow load-balanced Internet path. MDA achieves this by deliberately varying the flow identifier that a router may compute when load balancing. Probes with different flow identifiers may take different paths, thereby revealing different parts of the forward IP path.
+\subsection{MDA in Scamper}
 
-In addition to the ICMP and UDP methods originally implemented by Augustin et al., which vary the ICMP checksum and UDP destination port values, Scamper implements a UDP method that varies the source port instead of the destination port. This prevents the probes from appearing as a port scan and enables probing past firewalls that block UDP probes to ports above the usual range used by Traceroute. Scamper also implements TCP methods that vary the flow identifier by changing either the source or destination port, depending on the user’s choice.
+Scamper implements the Multipath Detection Algorithm described by Augustin et al. to infer all interfaces visited between a source and destination in a per-flow load-balanced Internet path. In addition to the ICMP and UDP protocols originally implemented by Augustin et al., which vary the ICMP checksum and UDP destination port values, Scamper implements a UDP protocol that varies the source port instead of the destination port. This prevents the probes from appearing as a port scan and enables probing past firewalls that block UDP probes to ports above the usual range used by Traceroute. Scamper also implements TCP protocols that vary the flow identifier by changing either the source or destination port, depending on the user’s choice.
 
-Scamper's MDA Traceroute functionality was used to conduct scheduled data collection throughout this project.
+Scamper's MDA Traceroute functionality was used to conduct data collection throughout this project.
 
 \section{Multipath Classification Algorithm (MCA)}
 
@@ -238,8 +244,10 @@ The key contributions of MCA include enhanced classification and comprehensive m
 Despite these advancements, using MCA was not feasible for our research due to its higher complexity and longer runtime. MCA's improvements come at the cost of increased probing time and complexity, making it less practical for large-scale measurements.\\
 
 
+While MCA offers improvements in identifying and classifying load balancers, it is less accessible for fine-tuning and practical use. For our research, we opted to use MDA due to its better integrability with existing tools (Scamper) and faster runtime performance, enabling daily measurements. MDA's established methodologies and ease of implementation make it a more practical choice for large-scale measurements. 
 
-While MCA offers improvements in identifying and classifying load balancers, it is less accessible for fine-tuning and practical use. For our research, we opted to use MDA due to its better integrability with existing tools (scamper) and faster runtime performance in order to conduct daily measurments. MDA's established methodologies and ease of implementation which makes it a more practical choice for large-scale measurements. 
+However, future work could explore the integration of both techniques. Specifically, MDA could be used to get a quick initial assessment of the presence of load balancing. If evidence of load balancing is detected, MCA could then be employed to perform a more detailed analysis. This combined approach would leverage the strengths of both algorithms, offering both efficiency and depth in load balancer detection and classification.
+
  
 
 \chapter{Methodology}
@@ -952,7 +960,10 @@ One potential for future work is to increase the number of destinations signific
 
 \section*{Adapting MCA to Scamper}
 
-Another area for future research is to adapt the Multipath Classification Algorithm (MCA) to work with Scamper or a new traceroute tool. MCA improves the identification of load balancers by considering different bits in the packet header. Integrating MCA with a tool like Scamper would allow for efficient data collection, similar to the Multipath Detection Algorithm (MDA) and Paris Traceroute. This could help us identify and classify load balancers more accurately and efficiently.
+Another area for future research is to adapt the Multipath Classification Algorithm (MCA) to work with Scamper or a new traceroute tool. MCA improves the identification of load balancers by considering different bits in the packet header. Integrating MCA with a tool like Scamper would allow for efficient data collection, similar to the Multipath Detection Algorithm (MDA) and Paris Traceroute. MDA systematically discovers all paths by varying flow identifiers in probe packets. This could help us identify and classify load balancers more accurately and efficiently. 
+
+Additionally, future work could explore the integration of both techniques. Specifically, MDA could be used to get a quick initial assessment of the presence of load balancing. If evidence of load balancing is detected, MCA could then be employed to perform a more detailed analysis. This combined approach would leverage the strengths of both algorithms, offering both efficiency and depth in load balancer detection and classification.
+
 
 \section*{Per-Flow and Per-Destination Load Balancers}
 
