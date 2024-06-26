@@ -767,69 +767,39 @@ Overall, the presence of shared next hops signifies the use of common infrastruc
 
 
 \chapter{Layer 3 Load Balancing}
-In our research, we found many load balancers within the Internet2 Autonomous System. The Internet2 Network was established to support data-intensive research and academic computing needs. Internet2's Looking Glass tool, available for reasearch purposes, allows users to run commands against network devices, enabling some testing and the possibility of viewing active configuration and state information.
 
-The load balancers we found were accessible via the Internet2 looking glass, allowing deeper analysis of their load balancing techniques. We observed that many of the next hops for these load balancers were defined in Cisco Express Forwarding (CEF) tables. The following sections elaborate on the workings of CEF and its role in load balancing.
+In our research, we identified many load balancers within the Internet2 Autonomous System. The Internet2 Network, established to support data-intensive research and academic computing needs, provides tools such as the Internet2 Looking Glass \cite{internet2_looking_glass}, which allow users to run commands against network devices, enabling testing and viewing active configuration and state information.
+
+The load balancers discovered via Paris Traceroute were also validated through the Internet2 Looking Glass, affirming the effectiveness of our detection methodology. We observed that many of the next hops for these load balancers were defined in Cisco Express Forwarding (CEF) tables. The following sections elaborate on the workings of CEF and its role in load balancing.
 
 \section{Network Layer Load Balancing}
 
-Layer 3, known as the network layer, plays a specific role in load balancing by routing packets based on their IP addresses as opposed to considering the current load on the network. This approach focuses on the distribution of traffic across multiple servers without inspecting the packet contents. Unlike higher layers that can make decisions based on the data within the packets, Layer 3 load balancers rely solely on IP addresses and routing tables. This method is efficient and fast but offers less granularity in traffic management, as it does not consider the type or state of the application data. They cannot make decisions based on the content of the traffic, user sessions, or specific application states, which are usually used in more common load balancing strategies. This means that while Layer 3 load balancers can efficiently manage expected large volumes of traffic, they lack detailed and live traffic management capabilities provided by higher-layer solutions  \cite{zhang}.
-Cisco Express Forwarding (CEF) enhance the efficiency of Layer 3 load balancing by pre-computing forwarding information based on previous data on network usage.
+Layer 3, the network layer, performs load balancing by routing packets based on their IP addresses, focusing on traffic distribution across multiple servers without inspecting packet contents. This method is efficient and fast but offers less granularity in traffic management compared to higher-layer solutions, which can make decisions based on the data within the packets. Layer 3 load balancers cannot manage traffic based on content, user sessions, or specific application states, which are typically used in more common load balancing strategies. Although Layer 3 load balancers can efficiently handle large volumes of traffic, they lack the detailed traffic management capabilities provided by higher-layer solutions \cite{zhang}.
 
 \section{Cisco Express Forwarding (CEF)}
 
-Cisco Express Forwarding (CEF)  is a Layer 3 switching technology used to optimize network performance. CEF employs a forwarding information base (FIB) and an adjacency table to expedite the packet forwarding process  \cite{cisco2017cef}. The following outlines the critical components and operations of CEF:\\
+Cisco Express Forwarding (CEF) enhances the efficiency of Layer 3 load balancing by pre-computing forwarding information based on historical network usage data. CEF uses two primary data structures: the Forwarding Information Base (FIB) and the adjacency table \cite{cisco2017cef}.
 
-\textbf{Forwarding Information Base (FIB)}: The FIB is used by CEF to make IP destination prefix-based switching decisions. It is conceptually similar to a routing table, maintaining a mirror image of the forwarding information in the IP routing table. When routing or topology changes occur, the IP routing table updates, and these changes are reflected in the FIB. The FIB ensures all known routes are covered, eliminating the need for route cache maintenance.
+The \textbf{Forwarding Information Base (FIB)} is used by CEF to make IP destination prefix-based switching decisions. It is similar to a routing table, maintaining a mirror image of the forwarding information in the IP routing table. When routing or topology changes occur, the IP routing table updates, and these changes are reflected in the FIB, ensuring all known routes are covered without the need for route cache maintenance.
 
-\textbf{Adjacency Table}: The adjacency table complements the FIB by storing Layer 2 addressing information necessary for packet forwarding. Nodes in the network that can reach each other with a single hop across a link layer have their Layer 2 next-hop addresses stored in this table. 
+The \textbf{Adjacency Table} stores Layer 2 addressing information necessary for packet forwarding. Nodes in the network that can reach each other with a single hop across a link layer have their Layer 2 next-hop addresses stored in this table. 
 
-
-
-
-
-
-\subsection{Packet Forwarding Process}
-
- When a packet arrives, it is placed into input buffers on the receiver hardware component. The Layer 2/Layer 3 forwarding engine accesses the packet's information and determines its route based on the FIB and adjacency table. The appropriate Layer 2 information is then appended to the packet using data from the adjacency table, and the packet is forwarded to its next-hop destination. It also keeps a log of forwarding history to determine future strategies. 
-
-
-
+When a packet arrives, it is placed into input buffers on the receiver hardware component. The Layer 2/Layer 3 forwarding engine accesses the packet's information and determines its route based on the FIB and adjacency table. The appropriate Layer 2 information is then appended to the packet using data from the adjacency table, and the packet is forwarded to its next-hop destination. CEF also maintains a log of forwarding history to inform future strategies.
 
 \section{Summary and Findings}
 
+Analyzing the Internet2 load balancers revealed that most next hops are defined within CEF. Internet2's load balancing is less resource-intensive, as it does not require deep inspection of packets. The adjacency table is what we can see on the looking glass, not the FIB. When something is moved to the FIB, it becomes an active next hop. However, many next hops found were active in the adjacency table, were not discoverable using our tools.
 
-CEF's efficiency in packet forwarding is achieved through its use of optimized data structures (FIB and adjacency tables) and its ability to distribute the forwarding process across different components of the router, particularly in environments where high-speed processing is required. This structured approach allows for fast routing of packets across a network, enhancing overall network performance and scalability. Instead of adjusting in real-time, it determines its expectations of future network behavior by learning from the load history of the system.
+Our findings suggest that a significant number of load balancers could be hidden in the network because Cisco routers did not see the need to update the FIB with a second next hop. The prevalence of CEF load balancing in the Internet2 network implies that while load balancing may appear dynamic, it is not dynamic in real-time. Instead, CEF learns from previous data for efficiency and does not adapt to specific packet details.
 
-The insights gained from analyzing the Internet2 load balancers revealed that most of the next hops for these load balancers are defined within CEF. This means high efficiency and reliability in handling the vast amount of data traffic traversing the Internet2 network. It also means that Internet2's load balancing is less resource-intensive and does not require any deeper look at the packets.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\linewidth]{figures/Internet2_next_hops_pie_chart.png}
-    \caption{Pie Chart of discovered Internet2 Load Balancers}
-    \label{fig:pie_chart_Internet2}
-\end{figure}
-
-The implementation of load balancing at Layer 3 using CEF informs us about a prevalent technique employed to manage network traffic. A lot of CEF load balancing is predetermined based on the FIB table, meaning that based on that table, some next hops, while still active and present on the adjacency table, are not being used because the CEF algorithm has determined that it does not need to use that many next hops. This means that a lot of next hops are deactivated because of how CEF learns about the behaviour of the network arround it. This also means that sometimes CEF chooses not to use more than one next hop, which was very often seen in a Paris traceroute where a router from Internet2's looking glass showed it had load balancing enabled but did not flag it as a load balancer because the CEF table only had one next hop at the time the routing was performed.
-
-The pie chart in Figure \ref{fig:pie_chart_Internet2} shows the percentage of next hops found by MDA compared to the looking glass. Only 1.9\% of the next hops were found using our data collection methods, while the looking glass revealed that 97.9\% were not found by our measurements, either because it was not active on the FIB, not enough probes were sent out by MDA, next hops were hidden, or they were not accessible on the specific route taken. This number indicates that a significant amount of load balancers are not identifiable using the standard network probing tools we chose, suggesting they are a hidden part of the network infrastructure.
-
-These findings imply that:
-
-1. A significant number of load balancers could be hidden in the network because Cisco routers did not see the need to update the table with a second next hop.
-
-
-2. The prevalence of CEF load balancing in the Internet2 network suggests that while load balancing may appear dynamic in the previous chapter, it is not dynamic in real-time. Instead, CEF learns from previous data for efficiency and does not adapt to specific details within the packets.
+The validation process using the Internet2 Looking Glass confirmed that the load balancers we detected via Paris Traceroute indeed existed in the ground truth as seen through the Looking Glass. However, we weren't able to reach more than 97\% the defined next hops in the adjacency table. We attempt some techniques discover a higher number of next hops in the next section. 
 
 
 \section{Modifications to the MDA Algorithm}
-\label{chap:MDA}
 
-As the ammount of probes sent out by the Multipath Detection Algorithm (MDA) could have caused the lower than expected number of load balancers on the Internet2 network, we attempted to modify the way it decides how many probes to send.  The probe table used by MDA, which outlines the number of probes needed for varying hop counts, can be seen below:
+The number of probes sent out by the Multipath Detection Algorithm (MDA) might have caused the lower than expected number of load balancers on the Internet2 network. These values were theoretically derived in the MDA paper. We modified the way it decides how many probes to send. The probe table used by MDA, which outlines the number of probes needed for varying hop counts, is shown below:
 
 \begin{verbatim}
-
-
 static const int k[][2] = {
     {   0,   0 }, {   0,   0 }, {   6,   8 }, {  11,  15 },
     {  21,  28 }, {  27,  36 }, {  33,  43 }, {  38,  51 }, 
@@ -840,20 +810,14 @@ static const int k[][2] = {
 
 The values represent the number of probes to send for different hop counts, with the first column indicating probes for a 95\% confidence level and the second column for a 99\% confidence level.
 
-\subsection{Enhanced Probing Trials}
+To discover more load balancers, we modified the MDA algorithm by multiplying the values in the probe table by 10. This brute-force approach aimed to increase the likelihood of uncovering hidden paths and load balancers. The results show that in some instances, two or three additional load balancers were discovered. However, the increase in discoverable load balancers was inconsistent, with only about a 2\% average increase. This minor increase does not justify the added cost of such measurements.
 
-To discover more hidden load balancers, we modified the MDA algorithm by multiplying the values in the probe table by 10. This brute-force approach aimed to increase the likelihood of uncovering hidden paths and load balancers. We ran the modified MDA on routes known to pass through Internet2.
+Moreover, the increased number of probes significantly extended the measurement duration, taking approximately 20 times longer than standard MDA measurements. This makes the brute-force approach impractical for extended data collection. Interestingly, this approach validates the accuracy of the original MDA probe table, confirming its effectiveness in typical scenarios.
 
+The challenges faced during the enhanced probing trials highlight the limitations of brute-force approaches in discovering hidden load balancers. While increased probes reveal on average 2\% more load balancers, the overall impact was minimal compared to the substantial increase in measurement time. This suggests that simply increasing the number of probes is not the most effective way to uncover hidden load balancers.
 
-The enhanced MDA trials involved sending ten times the usual number of probes to routes through Internet2. The results showed that, in some instances, two or three additional load balancers were discovered. However, the increase in discoverable load balancers was inconsistent, with only about a 2\% average increase. This 2\% increase, while past the 99\% confidence interval promised by MDA, is not greatly significant and does not justify the added cost of such measurements.
+Future work could focus on optimizing the probe sending strategy, exploring adaptive probing techniques, and integrating additional contextual information to improve the efficiency of the MDA algorithm. Targeted testing over a longer period could reveal rotations of next hops, and using different types of packets might help uncover more load balancers. These and other potential improvements are discussed in the future works chapter.
 
-Moreover, the increased number of probes significantly extended the measurement duration, taking approximately 20 times longer than standard MDA measurements. This makes the brute-force approach impractical for extended data collection.
-
-\subsection{Challenges and Future Work}
-
-The challenges faced during the enhanced probing trials highlight the limitations of brute-force approaches in discovering hidden load balancers. While the increased probes revealed a few more load balancers, the overall impact was minimal compared to the substantial increase in measurement time. This suggests that simply increasing the number of probes may not be the most effective way to uncover hidden load balancers.
-
-Future work could focus on optimizing the probe sending strategy, exploring adaptive probing techniques, and integrating additional contextual information to improve the efficiency of the MDA algorithm. More extensive future work that can be done to uncover the load balancers we couldn't measure is discussed in the future works chapter.
 
 
 \chapter{Summary}
@@ -924,10 +888,6 @@ We spent considerable time trying to modify MDA to discover more Cisco Express F
 Overall, expanding this research in these directions could provide deeper insights into load balancing on the Internet, helping improve network performance and reliability.
 
 
-%If you have appendices to your thesis, place them here
-\appendix
-
-\chapter{Questionnaire}
 
 \printbibliography[heading=bibintoc]
 
