@@ -677,9 +677,11 @@ Future work on the presence of load balancers on a more granular hourly basis mi
 
 This section presents the Autonomous System (AS)-specific statistics for both the Top-2000 and Rand-2000 datasets, focusing on key metrics that illustrate how each AS manages its load balancing infrastructure over time. These metrics include the daily rate of load balancer additions and removals, indicating the dynamism and adaptability of the infrastructure; the average duration of load balancer presence, reflecting stability; and the consistency of presence, highlighting the reliability of each AS's load management strategy.
 
-\textbf{The AS with the most additions per day} indicates which AS actively scales up its load balancing infrastructure, reflecting a dynamic response to changing network demands. \textbf{The AS with the most removals per day} highlights those ASes that frequently decrease their load balancer counts, possibly due to varying traffic patterns, network updates, or temporary route changes. \textbf{The AS with the longest average duration of presence} typically suggests stability within the network, showing persistent load balancing. \textbf{The most consistent AS} is characterized by load balancers that are active throughout most of the observation period, denoting reliability and operational stability. \textbf{The most inconsistent AS}, on the other hand, indicates sporadic or irregular use of load balancers, possibly due to infrastructural changes or misidentifications. Lastly, \textbf{the AS with the most fluctuating} number of load balancers shows a high level of dynamism, potentially adapting quickly to network requirements or changing traffic conditions.
 
-To further clarify the metrics analyzed, each AS can have multiple unique load balancers listed in our dataset. When any of these load balancers is added or removed, it contributes to the total count for that AS in the respective category. For example, \textbf{fluctuation} is calculated based on the number of times any unique load balancer from the same AS was either added or removed across all observed days. Conversely, \textbf{consistency} measures only the presence of load balancers, counting how many separate times any load balancer from the AS is active throughout the entire duration of the study, without considering the changes per day. 
+\textbf{Additions per day} indicate which AS actively scales up its load balancing infrastructure, reflecting a dynamic response to changing network demands. \textbf{Removals per day} highlight those ASes that frequently decrease their load balancer counts, possibly due to varying traffic patterns, network updates, or temporary route changes. The \textbf{average duration of presence} typically suggests stability within the network. \textbf{Consistency} is characterized by load balancers that are active throughout most of the observation period, denoting reliability and operational stability. \textbf{Inconsistency}, on the other hand, indicates sporadic or irregular use of load balancers, possibly due to infrastructural changes or misidentifications. Lastly, \textbf{fluctuation} in the number of load balancers shows a high level of dynamism, potentially adapting quickly to network requirements or changing traffic conditions.
+
+
+To further clarify the metrics analyzed, each AS can have multiple unique load balancers listed in our dataset. When any of these load balancers is added or removed, it contributes to the total count for that AS in the respective category. For example, \textbf{fluctuation} is calculated based on the number of times any unique load balancer from the same AS was either added or removed across all observed days. Conversely, \textbf{consistency} measures only the presence of load balancers, counting how many separate times any load balancer from the AS is active throughout the entire duration of the study, without considering the changes per day.
 
 
 
@@ -687,34 +689,104 @@ To further clarify the metrics analyzed, each AS can have multiple unique load b
 
 For the Top-2000 dataset, observed over 116 days:
 
-\begin{itemize}
-    \item \textbf{AS with most additions per day:} FACEBOOK, US, Added: 50.34 per day
-    \item \textbf{AS with most removals per day:} CSUNET-NW, US, Removed: 50.17 per day
-    \item \textbf{AS with longest average duration:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Average Duration: 59.62 days
-    \item \textbf{Most consistent AS:} GOOGLE, US, Present: 75,863 times
-    \item \textbf{Most inconsistent AS:} AS-NETIA Warszawa 02-822, PL, Present: 1 time
-    \item \textbf{Most fluctuating AS:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Changes: 11,660 over 116 days
-\end{itemize}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        \textbf{Metric} & \textbf{Average} & \textbf{25th Percentile} & \textbf{75th Percentile} & \textbf{99th Percentile} \\
+        \hline
+        \# of Additions per AS per day & 6.18 & 3.00 & 15.00 & 50.25 \\
+        \hline
+        \# of Removals per AS per day & 6.15 & 2.00 & 12.47 & 50.10 \\
+        \hline
+        Duration of presence per AS & 7.44 days & 0.29 days & 3.63 days & 39.01 days \\
+        \hline
+        \# of Times an AS is present & 4292.99 & 34.25 & 820.50 & 65867.57 \\
+        \hline
+        \# of Fluctuation per AS & 450.33 & 4.25 & 212.00 & 6615.72 \\
+        \hline
+    \end{tabular}
+    \caption{Top-2000 Dataset Statistics}
+    \label{tab:top-2000-stats}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Metric} & \textbf{AS with Highest Value} & \textbf{Value} \\
+        \hline
+        Most additions per day & FACEBOOK, US & 50.34 per day \\
+        \hline
+        Most removals per day & CSUNET-NW, US & 50.17 per day \\
+        \hline
+        Longest average duration & CHINANET-BACKBONE No.31, CN & 59.62 days \\
+        \hline
+        Most consistent AS & GOOGLE, US & 75,863 times \\
+        \hline
+        Most inconsistent AS & AS-NETIA Warszawa 02-822, PL & 1 time \\
+        \hline
+        Most fluctuating AS & CHINANET-BACKBONE No.31, CN & 11,660 changes \\
+        \hline
+    \end{tabular}
+    \caption{Top-2000 Dataset Highest Values}
+    \label{tab:top-2000-highest}
+\end{table}
 
 \subsubsection{Rand-2000 Dataset}
 
 For the Rand-2000 dataset, observed over 111 days:
 
-\begin{itemize}
-    \item \textbf{AS with most additions per day:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Added: 29.12 per day
-    \item \textbf{AS with most removals per day:} FACEBOOK, US, Removed: 29.40 per day
-    \item \textbf{AS with longest average duration:} CSUNET-NW, US, Average Duration: 44.09 days
-    \item \textbf{Most consistent AS:} GOOGLE, US, Present: 11,153 times
-    \item \textbf{Most inconsistent AS:} MTS, RU, Present: 1 time
-    \item \textbf{Most fluctuating AS:} CHINANET-BACKBONE No.31, Jin-rong Street, CN, Changes: 6,495 over 111 days
-\end{itemize}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        \textbf{Metric} & \textbf{Average} & \textbf{25th Percentile} & \textbf{75th Percentile} & \textbf{99th Percentile} \\
+        \hline
+        \# of Additions per AS per day & 14.08 & 0.75 & 6.25 & 21.60 \\
+        \hline
+        \# of Removals per AS per day & 15.22 & 0.80 & 22.50 & 21.42 \\
+        \hline
+        Duration of presence per AS & 2.33 days & 0.08 days & 1.13 days & 30.68 days \\
+        \hline
+        \# of Days an AS is present & 702.16 & 9.00 & 192.00 & 10375.10 \\
+        \hline
+        \# of Fluctuation per AS & 309.30 & 15.75 & 173.75 & 4290.20 \\
+        \hline
+    \end{tabular}
+    \caption{Rand-2000 Dataset Statistics}
+    \label{tab:rand-2000-stats}
+\end{table}
+\newpage
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Metric} & \textbf{AS with Highest Value} & \textbf{Value} \\
+        \hline
+        Most additions per day & CHINANET-BACKBONE No.31, CN & 29.12 per day \\
+        \hline
+        Most removals per day & FACEBOOK, US & 29.40 per day \\
+        \hline
+        Longest average duration & CSUNET-NW, US & 44.09 days \\
+        \hline
+        Most consistent AS & GOOGLE, US & 11,153 times \\
+        \hline
+        Most inconsistent AS & MTS, RU & 1 time \\
+        \hline
+        Most fluctuating AS & CHINANET-BACKBONE No.31, , CN & 6,495 changes \\
+        \hline
+    \end{tabular}
+    \caption{Rand-2000 Dataset Highest Values}
+    \label{tab:rand-2000-highest}
+\end{table}
 
+The most consistent AS, \textbf{GOOGLE}, likely expects a high volume of traffic consistently, necessitating a stable and continuous load balancing infrastructure. In contrast, less consistent ASes, like \textbf{AS-NETIA}, may need to adapt their usage due to the high costs associated with maintaining load balancer infrastructure. This can lead to more sporadic use and frequent changes in infrastructure.
 
-The most consistent AS, GOOGLE, US, likely expects a high volume of traffic consistently, necessitating a stable and continuous load balancing infrastructure. In contrast, less consistent ASes, may need to adapt their usage due to the high costs associated with maintaining load balancer infrastructure. This can lead to more sporadic use and frequent changes in infrastructure.
+Although such figures highlight ASes as outliers, these systems are amongst the most popular across our dataset and unusual behavior becomes noteworthy. Interestingly, there was only one AS that had just one load balancer, notable enough to be mentioned as the least consistent in both datasets. Furthermore, the most fluctuating AS stands out significantly, with a difference of 1000 from the second most fluctuating AS, making it a focal point of analysis. The fluctuation of \textbf{CHINANET-BACKBONE No.31}, despite having a close total number of load balancers, raises intriguing questions about the factors driving such high variability in its load balancing activities.
 
-The fact that the same AS, such as GOOGLE, US, is consistent in the Top-2000 dataset but not as consistent in the Rand-2000 dataset suggests deliberate adjustments based on traffic expectations. The Top-2000 list likely experiences more predictable high traffic, requiring continuous load balancing, whereas the Rand-2000 list may see more variable traffic patterns, leading to less consistency.
+The AS with the most additions per day in the Top-2000 dataset is \textbf{FACEBOOK, US}, with 50.34 additions per day, and the AS with the most removals per day is \textbf{CSUNET-NW, US}, with 50.17 removals per day. These two ASes each account for roughly 33\% of the average additions and removals from the Top-2000 dataset. In the Rand-2000 dataset, the AS with the most additions per day is \textbf{CHINANET-BACKBONE No.31, CN}, with 29.12 additions per day, and the AS with the most removals per day is \textbf{FACEBOOK, US}, with 29.40 removals per day, each accounting for 20\% of the total additions and removals.
 
-Although such figures for ASes like GOOGLE, US, highlight them as outliers, these ASes are amongst the most popular across our dataset. Interestingly, there was only one AS that had just one load balancer, notable enough to be mentioned as the least consistent in both datasets. Furthermore, the most fluctuating AS stands out significantly, with a difference of 1000 from the second most fluctuating AS, making it a focal point of analysis. The fluctuation of CHINANET-BACKBONE No.31, despite having a relatively average total number of load balancers, raises intriguing questions about the factors driving such high variability in its load balancing activities.
 
 \newpage
 
