@@ -1,0 +1,19 @@
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is 'main.blg'
+[65] biber:340> INFO - === Wed Jun 26, 2024, 12:18:24
+[79] Biber.pm:420> INFO - Reading 'main.bcf'
+[153] Biber.pm:994> INFO - Found 18 citekeys in bib section 0
+[168] Biber.pm:4463> INFO - Processing section 0
+[178] Biber.pm:4654> INFO - Looking for bibtex file 'example.bib' for section 0
+[180] bibtex.pm:1713> INFO - LaTeX decoding ...
+[196] bibtex.pm:1519> INFO - Found BibTeX data source 'example.bib'
+[326] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[326] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[326] Biber.pm:4283> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'en-US'
+[326] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
+[340] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[348] bbl.pm:779> INFO - Output to main.bbl
+[349] Biber.pm:131> WARN - legacy month field 'November' in entry 'luckie2010scamper' is not an integer - this will probably not sort properly.
+[349] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/dj/r42x7pgd4d36wt3px820w8t80000gn/T/biber_tmp_XZVf/0a7c5e67b4d952eac587450a692dc29d_7138.utf8, line 6, warning: 60 characters of junk seen at toplevel
+[349] Biber.pm:131> WARN - I didn't find a database entry for 'internet2_looking_glass' (section 0)
+[349] Biber.pm:133> INFO - WARNINGS: 3

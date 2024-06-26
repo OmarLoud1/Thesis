@@ -1,0 +1,8 @@
+{\itshape Number}\hfill {\itshape Page}\par 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Number of Domains with at least one Load Balancer Over Time}}{15}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces CDF of Next Hops After Load Balancers for Top-2000 and Rand-2000 Datasets}}{17}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Overall Load Balancer Next Hop Matching}}{20}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Daily Changes in Number of Load Balancers for Top-2000}}{24}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Daily Changes in Number of Load Balancers for Rand-2000}}{24}{figure.4.5}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Cumulative Distribution Function of Load Balancer Durations}}{25}{figure.4.6}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Distribution of Shared Next Hops for Top-2000 and Rand-2000}}{30}{figure.4.7}%

@@ -1,0 +1,727 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{paxson_endtoend96}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=64469f291d02ccaef81afd5cc785044f}{%
+           family={Paxson},
+           familyi={P\bibinitperiod},
+           given={Vern},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{64469f291d02ccaef81afd5cc785044f}
+      \strng{fullhash}{64469f291d02ccaef81afd5cc785044f}
+      \strng{fullhashraw}{64469f291d02ccaef81afd5cc785044f}
+      \strng{bibnamehash}{64469f291d02ccaef81afd5cc785044f}
+      \strng{authorbibnamehash}{64469f291d02ccaef81afd5cc785044f}
+      \strng{authornamehash}{64469f291d02ccaef81afd5cc785044f}
+      \strng{authorfullhash}{64469f291d02ccaef81afd5cc785044f}
+      \strng{authorfullhashraw}{64469f291d02ccaef81afd5cc785044f}
+      \field{labelalpha}{Pax97}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE\slash ACM Transactions on Networking}
+      \field{number}{5}
+      \field{title}{End-to-end routing behavior in the {Internet}}
+      \field{volume}{5}
+      \field{year}{1997}
+      \field{pages}{601\bibrangedash 615}
+      \range{pages}{15}
+    \endentry
+    \entry{10371400}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=48c7d0a2f228f1b2db3b58ae439f4abc}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Wai-Xi},
+           giveni={W\bibinithyphendelim X\bibinitperiod}}}%
+        {{hash=704989978999b2d3adaa185bdb8dba93}{%
+           family={Cai},
+           familyi={C\bibinitperiod},
+           given={Jun},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c4b8982fa6a5de36ec1a9d25331091d5}{%
+           family={Ling},
+           familyi={L\bibinitperiod},
+           given={Sen},
+           giveni={S\bibinitperiod}}}%
+        {{hash=d84368ca92a2afcd45b98d6897bac1ed}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Jian-Yu},
+           giveni={J\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=a2d0c8bf94f70647fc596715fbd8b792}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Qingchun},
+           giveni={Q\bibinitperiod}}}%
+      }
+      \strng{namehash}{c88bff881763665dfb074a3ddbee709d}
+      \strng{fullhash}{de1eb8153bafba2f5cc842d866987e2a}
+      \strng{fullhashraw}{de1eb8153bafba2f5cc842d866987e2a}
+      \strng{bibnamehash}{c88bff881763665dfb074a3ddbee709d}
+      \strng{authorbibnamehash}{c88bff881763665dfb074a3ddbee709d}
+      \strng{authornamehash}{c88bff881763665dfb074a3ddbee709d}
+      \strng{authorfullhash}{de1eb8153bafba2f5cc842d866987e2a}
+      \strng{authorfullhashraw}{de1eb8153bafba2f5cc842d866987e2a}
+      \field{extraname}{1}
+      \field{labelalpha}{Liu+24}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Network and Service Management}
+      \field{number}{2}
+      \field{title}{QALL: Distributed Queue-Behavior-Aware Load Balancing Using Programmable Data Planes}
+      \field{volume}{21}
+      \field{year}{2024}
+      \field{pages}{2303\bibrangedash 2322}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1109/TNSM.2023.3345862
+      \endverb
+      \keyw{Load management;Behavioral sciences;Delays;Network topology;Control systems;Topology;Telecommunication traffic;Data center networks;distributed;load balancing;programmable data plane;queue behavior}
+    \endentry
+    \entry{bourke2001server}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=01e7f4d1909cf337f9c18ed98bac50e6}{%
+           family={Bourke},
+           familyi={B\bibinitperiod},
+           given={Tony},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {" O'Reilly Media, Inc."}%
+      }
+      \strng{namehash}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \strng{fullhash}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \strng{fullhashraw}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \strng{bibnamehash}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \strng{authorbibnamehash}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \strng{authornamehash}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \strng{authorfullhash}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \strng{authorfullhashraw}{01e7f4d1909cf337f9c18ed98bac50e6}
+      \field{labelalpha}{Bou01}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Server load balancing}
+      \field{year}{2001}
+    \endentry
+    \entry{f52023loadbalancing}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=e9be316f73773e2ced11b3d275eb7cc4}{%
+           family={{F5 Networks, Inc.}},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{e9be316f73773e2ced11b3d275eb7cc4}
+      \strng{fullhash}{e9be316f73773e2ced11b3d275eb7cc4}
+      \strng{fullhashraw}{e9be316f73773e2ced11b3d275eb7cc4}
+      \strng{bibnamehash}{e9be316f73773e2ced11b3d275eb7cc4}
+      \strng{authorbibnamehash}{e9be316f73773e2ced11b3d275eb7cc4}
+      \strng{authornamehash}{e9be316f73773e2ced11b3d275eb7cc4}
+      \strng{authorfullhash}{e9be316f73773e2ced11b3d275eb7cc4}
+      \strng{authorfullhashraw}{e9be316f73773e2ced11b3d275eb7cc4}
+      \field{labelalpha}{F5 23}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2024-01-21}
+      \field{title}{Load Balancing 101: Nuts and Bolts}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.f5.com/resources/white-papers/load-balancing-101-nuts-and-bolts
+      \endverb
+      \verb{url}
+      \verb https://www.f5.com/resources/white-papers/load-balancing-101-nuts-and-bolts
+      \endverb
+    \endentry
+    \entry{chang2005complex}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=7df62313cd1ccbc7e6971ce87dc483d9}{%
+           family={Chang},
+           familyi={C\bibinitperiod},
+           given={Fengming},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \strng{fullhash}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \strng{fullhashraw}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \strng{bibnamehash}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \strng{authorbibnamehash}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \strng{authornamehash}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \strng{authorfullhash}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \strng{authorfullhashraw}{7df62313cd1ccbc7e6971ce87dc483d9}
+      \field{labelalpha}{Cha05}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PACIS 2005 Proceedings}
+      \field{title}{A complex network structure design for load balancing and redundant}
+      \field{year}{2005}
+      \field{pages}{13}
+      \range{pages}{1}
+    \endentry
+    \entry{10.1145/3098593.3098595}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=9bef909fd17afe1953b0d4d86baa24ef}{%
+           family={Frishman},
+           familyi={F\bibinitperiod},
+           given={Gal},
+           giveni={G\bibinitperiod}}}%
+        {{hash=31789b8d24cc60a19ccc4e0552bc09b9}{%
+           family={Ben-Itzhak},
+           familyi={B\bibinithyphendelim I\bibinitperiod},
+           given={Yaniv},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=c0ca303883c91f6d5806477dbffd88c2}{%
+           family={Margalit},
+           familyi={M\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Los Angeles, CA, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \strng{fullhash}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \strng{fullhashraw}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \strng{bibnamehash}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \strng{authorbibnamehash}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \strng{authornamehash}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \strng{authorfullhash}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \strng{authorfullhashraw}{a5ea7d97f2a5a4a3f26c25287b10b7ff}
+      \field{labelalpha}{Fri+17}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In the big-data era, the amount of traffic is rapidly increasing. Therefore, scaling methods are commonly used. For instance, an appliance composed of several instances (scaled-out method), and a load-balancer that distributes incoming traffic among them. While the most common way of load balancing is based on round robin, some approaches optimize the load across instances according to the appliance-specific functionality. For instance, load-balancing for scaled-out proxy-server that increases the cache hit ratio.In this paper, we present a novel load-balancing approach for machine-learning based security appliances. Our proposed load-balancer uses clustering method while keeping balanced load across all of the network security appliance's instances. We demonstrate that our approach is scalable and improves the machine-learning performance of the instances, as compared to traditional load-balancers.}
+      \field{booktitle}{Proceedings of the Workshop on Big Data Analytics and Machine Learning for Data Communication Networks}
+      \field{isbn}{9781450350549}
+      \field{series}{Big-DAMA '17}
+      \field{title}{Cluster-Based Load Balancing for Better Network Security}
+      \field{year}{2017}
+      \field{pages}{7\bibrangedash 12}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1145/3098593.3098595
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3098593.3098595
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3098593.3098595
+      \endverb
+      \keyw{Network Security,Misuse Detection,Machine Learning,Load-Balancing,Flow Distribution,Clustering}
+    \endentry
+    \entry{8316818}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=7ef83a19ecccccc4e93eee08ad6f5528}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Jiao},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f842a67be4612a142ff80cc425cb3d1f}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={F.\bibnamedelimi Richard},
+           giveni={F\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=557b5bf05ca404c8f58d52b022bcc787}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Shuo},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f39d73c2040236ebf9896a42646cfa06}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Tao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=3d6ad0cb4682410967574e8cb1d0d2f7}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zengyi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=780ec8c75b41374cd6314302ecade378}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Yunjie},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{b57d7fa13f42ea19a91aae1c583444b3}
+      \strng{fullhash}{fee077b9beb192496600e9687ca515fc}
+      \strng{fullhashraw}{fee077b9beb192496600e9687ca515fc}
+      \strng{bibnamehash}{b57d7fa13f42ea19a91aae1c583444b3}
+      \strng{authorbibnamehash}{b57d7fa13f42ea19a91aae1c583444b3}
+      \strng{authornamehash}{b57d7fa13f42ea19a91aae1c583444b3}
+      \strng{authorfullhash}{fee077b9beb192496600e9687ca515fc}
+      \strng{authorfullhashraw}{fee077b9beb192496600e9687ca515fc}
+      \field{labelalpha}{Zha+18}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Communications Surveys & Tutorials}
+      \field{number}{3}
+      \field{title}{Load Balancing in Data Center Networks: A Survey}
+      \field{volume}{20}
+      \field{year}{2018}
+      \field{pages}{2324\bibrangedash 2352}
+      \range{pages}{29}
+      \verb{doi}
+      \verb 10.1109/COMST.2018.2816042
+      \endverb
+      \keyw{Data centers;Load management;Servers;Computer architecture;Network topology;Topology;Tutorials;Data center;load balancing;flow completion time;energy consumption}
+    \endentry
+    \entry{4261334}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=bb21d043f454f7b5711a8bd24f70bac7}{%
+           family={Augustin},
+           familyi={A\bibinitperiod},
+           given={Brice},
+           giveni={B\bibinitperiod}}}%
+        {{hash=fa23baea90814b0d61c5f3fc85b47021}{%
+           family={Friedman},
+           familyi={F\bibinitperiod},
+           given={Timur},
+           giveni={T\bibinitperiod}}}%
+        {{hash=60cb6ab784cc05816ccdb5008916c593}{%
+           family={Teixeira},
+           familyi={T\bibinitperiod},
+           given={Renata},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{fullhash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{fullhashraw}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{bibnamehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authorbibnamehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authornamehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authorfullhash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authorfullhashraw}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \field{extraname}{1}
+      \field{labelalpha}{Aug+07}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2007 Workshop on End-to-End Monitoring Techniques and Services}
+      \field{title}{Multipath tracing with Paris traceroute}
+      \field{year}{2007}
+      \field{pages}{1\bibrangedash 8}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1109/E2EMON.2007.375313
+      \endverb
+      \keyw{Load management;Probes;Network topology;Internet;Stochastic processes;Detection algorithms;Computer networks;Communication networks;Assembly;IP networks;Measurement;traceroute;load balancing;multipath}
+    \endentry
+    \entry{augustin2010measuring}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=bb21d043f454f7b5711a8bd24f70bac7}{%
+           family={Augustin},
+           familyi={A\bibinitperiod},
+           given={Brice},
+           giveni={B\bibinitperiod}}}%
+        {{hash=fa23baea90814b0d61c5f3fc85b47021}{%
+           family={Friedman},
+           familyi={F\bibinitperiod},
+           given={Timur},
+           giveni={T\bibinitperiod}}}%
+        {{hash=60cb6ab784cc05816ccdb5008916c593}{%
+           family={Teixeira},
+           familyi={T\bibinitperiod},
+           given={Renata},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{fullhash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{fullhashraw}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{bibnamehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authorbibnamehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authornamehash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authorfullhash}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \strng{authorfullhashraw}{1a28bf2f40619ee7ea967fbbcddf2c2a}
+      \field{extraname}{2}
+      \field{labelalpha}{Aug+10}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE/ACM Transactions on Networking}
+      \field{number}{3}
+      \field{title}{Measuring multipath routing in the internet}
+      \field{volume}{19}
+      \field{year}{2010}
+      \field{pages}{830\bibrangedash 840}
+      \range{pages}{11}
+    \endentry
+    \entry{luckie2010scamper}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=f51c750936d780686cd83d2686ed8318}{%
+           family={Luckie},
+           familyi={L\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Melbourne, Australia}%
+      }
+      \list{organization}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{f51c750936d780686cd83d2686ed8318}
+      \strng{fullhash}{f51c750936d780686cd83d2686ed8318}
+      \strng{fullhashraw}{f51c750936d780686cd83d2686ed8318}
+      \strng{bibnamehash}{f51c750936d780686cd83d2686ed8318}
+      \strng{authorbibnamehash}{f51c750936d780686cd83d2686ed8318}
+      \strng{authornamehash}{f51c750936d780686cd83d2686ed8318}
+      \strng{authorfullhash}{f51c750936d780686cd83d2686ed8318}
+      \strng{authorfullhashraw}{f51c750936d780686cd83d2686ed8318}
+      \field{labelalpha}{Luc10}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 10th ACM SIGCOMM conference on Internet measurement}
+      \field{month}{11}
+      \field{title}{Scamper: a scalable and extensible packet prober for active measurement of the internet}
+      \field{year}{2010}
+      \field{pages}{239\bibrangedash 245}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1145/1879141.1879171
+      \endverb
+    \endentry
+    \entry{9155387}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=be45f3348eb5f8df3c781d5d83f2a898}{%
+           family={Almeida},
+           familyi={A\bibinitperiod},
+           given={Rafael},
+           giveni={R\bibinitperiod}}}%
+        {{hash=680307de7e4b46d1e2ac1cae9230c2dd}{%
+           family={Cunha},
+           familyi={C\bibinitperiod},
+           given={ítalo},
+           giveni={í\bibinitperiod}}}%
+        {{hash=60cb6ab784cc05816ccdb5008916c593}{%
+           family={Teixeira},
+           familyi={T\bibinitperiod},
+           given={Renata},
+           giveni={R\bibinitperiod}}}%
+        {{hash=58c996ce4b45a386ab093f861b142c3e}{%
+           family={Veitch},
+           familyi={V\bibinitperiod},
+           given={Darryl},
+           giveni={D\bibinitperiod}}}%
+        {{hash=139ec0749e182083071cd432e7ca08a6}{%
+           family={Diot},
+           familyi={D\bibinitperiod},
+           given={Christophe},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{8c938f59e51a138792307ad6bb6198a8}
+      \strng{fullhash}{79bc7647608ba003418c12c409dcbf6a}
+      \strng{fullhashraw}{79bc7647608ba003418c12c409dcbf6a}
+      \strng{bibnamehash}{8c938f59e51a138792307ad6bb6198a8}
+      \strng{authorbibnamehash}{8c938f59e51a138792307ad6bb6198a8}
+      \strng{authornamehash}{8c938f59e51a138792307ad6bb6198a8}
+      \strng{authorfullhash}{79bc7647608ba003418c12c409dcbf6a}
+      \strng{authorfullhashraw}{79bc7647608ba003418c12c409dcbf6a}
+      \field{labelalpha}{Alm+20}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IEEE INFOCOM 2020 - IEEE Conference on Computer Communications}
+      \field{title}{Classification of Load Balancing in the Internet}
+      \field{year}{2020}
+      \field{pages}{1987\bibrangedash 1996}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/INFOCOM41043.2020.9155387
+      \endverb
+      \keyw{Load management;Probes;Internet;Diamond;Hash functions;IP networks;Tools}
+    \endentry
+    \entry{alexa2023top1m}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=63bc35020c346eb1b4b0cdb1660fdda6}{%
+           family={{Alexa Internet, Inc.}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \strng{fullhash}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \strng{fullhashraw}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \strng{bibnamehash}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \strng{authorbibnamehash}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \strng{authornamehash}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \strng{authorfullhash}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \strng{authorfullhashraw}{63bc35020c346eb1b4b0cdb1660fdda6}
+      \field{labelalpha}{Ale23}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.alexa.com/topsites}}
+      \field{note}{Accessed: 2023-11-01}
+      \field{title}{Alexa Top 1 Million Websites}
+      \field{year}{2023}
+    \endentry
+    \entry{teamcymru2023ipasn}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=b95776f489fe6bf21a281fe7ecad40b0}{%
+           family={{Team Cymru, Inc.}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{b95776f489fe6bf21a281fe7ecad40b0}
+      \strng{fullhash}{b95776f489fe6bf21a281fe7ecad40b0}
+      \strng{fullhashraw}{b95776f489fe6bf21a281fe7ecad40b0}
+      \strng{bibnamehash}{b95776f489fe6bf21a281fe7ecad40b0}
+      \strng{authorbibnamehash}{b95776f489fe6bf21a281fe7ecad40b0}
+      \strng{authornamehash}{b95776f489fe6bf21a281fe7ecad40b0}
+      \strng{authorfullhash}{b95776f489fe6bf21a281fe7ecad40b0}
+      \strng{authorfullhashraw}{b95776f489fe6bf21a281fe7ecad40b0}
+      \field{labelalpha}{Tea23}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.team-cymru.com/ip-asn-mapping}}
+      \field{note}{Accessed: 2023-12-01}
+      \field{title}{IP to ASN Mapping}
+      \field{year}{2023}
+    \endentry
+    \entry{partridge2016ethical}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=ede03dad2d8d52e4d3a01e3fc1fe3ec3}{%
+           family={Partridge},
+           familyi={P\bibinitperiod},
+           given={Craig},
+           giveni={C\bibinitperiod}}}%
+        {{hash=16106a5714a6a080fe22adcde1f7a047}{%
+           family={Allman},
+           familyi={A\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \strng{fullhash}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \strng{fullhashraw}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \strng{bibnamehash}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \strng{authorbibnamehash}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \strng{authornamehash}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \strng{authorfullhash}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \strng{authorfullhashraw}{d89f529fc1b5334e78e3f4153e1e65c1}
+      \field{labelalpha}{Par+16}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Communications of the ACM}
+      \field{number}{10}
+      \field{title}{Ethical considerations in network measurement papers}
+      \field{volume}{59}
+      \field{year}{2016}
+      \field{pages}{58\bibrangedash 64}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1145/2896816
+      \endverb
+    \endentry
+    \entry{bhaskar2021}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=b6670a447c466e70919e2e406cfd3394}{%
+           family={Bhaskar},
+           familyi={B\bibinitperiod},
+           given={Abhishek},
+           giveni={A\bibinitperiod}}}%
+        {{hash=fc5bffa39b840b74dcb62687590c5a8e}{%
+           family={Pearce},
+           familyi={P\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Georgia Institute of Technology}%
+      }
+      \strng{namehash}{c2cac7facf01a33da7416331d5702a14}
+      \strng{fullhash}{c2cac7facf01a33da7416331d5702a14}
+      \strng{fullhashraw}{c2cac7facf01a33da7416331d5702a14}
+      \strng{bibnamehash}{c2cac7facf01a33da7416331d5702a14}
+      \strng{authorbibnamehash}{c2cac7facf01a33da7416331d5702a14}
+      \strng{authornamehash}{c2cac7facf01a33da7416331d5702a14}
+      \strng{authorfullhash}{c2cac7facf01a33da7416331d5702a14}
+      \strng{authorfullhashraw}{c2cac7facf01a33da7416331d5702a14}
+      \field{labelalpha}{Bha+21}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Georgia Institute of Technology}
+      \field{title}{Many Roads Lead To Rome: How Packet Headers Influence DNS Censorship Measurement}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://example.com/paper-url
+      \endverb
+      \verb{url}
+      \verb https://example.com/paper-url
+      \endverb
+    \endentry
+    \entry{zhang}{inproceedings}{}{}
+      \name{author}{13}{}{%
+        {{hash=7a1b77dfe5b657b20187d7275019b8b6}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zirui},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=b0be3f531516d09b314a275378e8575e}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Yikai},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=028e1c8f218099a79df8fe77e5dbec3f}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Zhuochen},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=945b3eccd2d401a5de8308c921802e75}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Tong},
+           giveni={T\bibinitperiod}}}%
+        {{hash=2e19f117f2923574b82023ddbfe80eec}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiaodong},
+           giveni={X\bibinitperiod}}}%
+        {{hash=8c4ead735668e7bb05e6b42cac0a4159}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Ruwen},
+           giveni={R\bibinitperiod}}}%
+        {{hash=f1de28effcb592568bb6dccf1154eb32}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Kaicheng},
+           giveni={K\bibinitperiod}}}%
+        {{hash=4ca354424c9778c65eaaff910454c8d4}{%
+           family={Zhong},
+           familyi={Z\bibinitperiod},
+           given={Zheng},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=1fd5ec8bcbaf30b0eeea16e2e3c528d0}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Yi},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e11ea1ec848f31df543f573e0ddc4bdf}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Cong},
+           giveni={C\bibinitperiod}}}%
+        {{hash=4b14b65883cab79a18b6071512db4b88}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Jing},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c072e5a6de5664c0f547cc49304d757c}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Gaogang},
+           giveni={G\bibinitperiod}}}%
+        {{hash=f6c0b53300ebf4c432dfa05ee736c54c}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Bin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{6b9c8d648704a81fde7f632146cb0ccb}
+      \strng{fullhash}{f756a6580d2a824329394db668684901}
+      \strng{fullhashraw}{f756a6580d2a824329394db668684901}
+      \strng{bibnamehash}{6b9c8d648704a81fde7f632146cb0ccb}
+      \strng{authorbibnamehash}{6b9c8d648704a81fde7f632146cb0ccb}
+      \strng{authornamehash}{6b9c8d648704a81fde7f632146cb0ccb}
+      \strng{authorfullhash}{f756a6580d2a824329394db668684901}
+      \strng{authorfullhashraw}{f756a6580d2a824329394db668684901}
+      \field{extraname}{2}
+      \field{labelalpha}{Liu+22}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2022 IEEE 30th International Conference on Network Protocols (ICNP)}
+      \field{title}{BurstBalancer: Do Less, Better Balance for Large-scale Data Center Traffic}
+      \field{year}{2022}
+      \field{pages}{1\bibrangedash 13}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1109/ICNP55882.2022.9940372
+      \endverb
+      \keyw{Data centers;Philosophical considerations;Protocols;Codes;Network topology;Load management;Topology}
+    \endentry
+    \entry{cisco2017cef}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=e7a0a20878b9ace66e080da0fa1eb97f}{%
+           family={{Cisco Systems}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \strng{fullhash}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \strng{fullhashraw}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \strng{bibnamehash}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \strng{authorbibnamehash}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \strng{authornamehash}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \strng{authorfullhash}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \strng{authorfullhashraw}{e7a0a20878b9ace66e080da0fa1eb97f}
+      \field{labelalpha}{Cis17}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2024-06-01}
+      \field{title}{Understand Cisco Express Forwarding}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://www.cisco.com/c/en/us/support/docs/routers/12000-series-routers/47321-ciscoef.html
+      \endverb
+      \verb{url}
+      \verb https://www.cisco.com/c/en/us/support/docs/routers/12000-series-routers/47321-ciscoef.html
+      \endverb
+    \endentry
+  \enddatalist
+  \missing{internet2_looking_glass}
+\endrefsection
+\endinput
+

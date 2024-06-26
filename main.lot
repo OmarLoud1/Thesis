@@ -1,0 +1,15 @@
+{\itshape Number}\hfill {\itshape Page}\par 
+\contentsline {table}{\numberline {3.1}{\ignorespaces BGP and ASN Information from team Cymru data}}{13}{table.3.1}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Statistical Overview of Load Balancer Usage}}{14}{table.4.1}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Statistical Overview of Next Hop Distribution After Load Balancers}}{16}{table.4.2}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Top 10 ASes by Average Number of Next Hops for Top-2000}}{18}{table.4.3}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Top 10 ASes by Average Number of Next Hops for Rand-2000}}{19}{table.4.4}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Summary of Load Balancer Matching Statistics}}{20}{table.4.5}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Top 10 ASes with Fully Matching Next Hops}}{21}{table.4.6}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Top 10 ASes with Partially Matching Next Hops}}{22}{table.4.7}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Top 10 ASes with No Matching Next Hops}}{22}{table.4.8}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Top-2000 Dataset Statistics}}{27}{table.4.9}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Top-2000 Dataset Highest Values}}{27}{table.4.10}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces Rand-2000 Dataset Statistics}}{28}{table.4.11}%
+\contentsline {table}{\numberline {4.12}{\ignorespaces Rand-2000 Dataset Highest Values}}{28}{table.4.12}%
+\contentsline {table}{\numberline {4.13}{\ignorespaces Summary of Shared Next Hops Statistics in the Top-2000 and Rand-2000 Datasets}}{29}{table.4.13}%

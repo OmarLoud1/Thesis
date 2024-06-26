@@ -1,0 +1,38 @@
+\contentsline {chapter}{List of Tables}{vi}{section*.3}%
+\contentsline {chapter}{List of Figures}{vii}{section*.4}%
+\contentsline {chapter}{{Acknowledgements}}{viii}{chapter*.5}%
+\contentsline {chapter}{{Abstract}}{ix}{chapter*.6}%
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction to Load Balancing}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Project Motivation and Goals}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Areas of Study}{2}{section.1.3}%
+\contentsline {chapter}{\chapternumberline {2}Related Works}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Paris Traceroute}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Multipath Detection Algorithm (MDA)}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Scamper}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Multipath Detection Algorithm (MDA) in Scamper}{7}{subsection.2.3.1}%
+\contentsline {section}{\numberline {2.4}Multipath Classification Algorithm (MCA)}{7}{section.2.4}%
+\contentsline {chapter}{\chapternumberline {3}Methodology}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Data Sources and Selection Criteria}{9}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Discovering Load Balancers}{10}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Measurement Frequency and Timeline}{10}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Sample Measurement}{11}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Team Cymru IP to ASN List}{12}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Ethical Considerations}{13}{section.3.4}%
+\contentsline {chapter}{\chapternumberline {4}Data Analysis}{14}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Load Balancer Distribution}{14}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Analysis of Next Hops After Load Balancers}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Analysis of ASes with Most Next Hops}{18}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Overall Analysis of Next Hop ASes Matches and Mismatches}{20}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Change Over Time}{23}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Change Over Time for Autonomous Systems}{26}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Change Over Time for Autonomous Systems}{27}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Shared Next Hops Analysis}{29}{section.4.8}%
+\contentsline {chapter}{\chapternumberline {5}Layer 3 Load Balancing}{31}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Network Layer Load Balancing}{31}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Cisco Express Forwarding (CEF)}{31}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Summary and Findings}{32}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Modifications to the MDA Algorithm}{33}{section.5.4}%
+\contentsline {chapter}{\chapternumberline {6}Summary}{35}{chapter.6}%
+\contentsline {chapter}{\chapternumberline {7}Future Work}{38}{chapter.7}%
+\contentsline {chapter}{Bibliography}{40}{section*.8}%

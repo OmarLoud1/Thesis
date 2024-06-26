@@ -1,3 +1,4 @@
-
 main.pdf: 
-	python3 latexrun.py main.tex
+	xelatex main.tex
+	biber main
+	xelatex main.tex
