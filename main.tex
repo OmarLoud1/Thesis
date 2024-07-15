@@ -78,10 +78,9 @@
 \begin{document}
 \pagenumbering{roman}
 
-%%%@@@ capitalize "topological"
 
 % Do remember to remove the square brackets!
-\title{A topological Evaluation of Load Balancers} %Title of your thesis in title case
+\title{A Topological Evaluation of Load Balancers} %Title of your thesis in title case
 \author{Omar Loudghiri} %Your name
 
 \degreeaward{Master of Science in Computer Science}                 % Degree to be awarded
@@ -300,26 +299,19 @@ This timeline ensured the collection of extensive data over several months, capt
 
 Using the top 2000 websites allows us to measure load balancers on sites that are heavily accessed, providing insights into the infrastructure of widely used services. The random selection of 2000 sites from the top 100,000 ensures a broader view of the Internet's topology, capturing data from a diverse set of sites.
 
-It is important to note that for both lists we are using the hostnames of these websites rather than their resolved IP addresses. Paris Traceroute resolves these hostnames to their IP addresses, which may change between measurements. This approach was chosen because we are testing the presence of load balancers toward a system, not a specific address. Additionally, IP addresses can be reallocated and may become unavailable, necessitating the most current data from our domain name service.
 
-%%%@@@ Mark's version of the above ...
-%% It is important to note that for both lists consist of the
-%% hostnames of the websites and not their resolved IP addresses.
-%% Each invocation of Paris Traceroute starts by resolving the given
-%% hostname to an IP address.  Therefore, two different measurements
-%% to a given service my be directed at two different IP addresses.
-%% This approach was chosen because we are testing the presence of
-%% load balancers on the path towards a service, rather than to a
-%% specific server.  Further, even if addresses are the same across
-%% measurements, we cannot be sure that our probes are being sent to
-%% the same server because of dynamic addressing \cite{dhcp} and
-%% anycast routing \cite{anycast-routing}.
+It is important to note that for both lists consist of the
+hostnames of the websites and not their resolved IP addresses.
+Each invocation of Paris Traceroute starts by resolving the given
+hostname to an IP address.  Therefore, two different measurements
+to a given service my be directed at two different IP addresses.
+This approach was chosen because we are testing the presence of
+load balancers on the path towards a service, rather than to a
+specific server.  Further, even if addresses are the same across
+measurements, we cannot be sure that our probes are being sent to
+the same server because of dynamic addressing \cite{dhcp} and
+anycast routing \cite{anycast-routing}.
 
-%%% I would just leave this off; it's clearly true, but is opening a
-%%% can of worms and you'd need to say more here.  --allman
-%% Additionally, IP
-%% addresses can be reallocated and may become unavailable,
-%% necessitating the most current data from our domain name service. 
 
 
 \subsection{Sample Measurement}
@@ -677,25 +669,24 @@ Figure~\ref{fig:stat_plot} shows the number of domains with at least one load ba
 
 To understand the dynamics of load balancers over time, we look more granularly at daily changes, including the addition and removal of load balancers. "Added" load balancers refer to those that are not present in the dataset from the previous day but appear in the current day's list. Conversely, "lost" load balancers are present in the dataset on the previous day but do not appear in the current day's list. This dynamic illustrates the fluctuation and turnover within the dataset, showing how frequently load balancers enter and exit the observation scope.
 
-We also find it necessary to note that the observed changes in load balancer presence over time may be influenced by the resolution of hostnames to their current IP addresses, as discussed in \ref{subsec:freq}. The dynamic nature of IP address allocation and the reliance on real-time data from domain name services could result in variations that are not solely indicative of load balancer behavior but also of changes in IP address mappings. This potential artifact should be considered when interpreting the fluctuations and churn of load balancers within the datasets.
 
-%%%@@@ Mark's version of the above ...
 
-%% We note that in this work we report that there is some churn in
-%% the load balancers presence between subsequent days.  However, we
-%% do not delve into what causes this churn.  The observed changes
-%% in load balancer presence over time may be influenced by the
-%% resolution of hostnames to their current IP addresses, as
-%% discussed in \ref{subsec:freq}. The dynamic nature of IP address
-%% allocation and the reliance on real-time data from domain name
-%% services could result in variations that are not solely
-%% indicative of load balancer behavior but also of changes in IP
-%% address mappings.  Additionally, changes could be due to anycast
-%% routing that sends our probes to different servers on different
-%% days.  These potential causes should be considered when
-%% interpreting the fluctuations and churn of load balancers within
-%% the datasets.  In addition, understanding the reasons behind the
-%% load balancer churn is likely a fruitful area for future work.
+
+We note that in this work we report that there is some churn in
+the load balancers presence between subsequent days.  However, we
+do not delve into what causes this churn.  The observed changes
+in load balancer presence over time may be influenced by the
+resolution of hostnames to their current IP addresses, as
+discussed in \ref{subsec:freq}. The dynamic nature of IP address
+allocation and the reliance on real-time data from domain name
+services could result in variations that are not solely
+indicative of load balancer behavior but also of changes in IP
+address mappings.  Additionally, changes could be due to anycast
+routing that sends our probes to different servers on different
+days.  These potential causes should be considered when
+interpreting the fluctuations and churn of load balancers within
+the datasets.  In addition, understanding the reasons behind the
+load balancer churn is likely a fruitful area for future work.
 
 \textbf{Top-2000 Dataset:} Over the observation period of 116 days, an average of approximately 253 load balancers are added per day, and an average of about 251 load balancers are lost each day. Figure~\ref{fig:top2000_changes} illustrates the daily changes in the number of load balancers for the Top-2000 dataset. The graph shows that the number of removals and additions starts off with less than 100 in the last 15 days of November but then stabilizes at around 250 in December and onwards, which matches the average values mentioned. The dataset also records a total of 82,318 reappearances, indicating the number of times load balancers reappear after having been previously lost. The average duration of presence for a load balancer in this dataset is roughly 31 days.
 
